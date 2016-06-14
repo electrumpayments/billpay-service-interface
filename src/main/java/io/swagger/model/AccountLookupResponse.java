@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * The data resulting from an account lookup request
  **/
-
 @ApiModel(description = "The data resulting from an account lookup request")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class AccountLookupResponse {
 
    private Account account = null;
@@ -21,14 +20,16 @@ public class AccountLookupResponse {
    private SlipData slipData = null;
 
    /**
-   **/
+    * The customer account detail
+    **/
    public AccountLookupResponse account(Account account) {
       this.account = account;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The customer account detail")
    @JsonProperty("account")
+   @NotNull
    public Account getAccount() {
       return account;
    }
@@ -38,13 +39,14 @@ public class AccountLookupResponse {
    }
 
    /**
-   **/
+    * Customer detail
+    **/
    public AccountLookupResponse customer(Customer customer) {
       this.customer = customer;
       return this;
    }
 
-   @ApiModelProperty(value = "")
+   @ApiModelProperty(value = "Custoemr detail")
    @JsonProperty("customer")
    public Customer getCustomer() {
       return customer;
@@ -55,13 +57,14 @@ public class AccountLookupResponse {
    }
 
    /**
-   **/
+    * Detail regarding the institution that processed the message
+    **/
    public AccountLookupResponse processor(Institution processor) {
       this.processor = processor;
       return this;
    }
 
-   @ApiModelProperty(value = "")
+   @ApiModelProperty(value = "Detail regarding the institution that processed the message")
    @JsonProperty("processor")
    public Institution getProcessor() {
       return processor;
@@ -72,14 +75,16 @@ public class AccountLookupResponse {
    }
 
    /**
-   **/
+    * Detail regarding the bill issuing institution
+    **/
    public AccountLookupResponse receiver(Institution receiver) {
       this.receiver = receiver;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "Detail regarding the bill issuing institution")
    @JsonProperty("receiver")
+   @NotNull
    public Institution getReceiver() {
       return receiver;
    }
@@ -89,13 +94,14 @@ public class AccountLookupResponse {
    }
 
    /**
-   **/
+    * Data that should be printed on the customer receipt
+    **/
    public AccountLookupResponse slipData(SlipData slipData) {
       this.slipData = slipData;
       return this;
    }
 
-   @ApiModelProperty(value = "")
+   @ApiModelProperty(value = "Data that should be printed on the customer receipt")
    @JsonProperty("slipData")
    public SlipData getSlipData() {
       return slipData;

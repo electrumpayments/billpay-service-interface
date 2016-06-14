@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,25 +17,27 @@ import java.util.Objects;
 @ApiModel(description = "Represents the status of a customer account")
 public class Account {
 
-   private AccountRef accountRef = null;
+   private String accountRef = null;
    private LedgerAmount balance = null;
    private Date dueDate = null;
 
    /**
     * A reference number identifying the bill payments processor, bill issuer, and customer
     **/
-   public Account accountRef(AccountRef accountRef) {
+   public Account accountRef(String accountRef) {
       this.accountRef = accountRef;
       return this;
    }
 
    @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
    @JsonProperty("accountRef")
-   public AccountRef getAccountRef() {
+   @NotNull
+   @Length(min = 6, max = 40)
+   public String getAccountRef() {
       return accountRef;
    }
 
-   public void setAccountRef(AccountRef accountRef) {
+   public void setAccountRef(String accountRef) {
       this.accountRef = accountRef;
    }
 

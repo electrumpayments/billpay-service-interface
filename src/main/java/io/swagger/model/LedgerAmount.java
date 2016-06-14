@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 /**
  * An amount object only containing value and currency, and optionally an indicator of DEBIT/CREDIT
  **/
-
 @ApiModel(description = "An amount object only containing value and currency, and optionally an indicator of DEBIT/CREDIT")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class LedgerAmount {
 
    private String amount = null;
@@ -22,13 +22,13 @@ public class LedgerAmount {
     * Indicates whether this amount is a debit or a credit. Only required when the amount can be either a debit or a
     * credit
     */
-   public enum LedgerIndicatorEnum {
+   public enum LedgerIndicator {
       DEBIT("DEBIT"),
 
       CREDIT("CREDIT");
       private String value;
 
-      LedgerIndicatorEnum(String value) {
+      LedgerIndicator(String value) {
          this.value = value;
       }
 
@@ -39,7 +39,7 @@ public class LedgerAmount {
       }
    }
 
-   private LedgerIndicatorEnum ledgerIndicator = null;
+   private LedgerIndicator ledgerIndicator = null;
 
    /**
     * Amount in minor denomination, e.g. R799.95 is encoded as 79995
@@ -51,6 +51,8 @@ public class LedgerAmount {
 
    @ApiModelProperty(required = true, value = "Amount in minor denomination, e.g. R799.95 is encoded as 79995")
    @JsonProperty("amount")
+   @NotNull
+   @Pattern(regexp = "[0-9]{0,12}")
    public String getAmount() {
       return amount;
    }
@@ -69,6 +71,8 @@ public class LedgerAmount {
 
    @ApiModelProperty(required = true, value = "Three digit currency number from ISO 4217, e.g. South African Rand is encoded as 710")
    @JsonProperty("currency")
+   @NotNull
+   @Pattern(regexp = "[0-9]{0,12}")
    public String getCurrency() {
       return currency;
    }
@@ -81,18 +85,18 @@ public class LedgerAmount {
     * Indicates whether this amount is a debit or a credit. Only required when the amount can be either a debit or a
     * credit
     **/
-   public LedgerAmount ledgerIndicator(LedgerIndicatorEnum ledgerIndicator) {
+   public LedgerAmount ledgerIndicator(LedgerIndicator ledgerIndicator) {
       this.ledgerIndicator = ledgerIndicator;
       return this;
    }
 
    @ApiModelProperty(value = "Indicates whether this amount is a debit or a credit. Only required when the amount can be either a debit or a credit")
    @JsonProperty("ledgerIndicator")
-   public LedgerIndicatorEnum getLedgerIndicator() {
+   public LedgerIndicator getLedgerIndicator() {
       return ledgerIndicator;
    }
 
-   public void setLedgerIndicator(LedgerIndicatorEnum ledgerIndicator) {
+   public void setLedgerIndicator(LedgerIndicator ledgerIndicator) {
       this.ledgerIndicator = ledgerIndicator;
    }
 

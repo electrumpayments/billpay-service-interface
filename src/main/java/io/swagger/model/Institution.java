@@ -3,15 +3,16 @@ package io.swagger.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 /**
  * Processing or receiving institution details
  **/
-
 @ApiModel(description = "Processing or receiving institution details")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class Institution {
 
    private String id = null;
@@ -25,8 +26,10 @@ public class Institution {
       return this;
    }
 
-   @ApiModelProperty(value = "The institution's id")
+   @ApiModelProperty(required = true, value = "The institution's id")
    @JsonProperty("id")
+   @NotNull
+   @Pattern(regexp = "[0-9]{1,11}")
    public String getId() {
       return id;
    }
@@ -43,8 +46,10 @@ public class Institution {
       return this;
    }
 
-   @ApiModelProperty(value = "The institutions's name")
+   @ApiModelProperty(required = true, value = "The institutions's name")
    @JsonProperty("name")
+   @NotNull
+   @Length(max = 40)
    public String getName() {
       return name;
    }

@@ -9,9 +9,7 @@ import java.util.Objects;
 /**
  * A bill payment customer
  **/
-
 @ApiModel(description = "A bill payment customer")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class Customer {
 
    private String firstName = null;

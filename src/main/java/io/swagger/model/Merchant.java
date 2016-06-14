@@ -3,15 +3,16 @@ package io.swagger.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 /**
  * Merchant related data. Must be included if available
  **/
-
 @ApiModel(description = "Merchant related data. Must be included if available")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class Merchant {
 
    private String merchantType = null;
@@ -28,6 +29,8 @@ public class Merchant {
 
    @ApiModelProperty(required = true, value = "The assigned four digit merchant category code")
    @JsonProperty("merchantType")
+   @NotNull
+   @Pattern(regexp = "[0-9]{4}")
    public String getMerchantType() {
       return merchantType;
    }
@@ -46,6 +49,8 @@ public class Merchant {
 
    @ApiModelProperty(required = true, value = "The assigned merchant identifier. Also known as card acceptor id")
    @JsonProperty("merchantId")
+   @NotNull
+   @Length(min = 15, max = 15)
    public String getMerchantId() {
       return merchantId;
    }
@@ -55,14 +60,16 @@ public class Merchant {
    }
 
    /**
-   **/
+    * The name of a merchant
+    **/
    public Merchant merchantName(MerchantName merchantName) {
       this.merchantName = merchantName;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The name of a merchant")
    @JsonProperty("merchantName")
+   @NotNull
    public MerchantName getMerchantName() {
       return merchantName;
    }

@@ -3,7 +3,9 @@ package io.swagger.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -11,39 +13,43 @@ import java.util.Objects;
  **/
 
 @ApiModel(description = "The data required to request account info")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class AccountLookupRequest {
 
-   private AccountRef accountRef = null;
+   private String accountRef = null;
    private MessageId messageId = null;
    private Merchant merchant = null;
 
    /**
-   **/
-   public AccountLookupRequest accountRef(AccountRef accountRef) {
+    * A reference number identifying the bill payments processor, bill issuer, and customer
+    **/
+   public AccountLookupRequest accountRef(String accountRef) {
       this.accountRef = accountRef;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
    @JsonProperty("accountRef")
-   public AccountRef getAccountRef() {
+   @NotNull
+   @Length(min = 6, max = 40)
+   public String getAccountRef() {
       return accountRef;
    }
 
-   public void setAccountRef(AccountRef accountRef) {
+   public void setAccountRef(String accountRef) {
       this.accountRef = accountRef;
    }
 
    /**
-   **/
+    * The data required to uniquely identify a message
+    **/
    public AccountLookupRequest messageId(MessageId messageId) {
       this.messageId = messageId;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The data required to uniquely identify a message")
    @JsonProperty("messageId")
+   @NotNull
    public MessageId getMessageId() {
       return messageId;
    }
@@ -53,13 +59,14 @@ public class AccountLookupRequest {
    }
 
    /**
-   **/
+    * Merchant data. Required if available
+    **/
    public AccountLookupRequest merchant(Merchant merchant) {
       this.merchant = merchant;
       return this;
    }
 
-   @ApiModelProperty(value = "")
+   @ApiModelProperty(value = "Merchant data. Required if available")
    @JsonProperty("merchant")
    public Merchant getMerchant() {
       return merchant;

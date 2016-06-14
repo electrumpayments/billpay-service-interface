@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * Represents the outcome of a completed transaction
  **/
-
 @ApiModel(description = "Represents the outcome of a completed transaction")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class ErrorDetail {
 
    private String responseCode = null;
@@ -46,6 +45,7 @@ public class ErrorDetail {
 
    @ApiModelProperty(required = true, value = "The response code description")
    @JsonProperty("responseMessage")
+   @NotNull
    public String getResponseMessage() {
       return responseMessage;
    }
