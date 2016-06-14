@@ -3,30 +3,33 @@ package io.swagger.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 /**
  * Represents a request to refund a payment
  **/
-
 @ApiModel(description = "Represents a request to refund a payment")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class RefundRequest {
 
    private MessageId messageId = null;
-   private IssuerReference issuerReference = null;
+   private String issuerReference = null;
    private String refundReason = null;
 
    /**
-   **/
+    * The data required to uniquely identify a message
+    **/
    public RefundRequest messageId(MessageId messageId) {
       this.messageId = messageId;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The data required to uniquely identify a message")
    @JsonProperty("messageId")
+   @NotNull
    public MessageId getMessageId() {
       return messageId;
    }
@@ -36,19 +39,24 @@ public class RefundRequest {
    }
 
    /**
-   **/
-   public RefundRequest issuerReference(IssuerReference issuerReference) {
+    * An identifier that is printed on the customer slip and uniquely identifies the payment on the bill issuer's
+    * system. This value is used by the customer to request a refund when the service supports this function, and it is
+    * thus important that this number is unique
+    **/
+   public RefundRequest issuerReference(String issuerReference) {
       this.issuerReference = issuerReference;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "An identifier that is printed on the customer slip and uniquely identifies the payment on the bill issuer's system. This value is used by the customer to request a refund when the service supports this function, and it is thus important that this number is unique")
    @JsonProperty("issuerReference")
-   public IssuerReference getIssuerReference() {
+   @NotNull
+   @Pattern(regexp = "[A-Z0-9]{1,20}")
+   public String getIssuerReference() {
       return issuerReference;
    }
 
-   public void setIssuerReference(IssuerReference issuerReference) {
+   public void setIssuerReference(String issuerReference) {
       this.issuerReference = issuerReference;
    }
 
@@ -62,6 +70,8 @@ public class RefundRequest {
 
    @ApiModelProperty(required = true, value = "The reason for the refund as given by the customer")
    @JsonProperty("refundReason")
+   @NotNull
+   @Length(max = 20)
    public String getRefundReason() {
       return refundReason;
    }

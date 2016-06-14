@@ -4,27 +4,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * Response specific data
  **/
-
 @ApiModel(description = "Response specific data")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class ResponseDetail {
 
    private LedgerAmount responseAmount = null;
 
    /**
+    * Response amount
    **/
    public ResponseDetail responseAmount(LedgerAmount responseAmount) {
       this.responseAmount = responseAmount;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "Response amount")
    @JsonProperty("responseAmount")
+   @NotNull
    public LedgerAmount getResponseAmount() {
       return responseAmount;
    }

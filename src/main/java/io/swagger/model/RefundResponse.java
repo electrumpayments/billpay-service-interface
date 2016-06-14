@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 /**
  * Represents a response to a refund request
  **/
-
 @ApiModel(description = "Represents a response to a refund request")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class RefundResponse {
 
    private String id = null;
@@ -31,6 +31,8 @@ public class RefundResponse {
 
    @ApiModelProperty(required = true, value = "An identifier that uniquely identifies the payment")
    @JsonProperty("id")
+   @NotNull
+   @Pattern(regexp = "[A-Za-z0-9._~-]{1,40}")
    public String getId() {
       return id;
    }
@@ -40,14 +42,16 @@ public class RefundResponse {
    }
 
    /**
-   **/
+    * The customer account detail
+    **/
    public RefundResponse account(Account account) {
       this.account = account;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The customer account detail")
    @JsonProperty("account")
+   @NotNull
    public Account getAccount() {
       return account;
    }
@@ -57,13 +61,14 @@ public class RefundResponse {
    }
 
    /**
-   **/
+    * Customer detail
+    **/
    public RefundResponse customer(Customer customer) {
       this.customer = customer;
       return this;
    }
 
-   @ApiModelProperty(value = "")
+   @ApiModelProperty(value = "Customer detail")
    @JsonProperty("customer")
    public Customer getCustomer() {
       return customer;
@@ -93,13 +98,14 @@ public class RefundResponse {
    }
 
    /**
-   **/
+    * Detail regarding the institution that processed the messag
+    **/
    public RefundResponse processor(Institution processor) {
       this.processor = processor;
       return this;
    }
 
-   @ApiModelProperty(value = "")
+   @ApiModelProperty(value = "Detail regarding the institution that processed the messag")
    @JsonProperty("processor")
    public Institution getProcessor() {
       return processor;
@@ -110,14 +116,16 @@ public class RefundResponse {
    }
 
    /**
-   **/
+    * Detail regarding the bill issuing institution
+    **/
    public RefundResponse receiver(Institution receiver) {
       this.receiver = receiver;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "Detail regarding the bill issuing institution")
    @JsonProperty("receiver")
+   @NotNull
    public Institution getReceiver() {
       return receiver;
    }

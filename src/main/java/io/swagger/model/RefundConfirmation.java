@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * Represents the data required to confirm a previously created refund
  **/
-
 @ApiModel(description = "Represents the data required to confirm a previously created refund")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class RefundConfirmation {
 
    private Object linkData = null;
@@ -37,14 +36,16 @@ public class RefundConfirmation {
    }
 
    /**
-   **/
+    * The data required to uniquely identify a message
+    **/
    public RefundConfirmation messageId(MessageId messageId) {
       this.messageId = messageId;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The data required to uniquely identify a message")
    @JsonProperty("messageId")
+   @NotNull
    public MessageId getMessageId() {
       return messageId;
    }

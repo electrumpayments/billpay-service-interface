@@ -5,36 +5,30 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * A tender used by a customer towards a payment
  **/
-
 @ApiModel(description = "A tender used by a customer towards a payment")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class Tender {
 
    /**
     * The type of account
     */
-   public enum AccountTypeEnum {
+   public enum AccountType {
       DEFAULT("DEFAULT"),
-
       SAVINGS("SAVINGS"),
-
       CHEQUE("CHEQUE"),
-
       CREDIT("CREDIT"),
-
       UNIVERSAL("UNIVERSAL"),
-
       ELECTRONIC_PURSE("ELECTRONIC_PURSE"),
-
       STORED_VALUE("STORED_VALUE");
+
       private String value;
 
-      AccountTypeEnum(String value) {
+      AccountType(String value) {
          this.value = value;
       }
 
@@ -45,7 +39,7 @@ public class Tender {
       }
    }
 
-   private AccountTypeEnum accountType = AccountTypeEnum.DEFAULT;
+   private AccountType accountType = AccountType.DEFAULT;
    private LedgerAmount amount = null;
    private String cardNumber = null;
    private String reference = null;
@@ -53,23 +47,18 @@ public class Tender {
    /**
     * The type of tender used
     */
-   public enum TenderTypeEnum {
+   public enum TenderType {
       CASH("CASH"),
-
       CHECQUE("CHECQUE"),
-
       CREDIT_CARD("CREDIT_CARD"),
-
       DEBIT_CARD("DEBIT_CARD"),
-
       WALLET("WALLET"),
-
       ROUNDING("ROUNDING"),
-
       OTHER("OTHER");
+
       private String value;
 
-      TenderTypeEnum(String value) {
+      TenderType(String value) {
          this.value = value;
       }
 
@@ -80,35 +69,37 @@ public class Tender {
       }
    }
 
-   private TenderTypeEnum tenderType = null;
+   private TenderType tenderType = null;
 
    /**
     * The type of account
     **/
-   public Tender accountType(AccountTypeEnum accountType) {
+   public Tender accountType(AccountType accountType) {
       this.accountType = accountType;
       return this;
    }
 
    @ApiModelProperty(value = "The type of account")
    @JsonProperty("accountType")
-   public AccountTypeEnum getAccountType() {
+   public AccountType getAccountType() {
       return accountType;
    }
 
-   public void setAccountType(AccountTypeEnum accountType) {
+   public void setAccountType(AccountType accountType) {
       this.accountType = accountType;
    }
 
    /**
-   **/
+    * The tendered amount
+    **/
    public Tender amount(LedgerAmount amount) {
       this.amount = amount;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The tendered amount")
    @JsonProperty("amount")
+   @NotNull
    public LedgerAmount getAmount() {
       return amount;
    }
@@ -157,18 +148,19 @@ public class Tender {
    /**
     * The type of tender used
     **/
-   public Tender tenderType(TenderTypeEnum tenderType) {
+   public Tender tenderType(TenderType tenderType) {
       this.tenderType = tenderType;
       return this;
    }
 
    @ApiModelProperty(required = true, value = "The type of tender used")
    @JsonProperty("tenderType")
-   public TenderTypeEnum getTenderType() {
+   @NotNull
+   public TenderType getTenderType() {
       return tenderType;
    }
 
-   public void setTenderType(TenderTypeEnum tenderType) {
+   public void setTenderType(TenderType tenderType) {
       this.tenderType = tenderType;
    }
 

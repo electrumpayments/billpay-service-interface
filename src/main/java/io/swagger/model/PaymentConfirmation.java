@@ -3,7 +3,9 @@ package io.swagger.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,14 +13,12 @@ import java.util.Objects;
 /**
  * Represents the data required to confirm a previously created payment
  **/
-
 @ApiModel(description = "Represents the data required to confirm a previously created payment")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class PaymentConfirmation {
 
    private Object linkData = null;
    private MessageId messageId = null;
-   private List<Tender> tenders = new ArrayList<Tender>();
+   private List<Tender> tenders = new ArrayList<>();
 
    /**
     * The unaltered linkData object as supplied in the createPayment response. Required if the createPayment response
@@ -40,14 +40,16 @@ public class PaymentConfirmation {
    }
 
    /**
+    * The data required to uniquely identify a message
    **/
    public PaymentConfirmation messageId(MessageId messageId) {
       this.messageId = messageId;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The data required to uniquely identify a message")
    @JsonProperty("messageId")
+   @NotNull
    public MessageId getMessageId() {
       return messageId;
    }
@@ -66,6 +68,7 @@ public class PaymentConfirmation {
 
    @ApiModelProperty(required = true, value = "An array of tenders used to pay for the transaction")
    @JsonProperty("tenders")
+   @NotEmpty
    public List<Tender> getTenders() {
       return tenders;
    }

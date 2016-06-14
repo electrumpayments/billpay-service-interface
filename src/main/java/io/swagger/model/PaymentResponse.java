@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 /**
  * Represents a response to a payment request
  **/
-
 @ApiModel(description = "Represents a response to a payment request")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class PaymentResponse {
 
    private String id = null;
@@ -33,6 +33,8 @@ public class PaymentResponse {
 
    @ApiModelProperty(required = true, value = "An identifier that uniquely identifies the payment")
    @JsonProperty("id")
+   @NotNull
+   @Pattern(regexp = "[A-Za-z0-9._~-]{1,40}")
    public String getId() {
       return id;
    }
@@ -42,14 +44,16 @@ public class PaymentResponse {
    }
 
    /**
+    * The customer account detail
    **/
    public PaymentResponse account(Account account) {
       this.account = account;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The customer account detail")
    @JsonProperty("account")
+   @NotNull
    public Account getAccount() {
       return account;
    }
@@ -59,13 +63,14 @@ public class PaymentResponse {
    }
 
    /**
+    * Customer detail
    **/
    public PaymentResponse customer(Customer customer) {
       this.customer = customer;
       return this;
    }
 
-   @ApiModelProperty(value = "")
+   @ApiModelProperty(value = "Customer detail")
    @JsonProperty("customer")
    public Customer getCustomer() {
       return customer;
@@ -95,13 +100,14 @@ public class PaymentResponse {
    }
 
    /**
+    * Detail regarding the institution that processed the message
    **/
    public PaymentResponse processor(Institution processor) {
       this.processor = processor;
       return this;
    }
 
-   @ApiModelProperty(value = "")
+   @ApiModelProperty(value = "Detail regarding the institution that processed the message")
    @JsonProperty("processor")
    public Institution getProcessor() {
       return processor;
@@ -112,14 +118,16 @@ public class PaymentResponse {
    }
 
    /**
+    * Detail regarding the bill issuing institution
    **/
    public PaymentResponse receiver(Institution receiver) {
       this.receiver = receiver;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "Detail regarding the bill issuing institution")
    @JsonProperty("receiver")
+   @NotNull
    public Institution getReceiver() {
       return receiver;
    }
@@ -129,14 +137,16 @@ public class PaymentResponse {
    }
 
    /**
+    * Response specific details
    **/
    public PaymentResponse responseDetail(ResponseDetail responseDetail) {
       this.responseDetail = responseDetail;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "Response specific details")
    @JsonProperty("responseDetail")
+   @NotNull
    public ResponseDetail getResponseDetail() {
       return responseDetail;
    }
@@ -146,14 +156,16 @@ public class PaymentResponse {
    }
 
    /**
+    * Data that should be printed on the customer receipt
    **/
    public PaymentResponse slipData(SlipData slipData) {
       this.slipData = slipData;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "Data that should be printed on the customer receipt")
    @JsonProperty("slipData")
+   @NotNull
    public SlipData getSlipData() {
       return slipData;
    }

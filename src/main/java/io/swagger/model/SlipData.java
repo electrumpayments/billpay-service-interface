@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,14 +13,12 @@ import java.util.Objects;
 /**
  * Data that may be printed on the custoemr slip for information purposes
  **/
-
 @ApiModel(description = "Data that may be printed on the custoemr slip for information purposes")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class SlipData {
 
-   private List<String> messageLines = new ArrayList<String>();
+   private List<String> messageLines = new ArrayList<>();
    private String phoneNumber = null;
-   private IssuerReference issuerReference = null;
+   private String issuerReference = null;
 
    /**
     * An array of free text lines to be printed on the customer slip
@@ -57,19 +57,24 @@ public class SlipData {
    }
 
    /**
-   **/
-   public SlipData issuerReference(IssuerReference issuerReference) {
+    * An identifier that is printed on the customer slip and uniquely identifies the payment on the bill issuer's
+    * system. This value is used by the customer to request a refund when the service supports this function, and it is
+    * thus important that this number is unique
+    **/
+   public SlipData issuerReference(String issuerReference) {
       this.issuerReference = issuerReference;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "An identifier that is printed on the customer slip and uniquely identifies the payment on the bill issuer's system. This value is used by the customer to request a refund when the service supports this function, and it is thus important that this number is unique")
    @JsonProperty("issuerReference")
-   public IssuerReference getIssuerReference() {
+   @NotNull
+   @Pattern(regexp = "[A-Z0-9]{1,20}")
+   public String getIssuerReference() {
       return issuerReference;
    }
 
-   public void setIssuerReference(IssuerReference issuerReference) {
+   public void setIssuerReference(String issuerReference) {
       this.issuerReference = issuerReference;
    }
 

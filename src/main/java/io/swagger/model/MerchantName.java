@@ -3,15 +3,15 @@ package io.swagger.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * A container object representing the Cardholder Name and Location
  **/
-
 @ApiModel(description = "A container object representing the Cardholder Name and Location")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class MerchantName {
 
    private String name = null;
@@ -29,6 +29,8 @@ public class MerchantName {
 
    @ApiModelProperty(required = true, value = "The merchant or trading as name associated with the merchant")
    @JsonProperty("name")
+   @NotNull
+   @Length(max = 23)
    public String getName() {
       return name;
    }
@@ -47,6 +49,8 @@ public class MerchantName {
 
    @ApiModelProperty(required = true, value = "The city where the merchant is located")
    @JsonProperty("city")
+   @NotNull
+   @Length(max = 13)
    public String getCity() {
       return city;
    }
@@ -65,6 +69,8 @@ public class MerchantName {
 
    @ApiModelProperty(required = true, value = "The state or region where the merchant is located")
    @JsonProperty("region")
+   @NotNull
+   @Length(max = 2)
    public String getRegion() {
       return region;
    }
@@ -83,6 +89,8 @@ public class MerchantName {
 
    @ApiModelProperty(required = true, value = "The country where the merchant is located")
    @JsonProperty("country")
+   @NotNull
+   @Length(max = 2)
    public String getCountry() {
       return country;
    }

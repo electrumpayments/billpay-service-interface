@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 /**
  * Request specific data
  **/
-
 @ApiModel(description = "Request specific data")
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2016-06-13T18:34:39.493Z")
 public class RequestDetail {
 
    private String clientRef = null;
@@ -27,6 +27,7 @@ public class RequestDetail {
 
    @ApiModelProperty(value = "A reference number useful to the client for identifying transactions, also knows as a retrieval reference number")
    @JsonProperty("clientRef")
+   @Pattern(regexp = "[A-Za-z0-9 ]{0,12}")
    public String getClientRef() {
       return clientRef;
    }
@@ -36,14 +37,16 @@ public class RequestDetail {
    }
 
    /**
-   **/
+    * The requested amount
+    **/
    public RequestDetail requestAmount(LedgerAmount requestAmount) {
       this.requestAmount = requestAmount;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "")
+   @ApiModelProperty(required = true, value = "The requested amount")
    @JsonProperty("requestAmount")
+   @NotNull
    public LedgerAmount getRequestAmount() {
       return requestAmount;
    }

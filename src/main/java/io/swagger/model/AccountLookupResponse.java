@@ -46,7 +46,7 @@ public class AccountLookupResponse {
       return this;
    }
 
-   @ApiModelProperty(value = "Custoemr detail")
+   @ApiModelProperty(value = "Customer detail")
    @JsonProperty("customer")
    public Customer getCustomer() {
       return customer;
