@@ -49,7 +49,7 @@ public class RefundResponse {
       return this;
    }
 
-   @ApiModelProperty(required = true)
+   @ApiModelProperty(required = true, value = "The customer account detail")
    @JsonProperty("account")
    @NotNull
    public Account getAccount() {

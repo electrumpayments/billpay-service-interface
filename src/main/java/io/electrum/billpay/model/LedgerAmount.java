@@ -23,8 +23,7 @@ public class LedgerAmount {
     * credit
     */
    public enum LedgerIndicator {
-      DEBIT("DEBIT"),
-      CREDIT("CREDIT");
+      DEBIT("DEBIT"), CREDIT("CREDIT");
 
       private String value;
 
@@ -69,9 +68,9 @@ public class LedgerAmount {
    }
 
    @ApiModelProperty(required = true, value = "Three digit currency number from ISO 4217, e.g. South African Rand is encoded as 710")
-   @JsonProperty("currency")
+   @JsonProperty(value = "currency")
    @NotNull
-   @Pattern(regexp = "[0-9]{0,12}")
+   @Pattern(regexp = "[0-9]{3}")
    public String getCurrency() {
       return currency;
    }

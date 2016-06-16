@@ -29,7 +29,7 @@ public class AccountLookupsApi {
    @POST
    @Consumes({ "application/json" })
    @Produces({ "application/json" })
-   @ApiOperation(value = "Request account info", notes = "Requests the current status of the account identified by the supplied account reference. Not all services support account lookups. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned", response = AccountLookupResponse.class, tags = {})
+   @ApiOperation(value = "Request account info", notes = "Requests the current status of the account identified by the supplied account reference. Not all services support account lookups. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned")
    @ApiResponses(value = {
          @ApiResponse(code = 200, message = "Success", response = AccountLookupResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),

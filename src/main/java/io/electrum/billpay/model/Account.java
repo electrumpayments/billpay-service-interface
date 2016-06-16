@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
+import org.joda.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -19,7 +19,7 @@ public class Account {
 
    private String accountRef = null;
    private LedgerAmount balance = null;
-   private Date dueDate = null;
+   private LocalDate dueDate = null;
 
    /**
     * A reference number identifying the bill payments processor, bill issuer, and customer
@@ -62,7 +62,7 @@ public class Account {
    /**
     * The effective date of the current billing period
     **/
-   public Account dueDate(Date dueDate) {
+   public Account dueDate(LocalDate dueDate) {
       this.dueDate = dueDate;
       return this;
    }
@@ -70,11 +70,11 @@ public class Account {
    @ApiModelProperty(value = "The effective date of the current billing period")
    @JsonProperty("dueDate")
    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "UTC")
-   public Date getDueDate() {
+   public LocalDate getDueDate() {
       return dueDate;
    }
 
-   public void setDueDate(Date dueDate) {
+   public void setDueDate(LocalDate dueDate) {
       this.dueDate = dueDate;
    }
 

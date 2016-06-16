@@ -1,13 +1,12 @@
 package io.electrum.billpay.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -21,7 +20,7 @@ public class MessageId {
    private String counter = null;
    private String institutionId = null;
    private String senderId = null;
-   private Date time = null;
+   private DateTime time = null;
 
    /**
     * An incrementing counter. Each seperate request must be issued a new counter value. If the counter reaches 999999,
@@ -97,7 +96,7 @@ public class MessageId {
     * in [RFC 3339 section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). It is recommended that the optional
     * time-secfrac be included up to millisecond precision
     **/
-   public MessageId time(Date time) {
+   public MessageId time(DateTime time) {
       this.time = time;
       return this;
    }
@@ -105,12 +104,11 @@ public class MessageId {
    @ApiModelProperty(required = true, value = "The date and time of the request as recorded by the sender. The format shall be as defined for date-time in [RFC 3339 section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). It is recommended that the optional time-secfrac be included up to millisecond precision")
    @JsonProperty("time")
    @NotNull
-   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "UTC")
-   public Date getTime() {
+   public DateTime getTime() {
       return time;
    }
 
-   public void setTime(Date time) {
+   public void setTime(DateTime time) {
       this.time = time;
    }
 
