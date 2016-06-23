@@ -116,19 +116,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9</version>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>com.github.kongchen</groupId>
         <artifactId>swagger-maven-plugin</artifactId>
         <version>${swagger-maven-plugin-version}</version>
@@ -168,8 +155,8 @@
                   </description>
                 </securityDefinition>
               </securityDefinitions>
-              <templatePath>${basedir}/src/main/resources/docs/swagger/templates/markdown.hbs</templatePath>
-              <outputPath>${project.build.directory}/swagger/swagger.md</outputPath>
+              <templatePath>${basedir}/src/docs/devguide/handlebars-templates/swaggerfile.hbs</templatePath>
+              <outputPath>${project.build.directory}/devguide/specification.md</outputPath>
               <outputFormats>yaml</outputFormats>
               <swaggerDirectory>${project.build.directory}/swagger</swaggerDirectory>
             </apiSource>
@@ -184,38 +171,28 @@
           </execution>
         </executions>
       </plugin>
-      <!--
-            <plugin>
-              <groupId>io.github.swagger2markup</groupId>
-              <artifactId>swagger2markup-maven-plugin</artifactId>
-              <version>1.0.0</version>
-              <dependencies>
-                <dependency>
-                  <groupId>io.github.swagger2markup</groupId>
-                  <artifactId>swagger2markup-import-files-ext</artifactId>
-                  <version>1.0.0</version>
-                </dependency>
-              </dependencies>
-              <configuration>
-                <swaggerInput>${project.basedir}/src/docs/swagger/swagger.yaml</swaggerInput>
-                <outputDir>${project.build.directory}/asciidoc</outputDir>
-                <config>
-                  <swagger2markup.markupLanguage>MARKDOWN</swagger2markup.markupLanguage>
-                  <swagger2markup.extensions.dynamicOverview.contentPath>
-                    ${project.basedir}/src/docs/asciidoc/extensions/overview
-                  </swagger2markup.extensions.dynamicOverview.contentPath>
-                  <swagger2markup.extensions.dynamicDefinitions.contentPath>
-                    ${project.basedir}/src/docs/asciidoc/extensions/definitions
-                  </swagger2markup.extensions.dynamicDefinitions.contentPath>
-                  <swagger2markup.extensions.dynamicPaths.contentPath>${project.basedir}/src/docs/asciidoc/extensions/paths
-                  </swagger2markup.extensions.dynamicPaths.contentPath>
-                  <swagger2markup.extensions.dynamicSecurity.contentPath>
-                    ${project.basedir}src/docs/asciidoc/extensions/security/
-                  </swagger2markup.extensions.dynamicSecurity.contentPath>
-                </config>
-              </configuration>
-            </plugin>
-      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.4.0</version>
+        <executions>
+          <execution>
+            <id>build-devguide</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <phase>install</phase>
+            <configuration>
+              <executable>sh</executable>
+              <arguments>
+                <argument>run.sh</argument>
+                <argument>${basedir}</argument>
+              </arguments>
+              <workingDirectory>${basedir}/src/docs/devguide/hugo/</workingDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>

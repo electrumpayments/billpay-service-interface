@@ -1,5 +1,5 @@
 {{#deprecated}}-deprecated-{{/deprecated}}
-<a id="{{operationId}}">{{summary}}</a>
+* {{summary}} *: {{@key}}
 
 {{description}}
 
@@ -21,7 +21,7 @@
 #### Request
 
 {{#if consumes}}
-**Content-Type: ** {{join consumes ", "}}{{/if}}
+**Content-Type:** {{join consumes ", "}}{{/if}}
 
 ##### Parameters
 {{#if parameters}}
@@ -42,17 +42,17 @@
     <td>{{in}}</td>
     <td>{{#if required}}yes{{else}}no{{/if}}</td>
     <td>{{description}}{{#if pattern}} (**Pattern**: `{{pattern}}`){{/if}}</td>
-    <td>{{#if defaultValue}}{{defaultValue}}{{else}} - {{/if}}</td>
+    <td>{{#if defaultValue}}{{defaultValue}}{{/if}}</td>
 {{#ifeq in "body"}}
     <td>
-    {{#ifeq schema.type "array"}}Array[<a href="{{schema.items.$ref}}">{{basename schema.items.$ref}}</a>]{{/ifeq}}
-    {{#schema.$ref}}<a href="{{schema.$ref}}">{{basename schema.$ref}}</a> {{/schema.$ref}}
+    {{#ifeq schema.type "array"}}Array[[{{basename schema.$ref}}](/specification/definitions/#{{lower (basename schema.$ref)}})]{{/ifeq}}
+    {{#schema.$ref}}[{{basename schema.$ref}}](/specification/definitions/#{{lower (basename schema.$ref)}}){{/schema.$ref}}
     </td>
 {{else}}
     {{#ifeq type "array"}}
-            <td>Array[{{items.type}}] ({{collectionFormat}})</td>
+    <td>Array[{{items.type}}] ({{collectionFormat}})</td>
     {{else}}
-            <td>{{type}} {{#format}}({{format}}){{/format}}</td>
+    <td>{{type}} {{#format}}({{format}}){{/format}}</td>
     {{/ifeq}}
 {{/ifeq}}
 </tr>
@@ -64,10 +64,11 @@
 
 #### Response
 
-{{#if produces}}**Content-Type: ** {{join produces ", "}}{{/if}}
+{{#if produces}}
+**Content-Type:** {{join produces ", "}}{{/if}}
 
 
 | Status Code | Reason      | Response Model |
 |-------------|-------------|----------------|
-{{#each responses}}| {{@key}}    | {{description}} | {{#schema.$ref}}<a href="{{schema.$ref}}">{{basename schema.$ref}}</a>{{/schema.$ref}}{{#ifeq schema.type "array"}}Array[<a href="{{schema.items.$ref}}">{{basename schema.items.$ref}}</a>]{{/ifeq}}{{^schema}} - {{/schema}}|
+{{#each responses}}| {{@key}}    | {{description}} | {{#schema.$ref}}[{{basename schema.$ref}}](/specification/definitions/#{{lower (basename schema.$ref)}}){{/schema.$ref}}{{#ifeq schema.type "array"}}Array[<a href="{{schema.items.$ref}}">{{basename schema.items.$ref}}</a>]{{/ifeq}}|
 {{/each}}
