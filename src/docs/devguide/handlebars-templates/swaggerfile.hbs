@@ -22,46 +22,91 @@
 # Operations
 
 {{#each paths}}
-## {{operationId}}
-{{#this}}
+
 {{#get}}
-#### GET
+## {{operationId}}
+
+{{#deprecated}}-deprecated-{{/deprecated}}
+
+{{summary}}
+
+**GET {{@key}}**
+
 {{> operation}}
 {{/get}}
 
 {{#put}}
-#### PUT
+## {{operationId}}
+
+{{#deprecated}}-deprecated-{{/deprecated}}
+
+{{summary}}
+
+**PUT {{@key}}**
+
 {{> operation}}
 {{/put}}
 
 {{#post}}
-#### POST
+## {{operationId}}
+
+{{#deprecated}}-deprecated-{{/deprecated}}
+
+{{summary}}
+
+**POST {{@key}}**
 
 {{> operation}}
-
 {{/post}}
 
 {{#delete}}
-#### DELETE
+## {{operationId}}
+
+{{#deprecated}}-deprecated-{{/deprecated}}
+
+{{summary}}
+
+**DELETE {{@key}}**
+
 {{> operation}}
 {{/delete}}
 
 {{#option}}
-#### OPTION
+## {{operationId}}
+
+{{#deprecated}}-deprecated-{{/deprecated}}
+
+{{summary}}
+
+**OPTION {{@key}}**
+
 {{> operation}}
 {{/option}}
 
 {{#patch}}
-#### PATCH
+## {{operationId}}
+
+{{#deprecated}}-deprecated-{{/deprecated}}
+
+{{summary}}
+
+**PATCH {{@key}}**
+
 {{> operation}}
 {{/patch}}
 
 {{#head}}
-#### HEAD
+## {{operationId}}
+
+{{#deprecated}}-deprecated-{{/deprecated}}
+
+{{summary}}
+
+**HEAD {{@key}}**
+
 {{> operation}}
 {{/head}}
 
-{{/this}}
 {{/each}}
 
 # Definitions

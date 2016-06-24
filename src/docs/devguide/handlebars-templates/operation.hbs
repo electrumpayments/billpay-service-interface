@@ -1,6 +1,3 @@
-{{#deprecated}}-deprecated-{{/deprecated}}
-* {{summary}} *: {{@key}}
-
 {{description}}
 
 {{#if externalDocs.url}}{{externalDocs.description}}. [See external documents for more details]({{externalDocs.url}})
@@ -23,8 +20,8 @@
 {{#if consumes}}
 **Content-Type:** {{join consumes ", "}}{{/if}}
 
-##### Parameters
 {{#if parameters}}
+Parameters
 <table border="1">
     <tr>
         <th>Name</th>
@@ -34,26 +31,14 @@
         <th>Default</th>
         <th>Schema</th>
     </tr>
-{{/if}}
-
-{{#parameters}}
+{{/if}}{{#parameters}}
 <tr>
     <th>{{name}}</th>
     <td>{{in}}</td>
     <td>{{#if required}}yes{{else}}no{{/if}}</td>
     <td>{{description}}{{#if pattern}} (**Pattern**: `{{pattern}}`){{/if}}</td>
     <td>{{#if defaultValue}}{{defaultValue}}{{/if}}</td>
-{{#ifeq in "body"}}
-    <td>
-    {{#ifeq schema.type "array"}}Array[[{{basename schema.$ref}}](/specification/definitions/#{{lower (basename schema.$ref)}})]{{/ifeq}}
-    {{#schema.$ref}}[{{basename schema.$ref}}](/specification/definitions/#{{lower (basename schema.$ref)}}){{/schema.$ref}}
-    </td>
-{{else}}
-    {{#ifeq type "array"}}
-    <td>Array[{{items.type}}] ({{collectionFormat}})</td>
-    {{else}}
-    <td>{{type}} {{#format}}({{format}}){{/format}}</td>
-    {{/ifeq}}
+    <td>{{#ifeq in "body"}}{{#ifeq schema.type "array"}}Array[[{{basename schema.$ref}}](/specification/definitions/#{{lower (basename schema.$ref)}})]{{else}}{{#schema.$ref}}[{{basename schema.$ref}}](/specification/definitions/#{{lower (basename schema.$ref)}}){{/schema.$ref}}{{/ifeq}}{{else}}{{#ifeq type "array"}}Array[{{items.type}}] ({{collectionFormat}}){{else}}{{type}} {{#format}}({{format}}){{/format}}{{/ifeq}}</td>
 {{/ifeq}}
 </tr>
 {{/parameters}}

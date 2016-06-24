@@ -26,7 +26,7 @@ echo ''
 echo ''
 echo '  + Running hugo build'
 echo ''
-docker run --name "hugo" -v ${BASE_DIR}/target/devguide/hugo:/src -v ${BASE_DIR}/target/devguide/site:/output -e "HUGO_THEME=hugo-material-docs" -e "HUGO_BASEURL=127.0.0.1:1313" jojomi/hugo
+docker run --name "hugo" -v ${BASE_DIR}/target/devguide/hugo:/src -v ${BASE_DIR}/target/devguide/site:/output -e "HUGO_THEME=hugo-material-docs" -e "HUGO_BASEURL=/" jojomi/hugo
 
 if [ -z $CI ]; then
   echo ''

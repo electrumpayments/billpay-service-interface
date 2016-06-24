@@ -27,7 +27,7 @@
 			</a>
 
 			<br>
-			{{ .Summary | markdownify }}
+			{{ printf "%s" .Summary | markdownify }}
 
 			<hr>
 			{{ end }}

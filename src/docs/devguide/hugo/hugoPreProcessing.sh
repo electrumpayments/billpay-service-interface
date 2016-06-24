@@ -72,7 +72,7 @@ function addFrontMatter {
   PARENT=$3
   FILE=$4
 
-  echo -e "---\ntitle: ${TITLE}\nmenu:\n  main:\n    weight: ${WEIGHT}\n    parent: ${PARENT}\n---\n\n$(cat ${FILE})" > "${FILE}"
+  echo "---\ntitle: ${TITLE}\nmenu:\n  main:\n    weight: ${WEIGHT}\n    parent: ${PARENT}\n---\n\n$(cat ${FILE})" > "${FILE}"
 }
 
 #               Title        Weight Parent          File
