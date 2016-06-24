@@ -49,7 +49,7 @@ public class Account {
       return this;
    }
 
-   @ApiModelProperty
+   @ApiModelProperty(value = "The customer account balance")
    @JsonProperty("balance")
    public LedgerAmount getBalance() {
       return balance;

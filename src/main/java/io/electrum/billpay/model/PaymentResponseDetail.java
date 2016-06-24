@@ -17,13 +17,13 @@ public class PaymentResponseDetail {
 
    /**
     * Response amount
-   **/
+    **/
    public PaymentResponseDetail responseAmount(LedgerAmount responseAmount) {
       this.responseAmount = responseAmount;
       return this;
    }
 
-   @ApiModelProperty(required = true)
+   @ApiModelProperty(required = true, value = "Response amount")
    @JsonProperty("responseAmount")
    @NotNull
    public LedgerAmount getResponseAmount() {

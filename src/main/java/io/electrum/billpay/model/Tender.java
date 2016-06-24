@@ -99,7 +99,7 @@ public class Tender {
       return this;
    }
 
-   @ApiModelProperty(required = true)
+   @ApiModelProperty(required = true, value = "The tendered amount")
    @JsonProperty("amount")
    @NotNull
    public LedgerAmount getAmount() {

@@ -67,7 +67,7 @@ public class Merchant {
       return this;
    }
 
-   @ApiModelProperty(required = true)
+   @ApiModelProperty(required = true, value = "The name of a merchant")
    @JsonProperty("merchantName")
    @NotNull
    public MerchantName getMerchantName() {
