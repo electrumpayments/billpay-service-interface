@@ -1,58 +1,14 @@
 package io.electrum.billpay.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * Represents the data required to confirm a previously created refund
  **/
 @ApiModel(description = "Represents the data required to confirm a previously created refund")
-public class RefundConfirmation {
-
-   private Object linkData = null;
-   private MessageId messageId = null;
-
-   /**
-    * The unaltered linkData object as supplied in the createRefund response. Required if the createRefund response
-    * contained linkData
-    **/
-   public RefundConfirmation linkData(Object linkData) {
-      this.linkData = linkData;
-      return this;
-   }
-
-   @ApiModelProperty(value = "The unaltered linkData object as supplied in the createRefund response. Required if the createRefund response contained linkData")
-   @JsonProperty("linkData")
-   public Object getLinkData() {
-      return linkData;
-   }
-
-   public void setLinkData(Object linkData) {
-      this.linkData = linkData;
-   }
-
-   /**
-    * The data required to uniquely identify a message
-    **/
-   public RefundConfirmation messageId(MessageId messageId) {
-      this.messageId = messageId;
-      return this;
-   }
-
-   @ApiModelProperty(required = true)
-   @JsonProperty("messageId")
-   @NotNull
-   public MessageId getMessageId() {
-      return messageId;
-   }
-
-   public void setMessageId(MessageId messageId) {
-      this.messageId = messageId;
-   }
+public class RefundConfirmation extends BasicAdvice {
 
    @Override
    public boolean equals(Object o) {

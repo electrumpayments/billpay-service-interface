@@ -9,10 +9,10 @@ import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 /**
- * Request specific data
+ * Payment request specific data
  **/
-@ApiModel(description = "Request specific data")
-public class RequestDetail {
+@ApiModel(description = "Payment request specific data")
+public class PaymentRequestDetail {
 
    private String clientRef = null;
    private LedgerAmount requestAmount = null;
@@ -20,7 +20,7 @@ public class RequestDetail {
    /**
     * A reference number useful to the client for identifying transactions, also knows as a retrieval reference number
     **/
-   public RequestDetail clientRef(String clientRef) {
+   public PaymentRequestDetail clientRef(String clientRef) {
       this.clientRef = clientRef;
       return this;
    }
@@ -39,7 +39,7 @@ public class RequestDetail {
    /**
     * The requested amount
     **/
-   public RequestDetail requestAmount(LedgerAmount requestAmount) {
+   public PaymentRequestDetail requestAmount(LedgerAmount requestAmount) {
       this.requestAmount = requestAmount;
       return this;
    }
@@ -63,9 +63,9 @@ public class RequestDetail {
       if (o == null || getClass() != o.getClass()) {
          return false;
       }
-      RequestDetail requestDetail = (RequestDetail) o;
-      return Objects.equals(clientRef, requestDetail.clientRef)
-            && Objects.equals(requestAmount, requestDetail.requestAmount);
+      PaymentRequestDetail paymentRequestDetail = (PaymentRequestDetail) o;
+      return Objects.equals(clientRef, paymentRequestDetail.clientRef)
+            && Objects.equals(requestAmount, paymentRequestDetail.requestAmount);
    }
 
    @Override
@@ -76,7 +76,7 @@ public class RequestDetail {
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
-      sb.append("class RequestDetail {\n");
+      sb.append("class PaymentRequestDetail {\n");
 
       sb.append("    clientRef: ").append(toIndentedString(clientRef)).append("\n");
       sb.append("    requestAmount: ").append(toIndentedString(requestAmount)).append("\n");

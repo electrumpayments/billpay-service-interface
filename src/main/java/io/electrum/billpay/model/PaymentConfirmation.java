@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,49 +13,9 @@ import java.util.Objects;
  * Represents the data required to confirm a previously created payment
  **/
 @ApiModel(description = "Represents the data required to confirm a previously created payment")
-public class PaymentConfirmation {
+public class PaymentConfirmation extends BasicAdvice {
 
-   private Object linkData = null;
-   private MessageId messageId = null;
    private List<Tender> tenders = new ArrayList<>();
-
-   /**
-    * The unaltered linkData object as supplied in the createPayment response. Required if the createPayment response
-    * contained linkData
-    **/
-   public PaymentConfirmation linkData(Object linkData) {
-      this.linkData = linkData;
-      return this;
-   }
-
-   @ApiModelProperty(value = "The unaltered linkData object as supplied in the createPayment response. Required if the createPayment response contained linkData")
-   @JsonProperty("linkData")
-   public Object getLinkData() {
-      return linkData;
-   }
-
-   public void setLinkData(Object linkData) {
-      this.linkData = linkData;
-   }
-
-   /**
-    * The data required to uniquely identify a message
-   **/
-   public PaymentConfirmation messageId(MessageId messageId) {
-      this.messageId = messageId;
-      return this;
-   }
-
-   @ApiModelProperty(required = true)
-   @JsonProperty("messageId")
-   @NotNull
-   public MessageId getMessageId() {
-      return messageId;
-   }
-
-   public void setMessageId(MessageId messageId) {
-      this.messageId = messageId;
-   }
 
    /**
     * An array of tenders used to pay for the transaction

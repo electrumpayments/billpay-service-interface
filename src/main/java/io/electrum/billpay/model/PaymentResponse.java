@@ -5,165 +5,45 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 /**
  * Represents a response to a payment request
  **/
 @ApiModel(description = "Represents a response to a payment request")
-public class PaymentResponse {
+public class PaymentResponse extends LinkableResponse {
 
-   private String id = null;
-   private Account account = null;
-   private Customer customer = null;
-   private Object linkData = null;
-   private Institution processor = null;
-   private Institution receiver = null;
-   private ResponseDetail responseDetail = null;
+   private PaymentResponseDetail paymentResponseDetail = null;
    private SlipData slipData = null;
 
    /**
-    * An identifier that uniquely identifies the payment
-    **/
-   public PaymentResponse id(String id) {
-      this.id = id;
-      return this;
-   }
-
-   @ApiModelProperty(required = true, value = "An identifier that uniquely identifies the payment")
-   @JsonProperty("id")
-   @NotNull
-   @Pattern(regexp = "[A-Za-z0-9._~-]{1,40}")
-   public String getId() {
-      return id;
-   }
-
-   public void setId(String id) {
-      this.id = id;
-   }
-
-   /**
-    * The customer account detail
-   **/
-   public PaymentResponse account(Account account) {
-      this.account = account;
-      return this;
-   }
-
-   @ApiModelProperty(required = true)
-   @JsonProperty("account")
-   @NotNull
-   public Account getAccount() {
-      return account;
-   }
-
-   public void setAccount(Account account) {
-      this.account = account;
-   }
-
-   /**
-    * Customer detail
-   **/
-   public PaymentResponse customer(Customer customer) {
-      this.customer = customer;
-      return this;
-   }
-
-   @ApiModelProperty
-   @JsonProperty("customer")
-   public Customer getCustomer() {
-      return customer;
-   }
-
-   public void setCustomer(Customer customer) {
-      this.customer = customer;
-   }
-
-   /**
-    * This object may be used by the server to link a payment to a payment confirmation or cancellation, and should be
-    * provided unaltered by clients in corresponding requests
-    **/
-   public PaymentResponse linkData(Object linkData) {
-      this.linkData = linkData;
-      return this;
-   }
-
-   @ApiModelProperty(value = "This object may be used by the server to link a payment to a payment confirmation or cancellation, and should be provided unaltered by clients in corresponding requests")
-   @JsonProperty("linkData")
-   public Object getLinkData() {
-      return linkData;
-   }
-
-   public void setLinkData(Object linkData) {
-      this.linkData = linkData;
-   }
-
-   /**
-    * Detail regarding the institution that processed the message
-   **/
-   public PaymentResponse processor(Institution processor) {
-      this.processor = processor;
-      return this;
-   }
-
-   @ApiModelProperty
-   @JsonProperty("processor")
-   public Institution getProcessor() {
-      return processor;
-   }
-
-   public void setProcessor(Institution processor) {
-      this.processor = processor;
-   }
-
-   /**
-    * Detail regarding the bill issuing institution
-   **/
-   public PaymentResponse receiver(Institution receiver) {
-      this.receiver = receiver;
-      return this;
-   }
-
-   @ApiModelProperty(required = true)
-   @JsonProperty("receiver")
-   @NotNull
-   public Institution getReceiver() {
-      return receiver;
-   }
-
-   public void setReceiver(Institution receiver) {
-      this.receiver = receiver;
-   }
-
-   /**
     * Response specific details
-   **/
-   public PaymentResponse responseDetail(ResponseDetail responseDetail) {
-      this.responseDetail = responseDetail;
+    **/
+   public PaymentResponse responseDetail(PaymentResponseDetail paymentResponseDetail) {
+      this.paymentResponseDetail = paymentResponseDetail;
       return this;
    }
 
-   @ApiModelProperty(required = true)
-   @JsonProperty("responseDetail")
+   @ApiModelProperty(required = true, value = "Response specific details")
+   @JsonProperty("paymentResponseDetail")
    @NotNull
-   public ResponseDetail getResponseDetail() {
-      return responseDetail;
+   public PaymentResponseDetail getPaymentResponseDetail() {
+      return paymentResponseDetail;
    }
 
-   public void setResponseDetail(ResponseDetail responseDetail) {
-      this.responseDetail = responseDetail;
+   public void setPaymentResponseDetail(PaymentResponseDetail paymentResponseDetail) {
+      this.paymentResponseDetail = paymentResponseDetail;
    }
 
    /**
     * Data that should be printed on the customer receipt
-   **/
+    **/
    public PaymentResponse slipData(SlipData slipData) {
       this.slipData = slipData;
       return this;
    }
 
-   @ApiModelProperty(required = true)
+   @ApiModelProperty(required = true, value = "Data that should be printed on the customer receipt")
    @JsonProperty("slipData")
    @NotNull
    public SlipData getSlipData() {
@@ -187,13 +67,13 @@ public class PaymentResponse {
             && Objects.equals(customer, paymentResponse.customer) && Objects.equals(linkData, paymentResponse.linkData)
             && Objects.equals(processor, paymentResponse.processor)
             && Objects.equals(receiver, paymentResponse.receiver)
-            && Objects.equals(responseDetail, paymentResponse.responseDetail)
+            && Objects.equals(paymentResponseDetail, paymentResponse.paymentResponseDetail)
             && Objects.equals(slipData, paymentResponse.slipData);
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(id, account, customer, linkData, processor, receiver, responseDetail, slipData);
+      return Objects.hash(id, account, customer, linkData, processor, receiver, paymentResponseDetail, slipData);
    }
 
    @Override
@@ -207,7 +87,7 @@ public class PaymentResponse {
       sb.append("    linkData: ").append(toIndentedString(linkData)).append("\n");
       sb.append("    processor: ").append(toIndentedString(processor)).append("\n");
       sb.append("    receiver: ").append(toIndentedString(receiver)).append("\n");
-      sb.append("    responseDetail: ").append(toIndentedString(responseDetail)).append("\n");
+      sb.append("    paymentResponseDetail: ").append(toIndentedString(paymentResponseDetail)).append("\n");
       sb.append("    slipData: ").append(toIndentedString(slipData)).append("\n");
       sb.append("}");
       return sb.toString();

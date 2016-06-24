@@ -19,7 +19,16 @@ if [ -z $CI ]; then
   echo ''
 
   docker-machine start default
+  if [ $(docker-machine status default) != Running ]; then
+    echo 'docker-machine not running - failing build'
+    exit 1
+  fi
+
   eval $(docker-machine env default)
+  if [[ $? -ne 0 ]]; then
+    echo 'command finished with non zero exit code - failing build'
+    exit 1
+  fi
 fi
 
 echo ''
@@ -27,6 +36,10 @@ echo ''
 echo '  + Running hugo build'
 echo ''
 docker run --name "hugo" -v ${BASE_DIR}/target/devguide/hugo:/src -v ${BASE_DIR}/target/devguide/site:/output -e "HUGO_THEME=hugo-material-docs" -e "HUGO_BASEURL=/" jojomi/hugo
+if [[ $? -ne 0 ]]; then
+    echo 'command finished with non zero exit code - failing build'
+    exit 1
+fi
 
 if [ -z $CI ]; then
   echo ''

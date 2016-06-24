@@ -11,13 +11,10 @@ import java.util.Objects;
 /**
  * The data required to request account info
  **/
-
 @ApiModel(description = "The data required to request account info")
-public class AccountLookupRequest {
+public class AccountLookupRequest extends BasicRequest {
 
    private String accountRef = null;
-   private MessageId messageId = null;
-   private Merchant merchant = null;
 
    /**
     * A reference number identifying the bill payments processor, bill issuer, and customer
@@ -37,43 +34,6 @@ public class AccountLookupRequest {
 
    public void setAccountRef(String accountRef) {
       this.accountRef = accountRef;
-   }
-
-   /**
-    * The data required to uniquely identify a message
-    **/
-   public AccountLookupRequest messageId(MessageId messageId) {
-      this.messageId = messageId;
-      return this;
-   }
-
-   @ApiModelProperty(required = true)
-   @JsonProperty("messageId")
-   @NotNull
-   public MessageId getMessageId() {
-      return messageId;
-   }
-
-   public void setMessageId(MessageId messageId) {
-      this.messageId = messageId;
-   }
-
-   /**
-    * Merchant data. Required if available
-    **/
-   public AccountLookupRequest merchant(Merchant merchant) {
-      this.merchant = merchant;
-      return this;
-   }
-
-   @ApiModelProperty
-   @JsonProperty("merchant")
-   public Merchant getMerchant() {
-      return merchant;
-   }
-
-   public void setMerchant(Merchant merchant) {
-      this.merchant = merchant;
    }
 
    @Override

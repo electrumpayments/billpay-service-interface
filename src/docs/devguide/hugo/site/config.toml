@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "en-us"
-title = "Billpay Service Interface Documentation"
+title = "Billpay Service Interface"
 theme = "hugo-material-docs"
 canonifyurls = true
 metaDataFormat = "yaml"

@@ -13,30 +13,10 @@ import java.util.Objects;
  * Represents a request to refund a payment
  **/
 @ApiModel(description = "Represents a request to refund a payment")
-public class RefundRequest {
+public class RefundRequest extends BasicRequest {
 
-   private MessageId messageId = null;
    private String issuerReference = null;
    private String refundReason = null;
-
-   /**
-    * The data required to uniquely identify a message
-    **/
-   public RefundRequest messageId(MessageId messageId) {
-      this.messageId = messageId;
-      return this;
-   }
-
-   @ApiModelProperty(required = true)
-   @JsonProperty("messageId")
-   @NotNull
-   public MessageId getMessageId() {
-      return messageId;
-   }
-
-   public void setMessageId(MessageId messageId) {
-      this.messageId = messageId;
-   }
 
    /**
     * An identifier that is printed on the customer slip and uniquely identifies the payment on the bill issuer's

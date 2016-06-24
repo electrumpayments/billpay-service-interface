@@ -8,17 +8,17 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Response specific data
+ * Payment response specific data
  **/
-@ApiModel(description = "Response specific data")
-public class ResponseDetail {
+@ApiModel(description = "Payment response specific data")
+public class PaymentResponseDetail {
 
    private LedgerAmount responseAmount = null;
 
    /**
     * Response amount
    **/
-   public ResponseDetail responseAmount(LedgerAmount responseAmount) {
+   public PaymentResponseDetail responseAmount(LedgerAmount responseAmount) {
       this.responseAmount = responseAmount;
       return this;
    }
@@ -42,8 +42,8 @@ public class ResponseDetail {
       if (o == null || getClass() != o.getClass()) {
          return false;
       }
-      ResponseDetail responseDetail = (ResponseDetail) o;
-      return Objects.equals(responseAmount, responseDetail.responseAmount);
+      PaymentResponseDetail paymentResponseDetail = (PaymentResponseDetail) o;
+      return Objects.equals(responseAmount, paymentResponseDetail.responseAmount);
    }
 
    @Override
@@ -54,7 +54,7 @@ public class ResponseDetail {
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
-      sb.append("class ResponseDetail {\n");
+      sb.append("class PaymentResponseDetail {\n");
 
       sb.append("    responseAmount: ").append(toIndentedString(responseAmount)).append("\n");
       sb.append("}");

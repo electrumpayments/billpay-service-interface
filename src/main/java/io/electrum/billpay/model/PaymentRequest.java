@@ -12,12 +12,10 @@ import java.util.Objects;
  * Represents a request to perform a payment
  **/
 @ApiModel(description = "Represents a request to perform a payment")
-public class PaymentRequest {
+public class PaymentRequest extends BasicRequest {
 
    private String accountRef = null;
-   private MessageId messageId = null;
-   private Merchant merchant = null;
-   private RequestDetail requestDetail = null;
+   private PaymentRequestDetail paymentRequestDetail = null;
 
    /**
     * A reference number identifying the bill payments processor, bill issuer, and customer
@@ -40,59 +38,22 @@ public class PaymentRequest {
    }
 
    /**
-    * The data required to uniquely identify a message
-   **/
-   public PaymentRequest messageId(MessageId messageId) {
-      this.messageId = messageId;
-      return this;
-   }
-
-   @ApiModelProperty(required = true)
-   @JsonProperty("messageId")
-   @NotNull
-   public MessageId getMessageId() {
-      return messageId;
-   }
-
-   public void setMessageId(MessageId messageId) {
-      this.messageId = messageId;
-   }
-
-   /**
-    * Merchant data. Required if available
-   **/
-   public PaymentRequest merchant(Merchant merchant) {
-      this.merchant = merchant;
-      return this;
-   }
-
-   @ApiModelProperty
-   @JsonProperty("merchant")
-   public Merchant getMerchant() {
-      return merchant;
-   }
-
-   public void setMerchant(Merchant merchant) {
-      this.merchant = merchant;
-   }
-
-   /**
     * Request specific details
-   **/
-   public PaymentRequest requestDetail(RequestDetail requestDetail) {
-      this.requestDetail = requestDetail;
+    **/
+   public PaymentRequest paymentRequestDetail(PaymentRequestDetail paymentRequestDetail) {
+      this.paymentRequestDetail = paymentRequestDetail;
       return this;
    }
 
-   @ApiModelProperty(required = true)
-   @JsonProperty("requestDetail")
+   @ApiModelProperty(required = true, value = "Request specific details")
+   @JsonProperty("paymentRequestDetail")
    @NotNull
-   public RequestDetail getRequestDetail() {
-      return requestDetail;
+   public PaymentRequestDetail getPaymentRequestDetail() {
+      return paymentRequestDetail;
    }
 
-   public void setRequestDetail(RequestDetail requestDetail) {
-      this.requestDetail = requestDetail;
+   public void setPaymentRequestDetail(PaymentRequestDetail paymentRequestDetail) {
+      this.paymentRequestDetail = paymentRequestDetail;
    }
 
    @Override
@@ -106,12 +67,12 @@ public class PaymentRequest {
       PaymentRequest paymentRequest = (PaymentRequest) o;
       return Objects.equals(accountRef, paymentRequest.accountRef)
             && Objects.equals(messageId, paymentRequest.messageId) && Objects.equals(merchant, paymentRequest.merchant)
-            && Objects.equals(requestDetail, paymentRequest.requestDetail);
+            && Objects.equals(paymentRequestDetail, paymentRequest.paymentRequestDetail);
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(accountRef, messageId, merchant, requestDetail);
+      return Objects.hash(accountRef, messageId, merchant, paymentRequestDetail);
    }
 
    @Override
@@ -122,7 +83,7 @@ public class PaymentRequest {
       sb.append("    accountRef: ").append(toIndentedString(accountRef)).append("\n");
       sb.append("    messageId: ").append(toIndentedString(messageId)).append("\n");
       sb.append("    merchant: ").append(toIndentedString(merchant)).append("\n");
-      sb.append("    requestDetail: ").append(toIndentedString(requestDetail)).append("\n");
+      sb.append("    paymentRequestDetail: ").append(toIndentedString(paymentRequestDetail)).append("\n");
       sb.append("}");
       return sb.toString();
    }

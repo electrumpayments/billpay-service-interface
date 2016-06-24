@@ -104,7 +104,7 @@ public class PaymentsApi {
    @POST
    @Consumes({ "application/json" })
    @Produces({ "application/json" })
-   @ApiOperation(value = "Initiate a bill payment transaction", notes = "Request that a payment be made towards a customer account")
+   @ApiOperation(value = "Initiate a bill payment transaction", notes = "BasicRequest that a payment be made towards a customer account")
    @ApiResponses(value = {
          @ApiResponse(code = 201, message = "Created", response = PaymentResponse.class, responseHeaders = { @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
