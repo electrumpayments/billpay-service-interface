@@ -1,9 +1,9 @@
 ---
-title: "Successful with balance"
+title: "Upstream declined"
 menu:
   main:
     parent: Transaction Flows
-    weight: 20
+    weight: 40
 ---
 
 bla bla bla

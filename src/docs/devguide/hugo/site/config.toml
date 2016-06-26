@@ -38,9 +38,9 @@ metaDataFormat = "yaml"
 [social]
 	github  = "electrumpayments"
 
-[menu.main]
+[[menu.main]]
   name = "Specification"
-  weight = "90"
+  weight = 90
 
 [blackfriday]
 	smartypants	= true

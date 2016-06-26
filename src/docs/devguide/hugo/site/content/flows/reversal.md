@@ -1,9 +1,9 @@
 ---
-title: "Successful with balance"
+title: "Timeout reversal"
 menu:
   main:
     parent: Transaction Flows
-    weight: 20
+    weight: 50
 ---
 
 bla bla bla

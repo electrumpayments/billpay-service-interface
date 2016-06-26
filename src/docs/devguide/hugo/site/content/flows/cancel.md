@@ -1,9 +1,9 @@
 ---
-title: "Successful with balance"
+title: "Cancellation"
 menu:
   main:
     parent: Transaction Flows
-    weight: 20
+    weight: 30
 ---
 
 bla bla bla
