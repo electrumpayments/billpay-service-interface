@@ -41,12 +41,14 @@ cp -r "${BASE_DIR}/src/docs/devguide/hugo/site" "${BASE_DIR}/target/devguide/hug
 echo '2) Add swagger.yaml to hugo static content'
 echo ''
 
+mkdir -p "${BASE_DIR}/target/devguide/hugo/static/specification/swagger/"
 cp "${BASE_DIR}/target/swagger/swagger.yaml" "${BASE_DIR}/target/devguide/hugo/static/specification/swagger/swagger.yaml"
 
 
 echo '3) Chop the markdown file into separate files for each of the summary stuff at the top, the operations, and the definitions'
 echo ''
 
+mkdir "${BASE_DIR}/target/devguide/hugo/content/specification"
 sed -e '/# Operations/,$d' "${BASE_DIR}/target/devguide/specification.md" > "${BASE_DIR}/target/devguide/hugo/content/specification/introduction.md"
 sed -n -e '/^# Operations$/,/^# Definitions$/{ /^# Operations$/d; /^# Definitions$/d; p; }' "${BASE_DIR}/target/devguide/specification.md" > "${BASE_DIR}/target/devguide/hugo/content/specification/operations.md"
 sed -e '1,/# Definitions/d' "${BASE_DIR}/target/devguide/specification.md" > "${BASE_DIR}/target/devguide/hugo/content/specification/definitions.md"
