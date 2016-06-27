@@ -13,4 +13,6 @@ The Billpay Service Interface is a RESTful HTTP based messaging protocol used bo
 
 ## Failures
 
+## SAF
+
 ## Cancel v. reverse v. refund

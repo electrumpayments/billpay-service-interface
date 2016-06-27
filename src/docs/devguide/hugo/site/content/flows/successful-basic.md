@@ -1,9 +1,0 @@
----
-title: "Successful payment"
-menu:
-  main:
-    parent: Transaction Flows
-    weight: 10
----
-
-bla bla bla
