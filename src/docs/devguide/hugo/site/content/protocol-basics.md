@@ -38,6 +38,7 @@ In addition to the HTTP status code, failure response bodies shall contain an [E
 To ensure that loss of transactional data is minimized, the Billpay Service Interface require clients to store advice messages in persistent storage and queued until a final status type is received. A final response is one of either the _successful_ or _failed_ status types. If the Billpay Service is not responding, or responding with an _unknown_ status code, advice messages shall be queued and the message at the head of queue repeated on an interval until a final status type is received. For high throughput systems it shall be acceptable to send several messages in parallel.
 
 The above applies to the following operations:
+
 * confirmPayment
 * cancelPayment
 * reversePayment
