@@ -9,9 +9,7 @@ The Billpay Service Interface is an HTTP based protocol. A detailed description 
 
 ## Security
 
-All communication shall be secured by establishing an SSL encrypted transport.
-
-Basic HTTP authentication shall be used to authenticate clients with the service, and is required for all requests.
+All communication shall be secured by establishing an SSL encrypted transport. Basic HTTP authentication shall be used to authenticate clients with the service, and is required for all requests.
 
 
 ## Failures
@@ -33,3 +31,16 @@ A timeout occurs when the client has not received a response to a request after 
 ### ErrorDetail
 
 In addition to the HTTP status code, failure response bodies shall contain an [ErrorDetail](/specification/definitions/#errordetail) object if possible to describe the failure in more detail. It should be noted though, that clients should expect the possibility of an empty response body in some failure scenarios.
+
+
+## Store-and-forward
+
+To ensure that loss of transactional data is minimized, the Billpay Service Interface require clients to store advice messages in persistent storage and queued until a final status type is received. A final response is one of either the _successful_ or _failed_ status types. If the Billpay Service is not responding, or responding with an _unknown_ status code, advice messages shall be queued and the message at the head of queue repeated on an interval until a final status type is received. For high throughput systems it shall be acceptable to send several messages in parallel.
+
+The above applies to the following operations:
+* confirmPayment
+* cancelPayment
+* reversePayment
+* confirmRefund
+* cancelRefund
+* reverseRefund

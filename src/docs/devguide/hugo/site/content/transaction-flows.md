@@ -5,7 +5,7 @@ menu:
     weight: 30
 ---
 
-This section depicts some interesting transaction flows. It is not an exhaustive list of all conceivable flows, but does attempt to show the most interesting scenarios.
+This section depicts some transaction flows. It is not an exhaustive list of all conceivable flows, but does attempt to show the most interesting scenarios.
 
 When developing a downstream integration into the Billpay service, Electrum hosts the *Billpay Service* and the flows should be viewed from the perspective of the *Downstream Entity*. When developing an upstream integration, Electrum in the *Downstream Entity* and the flows should be viewed from the perspective of the *Billpay Service*.
 
