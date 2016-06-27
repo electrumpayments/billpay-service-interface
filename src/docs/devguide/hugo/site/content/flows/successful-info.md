@@ -1,5 +1,5 @@
 ---
-title: "Successful with balance"
+title: "Payment with balance"
 menu:
   main:
     parent: Transaction Flows

@@ -1,8 +1,10 @@
 package io.electrum.billpay.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -13,45 +15,76 @@ import java.util.Objects;
 @ApiModel(description = "Represents the outcome of a completed transaction")
 public class ErrorDetail {
 
-   private String responseCode = null;
-   private String responseMessage = null;
+   /**
+    * Every failure must be classified into one of the following failure types
+    */
+   public enum ErrorType {
+      ACCOUNT_ALREADY_SETTLED("ACCOUNT_ALREADY_SETTLED"),
+      DUPLICATE_RECORD("DUPLICATE_RECORD"),
+      FORMAT_ERROR("FORMAT_ERROR"),
+      FUNCTION_NOT_SUPPORTED("FUNCTION_NOT_SUPPORTED"),
+      GENERAL_ERROR("GENERAL_ERROR"),
+      INVALID_AMOUNT("INVALID_AMOUNT"),
+      ROUTING_ERROR("ROUTING_ERROR"),
+      TRANSACTION_NOT_SUPPORTED("TRANSACTION_NOT_SUPPORTED"),
+      UNABLE_TO_LOCATE_RECORD("UNABLE_TO_LOCATE_RECORD"),
+      UNKNOWN_CUSTOMER_ACCOUNT("UNKNOWN_CUSTOMER_ACCOUNT"),
+      UPSTREAM_UNAVAILABLE("UPSTREAM_UNAVAILABLE");
+
+      private String value;
+
+      ErrorType(String value) {
+         this.value = value;
+      }
+
+      @Override
+      @JsonValue
+      public String toString() {
+         return String.valueOf(value);
+      }
+   }
+
+   private ErrorType errorType = null;
+   private String errorMessage = null;
    private Object detailMessage = null;
 
    /**
-    * The response code. Will always be present unless request to upstream timed out
+    * The type of error that occurred
     **/
-   public ErrorDetail responseCode(String responseCode) {
-      this.responseCode = responseCode;
+   public ErrorDetail errorType(ErrorType errorType) {
+      this.errorType = errorType;
       return this;
    }
 
-   @ApiModelProperty(value = "The response code. Will always be present unless request to upstream timed out")
-   @JsonProperty("responseCode")
-   public String getResponseCode() {
-      return responseCode;
+   @ApiModelProperty(required = true, value = "The type of error that occurred")
+   @JsonProperty("errorType")
+   @NotNull
+   public ErrorType getErrorType() {
+      return errorType;
    }
 
-   public void setResponseCode(String responseCode) {
-      this.responseCode = responseCode;
+   public void setErrorType(ErrorType errorType) {
+      this.errorType = errorType;
    }
 
    /**
-    * The response code description
+    * A short description of the error
     **/
-   public ErrorDetail responseMessage(String responseMessage) {
-      this.responseMessage = responseMessage;
+   public ErrorDetail errorMessage(String errorMessage) {
+      this.errorMessage = errorMessage;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The response code description")
-   @JsonProperty("responseMessage")
+   @ApiModelProperty(required = true, value = "A short description of the error")
+   @JsonProperty("errorMessage")
    @NotNull
-   public String getResponseMessage() {
-      return responseMessage;
+   @Length(max = 20)
+   public String getErrorMessage() {
+      return errorMessage;
    }
 
-   public void setResponseMessage(String responseMessage) {
-      this.responseMessage = responseMessage;
+   public void setErrorMessage(String errorMessage) {
+      this.errorMessage = errorMessage;
    }
 
    /**
@@ -81,14 +114,13 @@ public class ErrorDetail {
          return false;
       }
       ErrorDetail errorDetail = (ErrorDetail) o;
-      return Objects.equals(responseCode, errorDetail.responseCode)
-            && Objects.equals(responseMessage, errorDetail.responseMessage)
+      return Objects.equals(errorType, errorDetail.errorType) && Objects.equals(errorMessage, errorDetail.errorMessage)
             && Objects.equals(detailMessage, errorDetail.detailMessage);
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(responseCode, responseMessage, detailMessage);
+      return Objects.hash(errorType, errorMessage, detailMessage);
    }
 
    @Override
@@ -96,8 +128,8 @@ public class ErrorDetail {
       StringBuilder sb = new StringBuilder();
       sb.append("class ErrorDetail {\n");
 
-      sb.append("    responseCode: ").append(toIndentedString(responseCode)).append("\n");
-      sb.append("    responseMessage: ").append(toIndentedString(responseMessage)).append("\n");
+      sb.append("    errorType: ").append(toIndentedString(errorType)).append("\n");
+      sb.append("    responseMessage: ").append(toIndentedString(errorMessage)).append("\n");
       sb.append("    detailMessage: ").append(toIndentedString(detailMessage)).append("\n");
       sb.append("}");
       return sb.toString();

@@ -1,9 +1,9 @@
 ---
-title: "Successful payment"
+title: "Successful refund"
 menu:
   main:
     parent: Transaction Flows
-    weight: 10
+    weight: 60
 ---
 
 bla bla bla

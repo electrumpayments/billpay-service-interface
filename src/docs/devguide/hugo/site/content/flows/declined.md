@@ -1,5 +1,5 @@
 ---
-title: "Upstream declined"
+title: "Decline"
 menu:
   main:
     parent: Transaction Flows
