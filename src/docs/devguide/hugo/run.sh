@@ -16,5 +16,5 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 set -e
 
-sh ${SCRIPT_DIR}/hugoPreProcessing.sh $BASE_DIR
-sh ${SCRIPT_DIR}/hugoBuild.sh $BASE_DIR
+source ${SCRIPT_DIR}/hugoPreProcessing.sh $BASE_DIR
+source ${SCRIPT_DIR}/hugoBuild.sh $BASE_DIR
