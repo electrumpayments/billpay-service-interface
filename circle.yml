@@ -3,6 +3,8 @@ machine:
     Africa/Johannesburg
   java:
     version: oraclejdk7
+  services:
+    - docker
 
 dependencies:
   pre:
