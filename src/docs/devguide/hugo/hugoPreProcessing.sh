@@ -68,7 +68,7 @@ awk 'BEGIN {
 echo '5) Add hugo front matter'
 echo ''
 
-function addFrontMatter {
+addFrontMatter () {
   TITLE=$1
   WEIGHT=$2
   PARENT=$3
