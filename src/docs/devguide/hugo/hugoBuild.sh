@@ -36,10 +36,6 @@ echo ''
 echo '  + Running hugo build'
 echo ''
 docker run --name "hugo" -v ${BASE_DIR}/target/devguide/hugo:/src -v ${BASE_DIR}/target/devguide/site:/output -e "HUGO_THEME=hugo-material-docs" -e "HUGO_BASEURL=https://electrumpayments.github.io/billpay-service-interface-docs/" jojomi/hugo
-if [[ $? -ne 0 ]]; then
-    echo 'command finished with non zero exit code - failing build'
-    exit 1
-fi
 
 if [ -z $CI ]; then
   echo ''
