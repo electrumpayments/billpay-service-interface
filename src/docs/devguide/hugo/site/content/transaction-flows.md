@@ -9,7 +9,7 @@ This section depicts some transaction flows. It is not an exhaustive list of all
 
 When developing a downstream integration into the Billpay service, Electrum hosts the *Billpay Service* and the flows should be viewed from the perspective of the *Downstream Entity*. When developing an upstream integration, Electrum in the *Downstream Entity* and the flows should be viewed from the perspective of the *Billpay Service*.
 
-Interactions between the Billpay Service and the Upstream Entity is purely shown for completeness. The actual communication between the Billpay Service implementation and upstream entities is out of scope of this document and may very well differ from the indicative flows shown below. Interactions between the downstream entity and the Billpay service should, on the other hand, strictly be adhered to.
+Interactions between the Billpay Service and the Upstream Entity are purely shown for completeness. The actual communication between the Billpay Service implementation and upstream entities is out of scope of this document and may very well differ from the indicative flows shown below. Interactions between the downstream entity and the Billpay service should, on the other hand, strictly be adhered to.
 
 
 # Account Info

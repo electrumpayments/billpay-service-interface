@@ -1,7 +1,7 @@
 languageCode = "en-us"
 title = "Billpay Service Interface"
 theme = "hugo-material-docs"
-canonifyurls = false
+canonifyurls = true
 metaDataFormat = "yaml"
 
 #googleAnalytics = "UA-XXXXXXXX-X"

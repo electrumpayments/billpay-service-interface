@@ -101,11 +101,6 @@
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j-version}</version>
     </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>${logback-version}</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -185,7 +180,7 @@
             <goals>
               <goal>exec</goal>
             </goals>
-            <phase>install</phase>
+            <phase>post-integration-test</phase>
             <configuration>
               <executable>sh</executable>
               <arguments>
