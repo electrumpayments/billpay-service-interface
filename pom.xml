@@ -208,7 +208,7 @@
                 <contextUrl>${artifactory-url}/</contextUrl>
                 <username>${artifactory-username}</username>
                 <password>${artifactory-password}</password>
-                <repoKey>oss-local</repoKey>
+                <repoKey>oss</repoKey>
               </publisher>
             </configuration>
           </execution>
