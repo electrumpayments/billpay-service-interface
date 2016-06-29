@@ -51,7 +51,7 @@ public class Tender {
     */
    public enum TenderType {
       CASH("CASH"),
-      CHECQUE("CHECQUE"),
+      CHEQUE("CHEQUE"),
       CREDIT_CARD("CREDIT_CARD"),
       DEBIT_CARD("DEBIT_CARD"),
       WALLET("WALLET"),

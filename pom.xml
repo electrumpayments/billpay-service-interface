@@ -7,6 +7,20 @@
   <packaging>jar</packaging>
   <version>1.0.0</version>
   <name>Bill Payments Service Interface</name>
+  <description>Bill Payments Service Interface</description>
+  <url>http://developers.billpayservice.electrum.io</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/electrumpayments/billpay-service-interface</url>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -106,16 +120,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.17</version>
-        <configuration>
-          <suiteXmlFiles>
-            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-          </suiteXmlFiles>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>com.github.kongchen</groupId>
         <artifactId>swagger-maven-plugin</artifactId>
         <version>${swagger-maven-plugin-version}</version>
@@ -189,6 +193,28 @@
                 <argument>${basedir}</argument>
               </arguments>
               <workingDirectory>${basedir}/src/docs/devguide/hugo/</workingDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jfrog.buildinfo</groupId>
+        <artifactId>artifactory-maven-plugin</artifactId>
+        <version>2.2.1</version>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>build-info</id>
+            <goals>
+              <goal>publish</goal>
+            </goals>
+            <configuration>
+              <publisher>
+                <contextUrl>${artifactory-url}/</contextUrl>
+                <username>${artifactory-username}</username>
+                <password>${artifactory-password}</password>
+                <repoKey>oss-local</repoKey>
+              </publisher>
             </configuration>
           </execution>
         </executions>
