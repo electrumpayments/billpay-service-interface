@@ -32,7 +32,7 @@ public class Account {
    @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
    @JsonProperty("accountRef")
    @NotNull
-   @Length(min = 6, max = 40)
+   @Length(min = 1, max = 40)
    public String getAccountRef() {
       return accountRef;
    }
