@@ -37,7 +37,7 @@ echo '  + Running hugo build'
 echo ''
 docker run --name "hugo" -v ${BASE_DIR}/target/devguide/hugo:/src -v ${BASE_DIR}/target/devguide/site:/output -e "HUGO_THEME=hugo-material-docs" -e "HUGO_BASEURL=https://electrumpayments.github.io/billpay-service-interface-docs/" jojomi/hugo
 
-sudo chown -R $(whoami):$(whoami) ${BASE_DIRE}/target/devguide/site
+sudo chown -R $(whoami):$(whoami) ${BASE_DIR}/target/devguide/site
 
 if [ -z $CI ]; then
   echo ''
