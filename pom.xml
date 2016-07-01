@@ -4,12 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.electrum</groupId>
   <artifactId>billpay-service-interface</artifactId>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
-  <version>1.0.0</version>
   <name>Bill Payments Service Interface</name>
   <description>Bill Payments Service Interface</description>
-  <url>http://developers.billpayservice.electrum.io</url>
-
+  <url>https://electrumpayments.github.io/billpay-service-interface-docs</url>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -17,9 +16,18 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
+  <developers>
+    <developer>
+      <name>Electrum Payments</name>
+      <email>hello@electrum.io</email>
+      <organization>Electrum Payments</organization>
+      <organizationUrl>http://electrum.io</organizationUrl>
+    </developer>
+  </developers>
   <scm>
-    <url>https://github.com/electrumpayments/billpay-service-interface</url>
+    <connection>scm:git:git@github.com:electrumpayments/billpay-service-interface.git</connection>
+    <developerConnection>scm:git:git@github.com:electrumpayments/billpay-service-interface.git</developerConnection>
+    <url>git@github.com:electrumpayments/billpay-service-interface.git</url>
   </scm>
 
   <properties>
@@ -113,6 +121,30 @@
           <source>1.7</source>
           <target>1.7</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>com.github.kongchen</groupId>

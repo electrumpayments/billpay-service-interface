@@ -40,12 +40,12 @@ docker run --name "hugo" -v ${BASE_DIR}/target/devguide/hugo:/src -v ${BASE_DIR}
 docker stop hugo &> /dev/null
 docker rm hugo &> /dev/null
 
-sudo chown -R $(whoami):$(whoami) ${BASE_DIR}/target/devguide/site
-
 if [ -z $CI ]; then
   echo ''
   echo '  + Remove box and stop docker-machine [only required for mac]'
   echo ''
 
   docker-machine stop default
+else
+  sudo chown -R $(whoami):$(whoami) ${BASE_DIR}/target/devguide/site
 fi
