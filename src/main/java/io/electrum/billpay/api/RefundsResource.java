@@ -1,10 +1,11 @@
 package io.electrum.billpay.api;
 
 import io.electrum.billpay.model.ErrorDetail;
-import io.electrum.billpay.model.PaymentRequest;
-import io.electrum.billpay.model.PaymentResponse;
 import io.electrum.billpay.model.PaymentReversal;
-import io.electrum.vas.model.TenderAdvice;
+import io.electrum.billpay.model.RefundRequest;
+import io.electrum.billpay.model.RefundResponse;
+import io.electrum.billpay.model.RefundReversal;
+import io.electrum.vas.model.BasicAdvice;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,6 +14,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ResponseHeader;
 
+import java.util.UUID;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -23,38 +25,37 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
-import java.util.UUID;
 
-@Path("/payments/{paymentId}")
+@Path("/refunds/{refundId}")
 @Consumes({ "application/json" })
 @Produces({ "application/json" })
 @Api(description = "the payments API", authorizations = { @Authorization("httpBasic") })
-public abstract class PaymentsResource {
+public abstract class RefundsResource {
 
-   protected abstract IPaymentsResource getResourceImplementation();
+   protected abstract IRefundsResource getResourceImplementation();
 
    @POST
    @Path("/confirmations/{adviceId}")
    @Consumes({ "application/json" })
    @Produces({ "application/json" })
-   @ApiOperation(value = "Confirm an existing bill payment", notes = "If a createPayment request previously succeeded with a 201 status it must be confirmed or cancelled to complete the transaction. confirmPayment can only suceeed if a payment was created but not cancelled. confirmPayment must be repeated until a final HTTP status code is received (not 500 or 504). If a status code of either 500 or 504 is received, or no response is received, the request must be repeated. confirmPayment may be called repeatedly on the same payment resource without negative effect.")
+   @ApiOperation(value = "Confirm an existing bill payment refund", notes = "If a createRefund request previously succeeded with a 201 status it must be confirmed or cancelled to complete the transaction. confirmRefund can only suceeed if a refund was created but not cancelled. confirmRefund must be repeated until a final HTTP status code is received (not 500 or 504). If a status code of either 500 or 504 is received, or no response is received, the request must be repeated. confirmRefund may be called repeatedly on the same refund resource without negative effect.")
    @ApiResponses(value = { @ApiResponse(code = 202, message = "Accepted"),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
-   public void confirmPayment(
+   public void confirmRefund(
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("adviceId") UUID adviceId,
-         @ApiParam(value = "The UUID generated for the corresponding createPayment request", required = true) @PathParam("paymentId") UUID paymentId,
-         @ApiParam(value = "A payment confirmation", required = true) TenderAdvice body,
+         @ApiParam(value = "The UUID generated for the corresponding createRefund request", required = true) @PathParam("refundId") UUID refundId,
+         @ApiParam(value = "A refund confirmation", required = true) BasicAdvice body,
          @Context SecurityContext securityContext,
          @Context AsyncResponse asyncResponse,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().confirmPayment(
+      getResourceImplementation().confirmRefund(
             adviceId,
-            paymentId,
+            refundId,
             body,
             securityContext,
             asyncResponse,
@@ -65,46 +66,47 @@ public abstract class PaymentsResource {
    @POST
    @Consumes({ "application/json" })
    @Produces({ "application/json" })
-   @ApiOperation(value = "Initiate a bill payment transaction", notes = "BasicRequest that a payment be made towards a customer account")
+   @ApiOperation(value = "Creates a refund of previously confirmed payment", notes = "If a payment is completed and confirmed successfully, some services support that customers may request a refund for a particular payment for some time after the payment took place. Not all services support refunds. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned")
    @ApiResponses(value = {
-         @ApiResponse(code = 201, message = "Created", response = PaymentResponse.class, responseHeaders = { @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
+         @ApiResponse(code = 201, message = "Created", response = RefundResponse.class, responseHeaders = { @ResponseHeader(name = "Location", description = "The location of the created refund resource", response = String.class) }),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
+         @ApiResponse(code = 501, message = "Not implemented", response = ErrorDetail.class),
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
-   public void createPayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("paymentId") UUID paymentId,
-         @ApiParam(value = "A payment request", required = true) PaymentRequest body,
+   public void createRefund(
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("refundId") UUID refundId,
+         @ApiParam(value = "A refund request", required = true) RefundRequest body,
          @Context SecurityContext securityContext,
          @Context AsyncResponse asyncResponse,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().createPayment(paymentId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
+      getResourceImplementation().createRefund(refundId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
    }
 
    @POST
    @Path("/reversals/{adviceId}")
    @Consumes({ "application/json" })
    @Produces({ "application/json" })
-   @ApiOperation(value = "Reverse a payment request that failed or timed out", notes = "If a createPayment request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not refelected on a customer's account. reversePayment must be repeated until a final HTTP status code is received (not 500 or 504). reversePayment may be called repeatedly on the same payment resource without negative effect.")
+   @ApiOperation(value = "Reverse a refund request that failed or timed out", notes = "If a createRefund request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not refelected on a customer's account. reverseRefund must be repeated until a final HTTP status code is received (not 500 or 504). reverseRefund may be called repeatedly on the same payment resource without negative effect.")
    @ApiResponses(value = { @ApiResponse(code = 202, message = "Accepted"),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
-   public void reversePayment(
+   public void reverseRefund(
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("adviceId") UUID adviceId,
-         @ApiParam(value = "The UUID generated for the corresponding createPayment request", required = true) @PathParam("paymentId") UUID paymentId,
-         @ApiParam(value = "The PaymentRequest originally sent in the createPayment request", required = true) PaymentReversal body,
+         @ApiParam(value = "The UUID generated for the corresponding createRefund request", required = true) @PathParam("refundId") UUID refundId,
+         @ApiParam(value = "A refund reversal", required = true) RefundReversal body,
          @Context SecurityContext securityContext,
          @Context AsyncResponse asyncResponse,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().reversePayment(
+      getResourceImplementation().reverseRefund(
             adviceId,
-            paymentId,
+            refundId,
             body,
             securityContext,
             asyncResponse,

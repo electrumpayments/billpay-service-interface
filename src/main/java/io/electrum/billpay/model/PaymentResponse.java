@@ -1,38 +1,60 @@
 package io.electrum.billpay.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.electrum.vas.Utils;
+import io.electrum.vas.model.BasicResponse;
+import io.electrum.vas.model.LedgerAmount;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 /**
  * Represents a response to a payment request
  **/
 @ApiModel(description = "Represents a response to a payment request")
-public class PaymentResponse extends LinkableResponse {
+public class PaymentResponse extends BasicResponse {
 
-   private PaymentResponseDetail paymentResponseDetail = null;
+   private Account account = null;
+   private Customer customer = null;
    private SlipData slipData = null;
+   private LedgerAmount responseAmount = null;
 
    /**
-    * Response specific details
+    * The customer account detail
     **/
-   public PaymentResponse responseDetail(PaymentResponseDetail paymentResponseDetail) {
-      this.paymentResponseDetail = paymentResponseDetail;
+   public PaymentResponse account(Account account) {
+      this.account = account;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "Response specific details")
-   @JsonProperty("paymentResponseDetail")
+   @ApiModelProperty(required = true, value = "The customer account detail")
+   @JsonProperty("account")
    @NotNull
-   public PaymentResponseDetail getPaymentResponseDetail() {
-      return paymentResponseDetail;
+   public Account getAccount() {
+      return account;
    }
 
-   public void setPaymentResponseDetail(PaymentResponseDetail paymentResponseDetail) {
-      this.paymentResponseDetail = paymentResponseDetail;
+   public void setAccount(Account account) {
+      this.account = account;
+   }
+
+   /**
+    * Customer detail
+    **/
+   public PaymentResponse customer(Customer customer) {
+      this.customer = customer;
+      return this;
+   }
+
+   @ApiModelProperty(value = "Customer detail")
+   @JsonProperty("customer")
+   public Customer getCustomer() {
+      return customer;
+   }
+
+   public void setCustomer(Customer customer) {
+      this.customer = customer;
    }
 
    /**
@@ -54,26 +76,23 @@ public class PaymentResponse extends LinkableResponse {
       this.slipData = slipData;
    }
 
-   @Override
-   public boolean equals(Object o) {
-      if (this == o) {
-         return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-         return false;
-      }
-      PaymentResponse paymentResponse = (PaymentResponse) o;
-      return Objects.equals(id, paymentResponse.id) && Objects.equals(account, paymentResponse.account)
-            && Objects.equals(customer, paymentResponse.customer) && Objects.equals(linkData, paymentResponse.linkData)
-            && Objects.equals(processor, paymentResponse.processor)
-            && Objects.equals(receiver, paymentResponse.receiver)
-            && Objects.equals(paymentResponseDetail, paymentResponse.paymentResponseDetail)
-            && Objects.equals(slipData, paymentResponse.slipData);
+   /**
+    * Response amount
+    **/
+   public PaymentResponse responseAmount(LedgerAmount responseAmount) {
+      this.responseAmount = responseAmount;
+      return this;
    }
 
-   @Override
-   public int hashCode() {
-      return Objects.hash(id, account, customer, linkData, processor, receiver, paymentResponseDetail, slipData);
+   @ApiModelProperty(required = true, value = "Response amount")
+   @JsonProperty("responseAmount")
+   @NotNull
+   public LedgerAmount getResponseAmount() {
+      return responseAmount;
+   }
+
+   public void setResponseAmount(LedgerAmount responseAmount) {
+      this.responseAmount = responseAmount;
    }
 
    @Override
@@ -81,25 +100,12 @@ public class PaymentResponse extends LinkableResponse {
       StringBuilder sb = new StringBuilder();
       sb.append("class PaymentResponse {\n");
 
-      sb.append("    id: ").append(toIndentedString(id)).append("\n");
-      sb.append("    account: ").append(toIndentedString(account)).append("\n");
-      sb.append("    customer: ").append(toIndentedString(customer)).append("\n");
-      sb.append("    linkData: ").append(toIndentedString(linkData)).append("\n");
-      sb.append("    processor: ").append(toIndentedString(processor)).append("\n");
-      sb.append("    receiver: ").append(toIndentedString(receiver)).append("\n");
-      sb.append("    paymentResponseDetail: ").append(toIndentedString(paymentResponseDetail)).append("\n");
-      sb.append("    slipData: ").append(toIndentedString(slipData)).append("\n");
+      sb.append("    linkData: ").append(Utils.toIndentedString(linkData)).append("\n");
+      sb.append("    account: ").append(Utils.toIndentedString(account)).append("\n");
+      sb.append("    customer: ").append(Utils.toIndentedString(customer)).append("\n");
+      sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
+      sb.append("    responseAmount: ").append(Utils.toIndentedString(responseAmount)).append("\n");
       sb.append("}");
       return sb.toString();
-   }
-
-   /**
-    * Convert the given object to string with each line indented by 4 spaces (except the first line).
-    */
-   private String toIndentedString(Object o) {
-      if (o == null) {
-         return "null";
-      }
-      return o.toString().replace("\n", "\n    ");
    }
 }

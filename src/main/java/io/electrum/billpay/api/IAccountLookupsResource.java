@@ -10,6 +10,7 @@ import javax.ws.rs.core.UriInfo;
 public interface IAccountLookupsResource {
 
    void requestAccountInfo(
+         String id,
          AccountLookupRequest body,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,

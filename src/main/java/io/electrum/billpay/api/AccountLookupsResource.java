@@ -13,6 +13,7 @@ import io.swagger.annotations.Authorization;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.core.Context;
@@ -20,7 +21,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
-@Path("/accountLookups")
+@Path("/accountLookups/{requestId}")
 @Consumes({ "application/json" })
 @Produces({ "application/json" })
 @Api(description = "the accountLookups API", authorizations = { @Authorization("httpBasic") })
@@ -39,12 +40,19 @@ public abstract class AccountLookupsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void requestAccountInfo(
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("requestId") String requestId,
          @ApiParam(value = "An account lookup request", required = true) AccountLookupRequest body,
          @Context SecurityContext securityContext,
          @Context AsyncResponse asyncResponse,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().requestAccountInfo(body, securityContext, asyncResponse, httpHeaders, uriInfo);
+      getResourceImplementation().requestAccountInfo(
+            requestId,
+            body,
+            securityContext,
+            asyncResponse,
+            httpHeaders,
+            uriInfo);
    }
 }

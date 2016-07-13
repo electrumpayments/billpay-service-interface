@@ -1,12 +1,13 @@
 package io.electrum.billpay.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.electrum.vas.Utils;
+import io.electrum.vas.model.BasicRequest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 /**
  * The data required to request account info
@@ -37,43 +38,15 @@ public class AccountLookupRequest extends BasicRequest {
    }
 
    @Override
-   public boolean equals(Object o) {
-      if (this == o) {
-         return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-         return false;
-      }
-      AccountLookupRequest accountLookupRequest = (AccountLookupRequest) o;
-      return Objects.equals(accountRef, accountLookupRequest.accountRef)
-            && Objects.equals(messageId, accountLookupRequest.messageId)
-            && Objects.equals(merchant, accountLookupRequest.merchant);
-   }
-
-   @Override
-   public int hashCode() {
-      return Objects.hash(accountRef, messageId, merchant);
-   }
-
-   @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
       sb.append("class AccountLookupRequest {\n");
 
-      sb.append("    accountRef: ").append(toIndentedString(accountRef)).append("\n");
-      sb.append("    messageId: ").append(toIndentedString(messageId)).append("\n");
-      sb.append("    merchant: ").append(toIndentedString(merchant)).append("\n");
+      sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
+      sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
+      sb.append("    sender: ").append(Utils.toIndentedString(sender)).append("\n");
+      sb.append("    accountRef: ").append(Utils.toIndentedString(accountRef)).append("\n");
       sb.append("}");
       return sb.toString();
-   }
-
-   /**
-    * Convert the given object to string with each line indented by 4 spaces (except the first line).
-    */
-   private String toIndentedString(Object o) {
-      if (o == null) {
-         return "null";
-      }
-      return o.toString().replace("\n", "\n    ");
    }
 }

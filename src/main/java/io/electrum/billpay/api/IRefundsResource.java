@@ -1,8 +1,8 @@
 package io.electrum.billpay.api;
 
-import io.electrum.billpay.model.PaymentRequest;
-import io.electrum.billpay.model.PaymentReversal;
-import io.electrum.vas.model.TenderAdvice;
+import io.electrum.billpay.model.RefundRequest;
+import io.electrum.billpay.model.RefundReversal;
+import io.electrum.vas.model.BasicAdvice;
 
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.core.HttpHeaders;
@@ -10,29 +10,29 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import java.util.UUID;
 
-public interface IPaymentsResource {
+public interface IRefundsResource {
 
-   void confirmPayment(
+   void confirmRefund(
          UUID id,
-         UUID paymentId,
-         TenderAdvice body,
+         UUID refundId,
+         BasicAdvice body,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,
          HttpHeaders httpHeaders,
          UriInfo uriInfo);
 
-   void createPayment(
+   void createRefund(
          UUID id,
-         PaymentRequest body,
+         RefundRequest body,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,
          HttpHeaders httpHeaders,
          UriInfo uriInfo);
 
-   void reversePayment(
+   void reverseRefund(
          UUID id,
-         UUID paymentId,
-         PaymentReversal body,
+         UUID refundId,
+         RefundReversal body,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,
          HttpHeaders httpHeaders,

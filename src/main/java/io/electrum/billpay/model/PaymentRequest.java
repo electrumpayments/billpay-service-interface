@@ -1,12 +1,15 @@
 package io.electrum.billpay.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.electrum.vas.Utils;
+import io.electrum.vas.model.BasicRequest;
+import io.electrum.vas.model.LedgerAmount;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
+import javax.validation.constraints.Pattern;
 
 /**
  * Represents a request to perform a payment
@@ -15,7 +18,8 @@ import java.util.Objects;
 public class PaymentRequest extends BasicRequest {
 
    private String accountRef = null;
-   private PaymentRequestDetail paymentRequestDetail = null;
+   private String clientRef = null;
+   private LedgerAmount requestAmount = null;
 
    /**
     * A reference number identifying the bill payments processor, bill issuer, and customer
@@ -38,41 +42,41 @@ public class PaymentRequest extends BasicRequest {
    }
 
    /**
-    * Request specific details
+    * A reference number useful to the client for identifying transactions, also knows as a retrieval reference number
     **/
-   public PaymentRequest paymentRequestDetail(PaymentRequestDetail paymentRequestDetail) {
-      this.paymentRequestDetail = paymentRequestDetail;
+   public PaymentRequest clientRef(String clientRef) {
+      this.clientRef = clientRef;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "Request specific details")
-   @JsonProperty("paymentRequestDetail")
+   @ApiModelProperty(value = "A reference number useful to the client for identifying transactions, also knows as a retrieval reference number")
+   @JsonProperty("clientRef")
+   @Pattern(regexp = "[A-Za-z0-9 ]{0,12}")
+   public String getClientRef() {
+      return clientRef;
+   }
+
+   public void setClientRef(String clientRef) {
+      this.clientRef = clientRef;
+   }
+
+   /**
+    * The requested amount
+    **/
+   public PaymentRequest requestAmount(LedgerAmount requestAmount) {
+      this.requestAmount = requestAmount;
+      return this;
+   }
+
+   @ApiModelProperty(required = true)
+   @JsonProperty("requestAmount")
    @NotNull
-   public PaymentRequestDetail getPaymentRequestDetail() {
-      return paymentRequestDetail;
+   public LedgerAmount getRequestAmount() {
+      return requestAmount;
    }
 
-   public void setPaymentRequestDetail(PaymentRequestDetail paymentRequestDetail) {
-      this.paymentRequestDetail = paymentRequestDetail;
-   }
-
-   @Override
-   public boolean equals(Object o) {
-      if (this == o) {
-         return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-         return false;
-      }
-      PaymentRequest paymentRequest = (PaymentRequest) o;
-      return Objects.equals(accountRef, paymentRequest.accountRef)
-            && Objects.equals(messageId, paymentRequest.messageId) && Objects.equals(merchant, paymentRequest.merchant)
-            && Objects.equals(paymentRequestDetail, paymentRequest.paymentRequestDetail);
-   }
-
-   @Override
-   public int hashCode() {
-      return Objects.hash(accountRef, messageId, merchant, paymentRequestDetail);
+   public void setRequestAmount(LedgerAmount requestAmount) {
+      this.requestAmount = requestAmount;
    }
 
    @Override
@@ -80,21 +84,13 @@ public class PaymentRequest extends BasicRequest {
       StringBuilder sb = new StringBuilder();
       sb.append("class PaymentRequest {\n");
 
-      sb.append("    accountRef: ").append(toIndentedString(accountRef)).append("\n");
-      sb.append("    messageId: ").append(toIndentedString(messageId)).append("\n");
-      sb.append("    merchant: ").append(toIndentedString(merchant)).append("\n");
-      sb.append("    paymentRequestDetail: ").append(toIndentedString(paymentRequestDetail)).append("\n");
+      sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
+      sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
+      sb.append("    sender: ").append(Utils.toIndentedString(sender)).append("\n");
+      sb.append("    accountRef: ").append(Utils.toIndentedString(accountRef)).append("\n");
+      sb.append("    clientRef: ").append(Utils.toIndentedString(clientRef)).append("\n");
+      sb.append("    requestAmount: ").append(Utils.toIndentedString(requestAmount)).append("\n");
       sb.append("}");
       return sb.toString();
-   }
-
-   /**
-    * Convert the given object to string with each line indented by 4 spaces (except the first line).
-    */
-   private String toIndentedString(Object o) {
-      if (o == null) {
-         return "null";
-      }
-      return o.toString().replace("\n", "\n    ");
    }
 }

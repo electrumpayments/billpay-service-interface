@@ -1,13 +1,14 @@
 package io.electrum.billpay.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.electrum.vas.Utils;
+import io.electrum.vas.model.BasicRequest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Objects;
 
 /**
  * Represents a request to refund a payment
@@ -61,43 +62,16 @@ public class RefundRequest extends BasicRequest {
    }
 
    @Override
-   public boolean equals(Object o) {
-      if (this == o) {
-         return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-         return false;
-      }
-      RefundRequest refundRequest = (RefundRequest) o;
-      return Objects.equals(messageId, refundRequest.messageId)
-            && Objects.equals(issuerReference, refundRequest.issuerReference)
-            && Objects.equals(refundReason, refundRequest.refundReason);
-   }
-
-   @Override
-   public int hashCode() {
-      return Objects.hash(messageId, issuerReference, refundReason);
-   }
-
-   @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
       sb.append("class RefundRequest {\n");
 
-      sb.append("    messageId: ").append(toIndentedString(messageId)).append("\n");
-      sb.append("    issuerReference: ").append(toIndentedString(issuerReference)).append("\n");
-      sb.append("    refundReason: ").append(toIndentedString(refundReason)).append("\n");
+      sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
+      sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
+      sb.append("    sender: ").append(Utils.toIndentedString(sender)).append("\n");
+      sb.append("    issuerReference: ").append(Utils.toIndentedString(issuerReference)).append("\n");
+      sb.append("    refundReason: ").append(Utils.toIndentedString(refundReason)).append("\n");
       sb.append("}");
       return sb.toString();
-   }
-
-   /**
-    * Convert the given object to string with each line indented by 4 spaces (except the first line).
-    */
-   private String toIndentedString(Object o) {
-      if (o == null) {
-         return "null";
-      }
-      return o.toString().replace("\n", "\n    ");
    }
 }
