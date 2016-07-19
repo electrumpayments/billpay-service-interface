@@ -7,9 +7,9 @@ menu:
 
 This section depicts some transaction flows. It is not an exhaustive list of all conceivable flows, but does attempt to show the most interesting scenarios.
 
-When developing a downstream integration into the Billpay service, Electrum hosts the *Billpay Service* and the flows should be viewed from the perspective of the *Downstream Entity*. When developing an upstream integration, Electrum in the *Downstream Entity* and the flows should be viewed from the perspective of the *Billpay Service*.
+When developing a downstream integration into the Billpay service, Electrum hosts the *Billpay Service* and the flows should be viewed from the perspective of the *Downstream Entity*. When developing an upstream integration, Electrum is the *Downstream Entity* and the flows should be viewed from the perspective of the *Billpay Service*.
 
-Interactions between the Billpay Service and the Upstream Entity are purely shown for completeness. The actual communication between the Billpay Service implementation and upstream entities is out of scope of this document and may very well differ from the indicative flows shown below. Interactions between the downstream entity and the Billpay service should, on the other hand, strictly be adhered to.
+Interactions between the Billpay Service and the *Upstream Entity* are purely shown for completeness. The actual communication between the Billpay Service implementation and upstream entities is out of scope of this document and may very well differ from the indicative flows shown below. Interactions between the downstream entity and the Billpay service should, on the other hand, strictly be adhered to.
 
 
 # Account Info
@@ -33,15 +33,15 @@ If account info requests are not supported by the Billpay Service, it shall retu
 
 # Payments
 
-Payments transactions always consist of a request leg, followed by a confirmation / cancellation / reversal leg to advice on the completion of the transaction. This kind of flow is commonly referred to as "dual messaging".
+Payments transactions always consist of a request leg, followed by a confirmation / reversal leg to advice on the completion of the transaction. This kind of flow is commonly referred to as "dual messaging", since the confirmation is always required, even for positive completions.
 
-In order to maintain system consistency, it is important that all advice messages are queued in persistent storage and repeated until an acknowledgement of receipt is received from the Billpay Service implementation. This process is commonly referred to as store-and-forward.
+In order to maintain system consistency, it is important that all advice messages are queued in persistent storage and repeated until a _final_ response is received from the service. Refer to the section on [store-and-forward](/protocol-basics/#store-and-forward) for more details.
 
 ## Declined Payment
 
-In the below flow the payment request is permanently declined by the Billpay Service due to a format error in the request. A similar flow would result if an entity upstream of the Billpay Service permanently declines a payment, or if the payment could not be sent to the upstream entity due to it being offline.
+In the below flow the payment request is permanently declined by the service due to a format error in the request. A similar flow would result if an entity upstream of the service permanently declines a payment, or if the payment could not be sent to the upstream entity due to it being offline.
 
-Refer to the section on [failures](/protocol-basics/#failures) for a definitive explanation of failure conditions, but any response with an HTTP status code other than success (2xx), Internal Server Error (500), or Gateway Timeout (504) are considered "declines". Declined transactions are confirmed not to have been actioned and do not have to be completed with a confirmation, cancellation, or reversal.
+Refer to the section on [failures](/protocol-basics/#failures) for a definitive explanation of failure conditions, but in summary, any response with an HTTP status code other than success (2xx), Internal Server Error (500), or Gateway Timeout (504) are considered "declines". Declined transactions are confirmed not to have been actioned and do not have to be completed with a confirmation or reversal.
 
 ![A Declined Payment](/images/sequence-declined-payment.png "A Declined Payment")
 
@@ -51,19 +51,13 @@ The below flow depicts the normal flow of a successfully confirmed bill payment.
 
 ![A Successful Payment](/images/sequence-successful-payment.png "A Successful Payment")
 
-## Cancelled Payment
-
-If a bill payment request is responded to successfully, but needs to be cancelled before being completed, it should be cancelled as depicted below.
-
-An example of a cancellation scenario would be where the customer abandons the basket, or tender is unsuccessful.
-
-Note that it is always possible to perform a cancellation as a reversal. It is, however, preferable to make use of a cancellation in all cases where the paymentId is known, since many provider and issuer systems perform better when looking up a transaction by paymentId rather than using the original message fields.
-
-![A Cancelled Payment](/images/sequence-cancelled-payment.png "A Cancelled Payment")
-
 ## Reversed Payment
 
-A payment request must be reversed if the response status code is Internal Server Error (500) or Gateway Timeout (504), or the request times out without receiving any response. In such cases, the paymentId is not known, and the transaction can thus not be cancelled. A reversal body merely contains the same message fields as the payment request, so Billpay Service implementations shall ensure that payments can be matched on only fields contained in the payment request - typically making use of the fields provided in the [MessageId](/specification/definitions/#messageid) object.
+A payment should be reversed by the downstream entity if, either it is cancelled by the customer or originator _before_ being confirmed, or if an _unknown_ status type response is received from the service.
+
+An example of a cancellation scenario would be where the customer abandons the basket, or where the tender is unsuccessful.
+
+An _unknown_ status type is one where the HTTP status code is Internal Server Error (500) or Gateway Timeout (504), or where the request times out before a response is received. Refer to the section on [failures](/protocol-basics/#failures) for more information on failure conditions.
 
 ![A reversed Payment](/images/sequence-reversed-payment.png "A reversed Payment")
 
@@ -72,7 +66,7 @@ A payment request must be reversed if the response status code is Internal Serve
 
 Some bill payments processors allow customers to request a refund of a successfully completed payment previously made for a certain time period after the original payment.
 
-Billpay Service implementations are not required to support refunds, or may only support refunds for certain bill issuers or processors. It is, however, required that when refunds are not supported, the Billpay Service returns a 501 (Not Implemented) HTTP status code when it receives such a request.
+Billpay Service implementations are not required to support refunds, or may only support refunds for certain bill issuers or processors. It is, however, required that when refunds are not supported, the Billpay Service returns a 501 (Not Implemented) HTTP status code when it receives an unsupported request.
 
 Similar to payments, refunds follow a dual message flow requiring a request leg, followed by an advice leg.
 
@@ -92,18 +86,12 @@ A successfully completed refund transaction is depicted below.
 
 ![A Successful Refund](/images/sequence-successful-refund.png "A Successful Refund")
 
-## Cancelled Refund
-
-If a refund request is responded to successfully, but needs to be cancelled before being completed, it should be cancelled as depicted below.
-
-An example of a cancellation scenario would be where the customer abandons the basket.
-
-Note that it is always possible to perform a cancellation as a reversal. It is, however, preferable to make use of a cancellation in all cases where the refundId is known, since many provider and issuer systems perform better when looking up a transaction by refundId rather than using the original message fields.
-
-![A Cancelled Refund](/images/sequence-cancelled-refund.png "A Cancelled Refund")
-
 ## Reversed Refund
 
-A refund request must be reversed if the response status code is Internal Server Error (500) or Gateway Timeout (504), or the request times out without receiving any response. In such cases, the refundId is not known, and the transaction can thus not be cancelled. A reversal body merely contains the same message fields as the refund request, so Billpay Service implementations shall ensure that refunds can be matched on only fields contained in the payment request - typically making use of the fields provided in the [MessageId](/specification/definitions/#messageid) object.
+A refund should be reversed by the downstream entity if, either it is cancelled by the customer or originator _before_ being confirmed, or if an _unknown_ status type response is received from the service.
+
+An example of a cancellation scenario would be where the customer abandons the basket, or where the tender is unsuccessful.
+
+An _unknown_ status type is one where the HTTP status code is Internal Server Error (500) or Gateway Timeout (504), or where the request times out before a response is received. Refer to the section on [failures](/protocol-basics/#failures) for more information on failure conditions.
 
 ![A Reversed Refund](/images/sequence-reversed-refund.png "A Reversed Refund")
