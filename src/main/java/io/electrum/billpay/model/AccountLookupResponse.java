@@ -1,59 +1,19 @@
 package io.electrum.billpay.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.electrum.vas.Utils;
-import io.electrum.vas.model.BasicResponse;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * The data resulting from an account lookup request
  **/
 @ApiModel(description = "The data resulting from an account lookup request")
-public class AccountLookupResponse extends BasicResponse {
+public class AccountLookupResponse extends BillpayResponse {
 
-   private Account account = null;
-   private Customer customer = null;
    private SlipData slipData = null;
-
-   /**
-    * The customer account detail
-    **/
-   public AccountLookupResponse account(Account account) {
-      this.account = account;
-      return this;
-   }
-
-   @ApiModelProperty(required = true, value = "The customer account detail")
-   @JsonProperty("account")
-   @NotNull
-   public Account getAccount() {
-      return account;
-   }
-
-   public void setAccount(Account account) {
-      this.account = account;
-   }
-
-   /**
-    * Customer detail
-    **/
-   public AccountLookupResponse customer(Customer customer) {
-      this.customer = customer;
-      return this;
-   }
-
-   @ApiModelProperty(value = "Customer detail")
-   @JsonProperty("customer")
-   public Customer getCustomer() {
-      return customer;
-   }
-
-   public void setCustomer(Customer customer) {
-      this.customer = customer;
-   }
 
    /**
     * Data that should be printed on the customer receipt
