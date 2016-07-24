@@ -14,11 +14,11 @@ All communication shall be secured by establishing an SSL encrypted transport. B
 
 ## Failures
 
-The outcome of a request shall be determined by examining the HTTP status code of the response. It is important to understand the meaning of
+The outcome of a request shall be determined by examining the HTTP status code of the response.
 
 ### Status type
 
-Three basic types of outcomes are possible for transactions, namely: _successful_, _unknown_, and _failed_. HTTP status codes are mapped to one of the possible outcomes as indicated below.
+Three outcomes for a transaction are possible and can be classed as follows: _successful_, _unknown_, and _failed_. HTTP status codes fall under one of the possible outcomes as indicated below.
 
 HTTP Status Codes         | Status type
 --------------------------|---------------------------------------------------------------------------------------------
@@ -30,12 +30,15 @@ A timeout occurs when the client has not received a response to a request after 
 
 ### ErrorDetail
 
-In addition to the HTTP status code, non-successful response bodies shall contain an [ErrorDetail](/specification/definitions/#errordetail) object, if possible, to describe the failure in more detail. It should be noted though, that clients should expect the possibility of an empty response body in some failure scenarios.
+In addition to the HTTP status code, non-successful response bodies shall contain an [ErrorDetail](/specification/definitions/#errordetail) object, if possible, to describe the failure in more detail. 
+It should be noted though, that responses in some failure scenarios will contain an empty response body, and therefore no ErrorDetail object will be present.
 
 
 ## Store-and-forward
 
-To ensure that loss of transactional data is minimized, it is required that clients store advice messages in persistent storage and queue them until a _final_ status type is received. A final response is one of either the _successful_ or _failed_ status types. If no response is received, or a response with an _unknown_ status code is received, advice messages shall be queued and the message at the head of queue repeated on an interval until a final status type is received. For high throughput systems it shall be acceptable to send several messages in parallel, and as such they may be received out of order.
+To ensure that loss of transactional data is minimized, it is required that clients store advice messages (see [Transaction flows](/transaction-flows)) in persistent storage and queue them until a _final_ status type is received. 
+A final response is one of either the _successful_ or _failed_ status types. If no response is received, or a response with an _unknown_ status type is received, advice messages shall be queued and the message at the head of queue repeated on an interval 
+until a final status type is received. For high throughput systems it shall be acceptable to send several advice messages in parallel, and as such, advices may be received out of order at the server.
 
 The above applies to the following operations:
 

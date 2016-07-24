@@ -68,7 +68,7 @@ public class PaymentRequest extends BasicRequest {
       return this;
    }
 
-   @ApiModelProperty(required = true)
+   @ApiModelProperty(required = true, value = "The cash amount, in minor denomination, paid by the customer to settle the bill")
    @JsonProperty("requestAmount")
    @NotNull
    public LedgerAmount getRequestAmount() {

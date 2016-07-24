@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModel;
 /**
  * Represents a response to a payment request
  **/
-@ApiModel(description = "Represents a response to a payment request")
+@ApiModel(description = "Represents a response to a refund request")
 public class RefundResponse extends BillpayResponse {
 
    @Override
