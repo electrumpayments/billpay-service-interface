@@ -45,7 +45,7 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void confirmPayment(
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("adviceId") UUID adviceId,
-         @ApiParam(value = "The UUID generated for the corresponding createPayment request", required = true) @PathParam("paymentId") UUID paymentId,
+         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam("paymentId") UUID paymentId,
          @ApiParam(value = "A payment confirmation", required = true) TenderAdvice body,
          @Context SecurityContext securityContext,
          @Context AsyncResponse asyncResponse,
@@ -65,7 +65,7 @@ public abstract class PaymentsResource {
    @POST
    @Consumes({ "application/json" })
    @Produces({ "application/json" })
-   @ApiOperation(value = "Initiate a bill payment transaction", notes = "BasicRequest that a payment be made towards a customer account")
+   @ApiOperation(value = "Initiate a bill payment transaction", notes = "Requests that a payment be made towards a customer account")
    @ApiResponses(value = {
          @ApiResponse(code = 201, message = "Created", response = PaymentResponse.class, responseHeaders = { @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
@@ -87,7 +87,7 @@ public abstract class PaymentsResource {
    @Path("/reversals/{adviceId}")
    @Consumes({ "application/json" })
    @Produces({ "application/json" })
-   @ApiOperation(value = "Reverse a payment request that failed or timed out", notes = "If a createPayment request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not refelected on a customer's account. reversePayment must be repeated until a final HTTP status code is received (not 500 or 504). reversePayment may be called repeatedly on the same payment resource without negative effect.")
+   @ApiOperation(value = "Reverse a payment request that failed or timed out", notes = "If a createPayment request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not reflected on a customer's account. reversePayment must be repeated until a final HTTP status code is received (not 500 or 504). reversePayment may be called repeatedly on the same payment resource without negative effect.")
    @ApiResponses(value = { @ApiResponse(code = 202, message = "Accepted"),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -95,8 +95,8 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void reversePayment(
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("adviceId") UUID adviceId,
-         @ApiParam(value = "The UUID generated for the corresponding createPayment request", required = true) @PathParam("paymentId") UUID paymentId,
-         @ApiParam(value = "The PaymentRequest originally sent in the createPayment request", required = true) PaymentReversal body,
+         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam("paymentId") UUID paymentId,
+         @ApiParam(value = "A payment reversal", required = true) PaymentReversal body,
          @Context SecurityContext securityContext,
          @Context AsyncResponse asyncResponse,
          @Context HttpHeaders httpHeaders,

@@ -187,8 +187,8 @@
                 <securityDefinition>
                   <name>httpBasic</name>
                   <type>basic</type>
-                  <description>All requests require HTTP basic authentication, where user name equals the value used in
-                    MessageId.institutionId and password has been agreed with Electrum.
+                  <description>All requests require HTTP basic authentication, where user name is the value used in
+                    Sender.Institution.Id and password has been agreed with Electrum.
                   </description>
                 </securityDefinition>
               </securityDefinitions>

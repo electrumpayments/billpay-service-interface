@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Data that may be printed on the custoemr slip for information purposes
+ * Data that may be printed on the customer slip for information purposes
  **/
-@ApiModel(description = "Data that may be printed on the custoemr slip for information purposes")
+@ApiModel(description = "Data that may be printed on the customer slip for information purposes")
 public class SlipData {
 
    private List<String> messageLines = new ArrayList<>();
