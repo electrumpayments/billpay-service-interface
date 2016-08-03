@@ -5,11 +5,11 @@ menu:
     weight: 0
 ---
 
-The Billpay Service Interface is a RESTful HTTP based messaging protocol, used to connect retailers to bill payments processors and issuers, as well as to connect bill payments processors and issuers to Electrum.
+The Billpay Service Interface is an apache licensed RESTful HTTP based messaging protocol, intended to enable interoperability between bill payment service providers and retailers/retail banks.
 
-Electrum enables acquiring institutions like retailers and banks to access an established and growing network of bill payments issuers and providers via the Billpay Service interface. At the same time, the Billpay Service Interface is made available to allow bill payments providers a quick, well defined route towards integrating into the Electrum network and access to participating acquirers. 
+Using the Billpay Service Interface enables retailers/retail banks to access an established and growing group of bill payments service providers who support the interface. At the same time, the Billpay Service Interface is made available to allow bill payment service providers a quick, well defined route towards integrating into retailers/retail banks.
 
-When starting out a development project using this interface, it is thus important to view this documentation either from the perspective of an transaction acquirer developing a client application into the Electrum Billpay Service, or of a bill payments provider or issuer developing a server application with the view of accepting bill payments from Electrum's acquirers.
+When starting out a development project using this interface, it is thus important to view this documentation either from the perspective of an transaction acquirer developing a client application into the Electrum Billpay Service, or of a bill payments provider or issuer developing a server application with the view of accepting bill payments from an Electrum acquirer.
 
 
 ## Supported languages
