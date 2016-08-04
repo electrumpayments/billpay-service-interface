@@ -47,7 +47,7 @@ public abstract class AccountLookupsResource {
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().requestAccountInfo(
+      getResourceImplementation().requestAccountInfoImpl(
             requestId,
             body,
             securityContext,

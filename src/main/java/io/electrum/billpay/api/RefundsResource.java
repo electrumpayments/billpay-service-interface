@@ -53,7 +53,7 @@ public abstract class RefundsResource {
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().confirmRefund(
+      getResourceImplementation().confirmRefundImpl(
             adviceId,
             refundId,
             body,
@@ -82,7 +82,7 @@ public abstract class RefundsResource {
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().createRefund(refundId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
+      getResourceImplementation().createRefundImpl(refundId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
    }
 
    @POST
@@ -104,7 +104,7 @@ public abstract class RefundsResource {
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().reverseRefund(
+      getResourceImplementation().reverseRefundImpl(
             adviceId,
             refundId,
             body,

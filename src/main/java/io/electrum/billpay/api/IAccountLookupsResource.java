@@ -9,7 +9,7 @@ import javax.ws.rs.core.UriInfo;
 
 public interface IAccountLookupsResource {
 
-   void requestAccountInfo(
+   void requestAccountInfoImpl(
          String id,
          AccountLookupRequest body,
          SecurityContext securityContext,

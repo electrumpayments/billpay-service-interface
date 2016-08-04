@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public interface IRefundsResource {
 
-   void confirmRefund(
+   void confirmRefundImpl(
          UUID id,
          UUID refundId,
          BasicAdvice body,
@@ -21,7 +21,7 @@ public interface IRefundsResource {
          HttpHeaders httpHeaders,
          UriInfo uriInfo);
 
-   void createRefund(
+   void createRefundImpl(
          UUID id,
          RefundRequest body,
          SecurityContext securityContext,
@@ -29,7 +29,7 @@ public interface IRefundsResource {
          HttpHeaders httpHeaders,
          UriInfo uriInfo);
 
-   void reverseRefund(
+   void reverseRefundImpl(
          UUID id,
          UUID refundId,
          RefundReversal body,
