@@ -12,14 +12,14 @@ public class PaymentReversal extends BasicReversal {
    private PaymentRequest paymentRequest = null;
 
    /**
-    * The PaymentRequest object previously present in a createPayment operation for which no response was received
+    * The PaymentRequest object previously present in a createPaymentImpl operation for which no response was received
     */
    public PaymentReversal issuerReference(PaymentRequest paymentRequest) {
       this.paymentRequest = paymentRequest;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The PaymentRequest object previously present in a createPayment operation for which no response was received")
+   @ApiModelProperty(required = true, value = "The PaymentRequest object previously present in a createPaymentImpl operation for which no response was received")
    @JsonProperty("paymentRequest")
    @NotNull
    public PaymentRequest getPaymentRequest() {

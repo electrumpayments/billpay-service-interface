@@ -52,14 +52,8 @@ public abstract class PaymentsResource {
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().confirmPayment(
-            adviceId,
-            paymentId,
-            body,
-            securityContext,
-            asyncResponse,
-            httpHeaders,
-            uriInfo);
+      getResourceImplementation()
+            .confirmPaymentImpl(adviceId, paymentId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
    }
 
    @POST
@@ -67,7 +61,8 @@ public abstract class PaymentsResource {
    @Produces({ "application/json" })
    @ApiOperation(value = "Initiate a bill payment transaction", notes = "Requests that a payment be made towards a customer account")
    @ApiResponses(value = {
-         @ApiResponse(code = 201, message = "Created", response = PaymentResponse.class, responseHeaders = { @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
+         @ApiResponse(code = 201, message = "Created", response = PaymentResponse.class, responseHeaders = {
+               @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
@@ -80,7 +75,8 @@ public abstract class PaymentsResource {
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().createPayment(paymentId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
+      getResourceImplementation()
+            .createPaymentImpl(paymentId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
    }
 
    @POST
@@ -102,13 +98,7 @@ public abstract class PaymentsResource {
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().reversePayment(
-            adviceId,
-            paymentId,
-            body,
-            securityContext,
-            asyncResponse,
-            httpHeaders,
-            uriInfo);
+      getResourceImplementation()
+            .reversePaymentImpl(adviceId, paymentId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
    }
 }
