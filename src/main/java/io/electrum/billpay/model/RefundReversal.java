@@ -1,11 +1,13 @@
 package io.electrum.billpay.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.electrum.vas.Utils;
 import io.electrum.vas.model.BasicReversal;
-import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
 
 public class RefundReversal extends BasicReversal {
 
@@ -22,11 +24,11 @@ public class RefundReversal extends BasicReversal {
    @ApiModelProperty(required = true, value = "The RefundRequest object previously present in a createRefund operation for which no response was received")
    @JsonProperty("refundRequest")
    @NotNull
-   public RefundRequest getPaymentRequest() {
+   public RefundRequest getRefundRequest() {
       return refundRequest;
    }
 
-   public void setPaymentRequest(RefundRequest paymentRequest) {
+   public void setRefundRequest(RefundRequest paymentRequest) {
       this.refundRequest = paymentRequest;
    }
 

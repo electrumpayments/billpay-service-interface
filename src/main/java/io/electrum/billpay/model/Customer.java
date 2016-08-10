@@ -1,12 +1,13 @@
 package io.electrum.billpay.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Objects;
 
 import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * A bill payment customer
@@ -17,6 +18,8 @@ public class Customer {
    private String firstName = null;
    private String lastName = null;
    private String address = null;
+   private String idNumber = null;
+   private String contactNumber = null;
 
    /**
     * The customer's first name(s)
@@ -75,6 +78,44 @@ public class Customer {
       this.address = address;
    }
 
+   /**
+    * The customer's ID number
+    **/
+   public Customer idNumber(String idNumber) {
+      this.idNumber = idNumber;
+      return this;
+   }
+
+   @ApiModelProperty(value = "The customer's ID Number")
+   @JsonProperty("idNumber")
+   @Length(max = 13)
+   public String getIdNumber() {
+      return idNumber;
+   }
+
+   public void setIdNumber(String idNumber) {
+      this.idNumber = idNumber;
+   }
+
+   /**
+    * The customer's contact number
+    **/
+   public Customer contactNumber(String contactNumber) {
+      this.contactNumber = contactNumber;
+      return this;
+   }
+
+   @ApiModelProperty(value = "The customer's contact number")
+   @JsonProperty("contactNumber")
+   @Length(max = 40)
+   public String getContactNumber() {
+      return contactNumber;
+   }
+
+   public void setContactNumber(String contactNumber) {
+      this.contactNumber = contactNumber;
+   }
+
    @Override
    public boolean equals(Object o) {
       if (this == o) {
@@ -85,12 +126,13 @@ public class Customer {
       }
       Customer customer = (Customer) o;
       return Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName)
-            && Objects.equals(address, customer.address);
+            && Objects.equals(address, customer.address) && Objects.equals(idNumber, customer.idNumber)
+            && Objects.equals(contactNumber, customer.contactNumber);
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(firstName, lastName, address);
+      return Objects.hash(firstName, lastName, address, idNumber, contactNumber);
    }
 
    @Override
@@ -101,6 +143,8 @@ public class Customer {
       sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
       sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
       sb.append("    address: ").append(toIndentedString(address)).append("\n");
+      sb.append("    idNumber: ").append(toIndentedString(idNumber)).append("\n");
+      sb.append("    contactNumber: ").append(toIndentedString(contactNumber)).append("\n");
       sb.append("}");
       return sb.toString();
    }

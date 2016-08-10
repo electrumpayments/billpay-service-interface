@@ -55,10 +55,13 @@ public abstract class AccountLookupsResource {
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
+      getResourceImplementation().requestAccountInfo(
             requestId,
             body,
             securityContext,
             asyncResponse,
+            request,
+            httpServletRequest,
             httpHeaders,
             uriInfo);
    }
