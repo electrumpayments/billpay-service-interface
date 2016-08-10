@@ -5,6 +5,23 @@ import io.electrum.billpay.model.PaymentRequest;
 import io.electrum.billpay.model.PaymentResponse;
 import io.electrum.billpay.model.PaymentReversal;
 import io.electrum.vas.model.TenderAdvice;
+
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.UriInfo;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -12,18 +29,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ResponseHeader;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.container.AsyncResponse;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.SecurityContext;
-import javax.ws.rs.core.UriInfo;
-import java.util.UUID;
 
 @Path("/payments/{paymentId}")
 @Consumes({ "application/json" })
@@ -48,12 +53,22 @@ public abstract class PaymentsResource {
          @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam("paymentId") UUID paymentId,
          @ApiParam(value = "A payment confirmation", required = true) TenderAdvice body,
          @Context SecurityContext securityContext,
-         @Context AsyncResponse asyncResponse,
+         @Suspended AsyncResponse asyncResponse,
+         @Context Request request,
+         @Context HttpServletRequest httpServletRequest,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation()
-            .confirmPaymentImpl(adviceId, paymentId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
+      getResourceImplementation().confirmPayment(
+            adviceId,
+            paymentId,
+            body,
+            securityContext,
+            asyncResponse,
+            request,
+            httpServletRequest,
+            httpHeaders,
+            uriInfo);
    }
 
    @POST
@@ -71,12 +86,21 @@ public abstract class PaymentsResource {
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("paymentId") UUID paymentId,
          @ApiParam(value = "A payment request", required = true) PaymentRequest body,
          @Context SecurityContext securityContext,
-         @Context AsyncResponse asyncResponse,
+         @Suspended AsyncResponse asyncResponse,
+         @Context Request request,
+         @Context HttpServletRequest httpServletRequest,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation()
-            .createPaymentImpl(paymentId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
+      getResourceImplementation().createPayment(
+            paymentId,
+            body,
+            securityContext,
+            asyncResponse,
+            request,
+            httpServletRequest,
+            httpHeaders,
+            uriInfo);
    }
 
    @POST
@@ -94,11 +118,21 @@ public abstract class PaymentsResource {
          @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam("paymentId") UUID paymentId,
          @ApiParam(value = "A payment reversal", required = true) PaymentReversal body,
          @Context SecurityContext securityContext,
-         @Context AsyncResponse asyncResponse,
+         @Suspended AsyncResponse asyncResponse,
+         @Context Request request,
+         @Context HttpServletRequest httpServletRequest,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation()
-            .reversePaymentImpl(adviceId, paymentId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
+      getResourceImplementation().reversePayment(
+            adviceId,
+            paymentId,
+            body,
+            securityContext,
+            asyncResponse,
+            request,
+            httpServletRequest,
+            httpHeaders,
+            uriInfo);
    }
 }

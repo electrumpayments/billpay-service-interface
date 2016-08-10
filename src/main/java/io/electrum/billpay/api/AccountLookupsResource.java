@@ -3,23 +3,29 @@ package io.electrum.billpay.api;
 import io.electrum.billpay.model.AccountLookupRequest;
 import io.electrum.billpay.model.AccountLookupResponse;
 import io.electrum.billpay.model.ErrorDetail;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.Authorization;
 
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
 
 @Path("/accountLookups/{requestId}")
 @Consumes({ "application/json" })
@@ -40,14 +46,15 @@ public abstract class AccountLookupsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void requestAccountInfo(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("requestId") String requestId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("requestId") UUID requestId,
          @ApiParam(value = "An account lookup request", required = true) AccountLookupRequest body,
          @Context SecurityContext securityContext,
-         @Context AsyncResponse asyncResponse,
+         @Suspended AsyncResponse asyncResponse,
+         @Context Request request,
+         @Context HttpServletRequest httpServletRequest,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().requestAccountInfoImpl(
             requestId,
             body,
             securityContext,

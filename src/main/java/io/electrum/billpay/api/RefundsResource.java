@@ -1,11 +1,27 @@
 package io.electrum.billpay.api;
 
 import io.electrum.billpay.model.ErrorDetail;
-import io.electrum.billpay.model.PaymentReversal;
 import io.electrum.billpay.model.RefundRequest;
 import io.electrum.billpay.model.RefundResponse;
 import io.electrum.billpay.model.RefundReversal;
 import io.electrum.vas.model.BasicAdvice;
+
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.UriInfo;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,18 +29,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ResponseHeader;
-
-import java.util.UUID;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.container.AsyncResponse;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.SecurityContext;
-import javax.ws.rs.core.UriInfo;
 
 @Path("/refunds/{refundId}")
 @Consumes({ "application/json" })
@@ -49,16 +53,20 @@ public abstract class RefundsResource {
          @ApiParam(value = "The UUID generated for the corresponding createRefund request", required = true) @PathParam("refundId") UUID refundId,
          @ApiParam(value = "A refund confirmation", required = true) BasicAdvice body,
          @Context SecurityContext securityContext,
-         @Context AsyncResponse asyncResponse,
+         @Suspended AsyncResponse asyncResponse,
+         @Context Request request,
+         @Context HttpServletRequest httpServletRequest,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().confirmRefundImpl(
+      getResourceImplementation().confirmRefund(
             adviceId,
             refundId,
             body,
             securityContext,
             asyncResponse,
+            request,
+            httpServletRequest,
             httpHeaders,
             uriInfo);
    }
@@ -68,7 +76,8 @@ public abstract class RefundsResource {
    @Produces({ "application/json" })
    @ApiOperation(value = "Creates a refund of previously confirmed payment", notes = "If a payment is completed and confirmed successfully, some services support that customers may request a refund for a particular payment for some time after the payment took place. Not all services support refunds. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned")
    @ApiResponses(value = {
-         @ApiResponse(code = 201, message = "Created", response = RefundResponse.class, responseHeaders = { @ResponseHeader(name = "Location", description = "The location of the created refund resource", response = String.class) }),
+         @ApiResponse(code = 201, message = "Created", response = RefundResponse.class, responseHeaders = {
+               @ResponseHeader(name = "Location", description = "The location of the created refund resource", response = String.class) }),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
          @ApiResponse(code = 501, message = "Not implemented", response = ErrorDetail.class),
@@ -78,11 +87,21 @@ public abstract class RefundsResource {
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("refundId") UUID refundId,
          @ApiParam(value = "A refund request", required = true) RefundRequest body,
          @Context SecurityContext securityContext,
-         @Context AsyncResponse asyncResponse,
+         @Suspended AsyncResponse asyncResponse,
+         @Context Request request,
+         @Context HttpServletRequest httpServletRequest,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().createRefundImpl(refundId, body, securityContext, asyncResponse, httpHeaders, uriInfo);
+      getResourceImplementation().createRefund(
+            refundId,
+            body,
+            securityContext,
+            asyncResponse,
+            request,
+            httpServletRequest,
+            httpHeaders,
+            uriInfo);
    }
 
    @POST
@@ -100,16 +119,20 @@ public abstract class RefundsResource {
          @ApiParam(value = "The UUID generated for the corresponding createRefund request", required = true) @PathParam("refundId") UUID refundId,
          @ApiParam(value = "A refund reversal", required = true) RefundReversal body,
          @Context SecurityContext securityContext,
-         @Context AsyncResponse asyncResponse,
+         @Suspended AsyncResponse asyncResponse,
+         @Context Request request,
+         @Context HttpServletRequest httpServletRequest,
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().reverseRefundImpl(
+      getResourceImplementation().reverseRefund(
             adviceId,
             refundId,
             body,
             securityContext,
             asyncResponse,
+            request,
+            httpServletRequest,
             httpHeaders,
             uriInfo);
    }
