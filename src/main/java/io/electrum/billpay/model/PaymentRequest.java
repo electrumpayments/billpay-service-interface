@@ -18,7 +18,6 @@ import javax.validation.constraints.Pattern;
 public class PaymentRequest extends BasicRequest {
 
    private String accountRef = null;
-   private String clientRef = null;
    private LedgerAmount requestAmount = null;
 
    /**
@@ -39,25 +38,6 @@ public class PaymentRequest extends BasicRequest {
 
    public void setAccountRef(String accountRef) {
       this.accountRef = accountRef;
-   }
-
-   /**
-    * A reference number useful to the client for identifying transactions, also knows as a retrieval reference number
-    **/
-   public PaymentRequest clientRef(String clientRef) {
-      this.clientRef = clientRef;
-      return this;
-   }
-
-   @ApiModelProperty(value = "A reference number useful to the client for identifying transactions, also knows as a retrieval reference number")
-   @JsonProperty("clientRef")
-   @Pattern(regexp = "[A-Za-z0-9 ]{0,12}")
-   public String getClientRef() {
-      return clientRef;
-   }
-
-   public void setClientRef(String clientRef) {
-      this.clientRef = clientRef;
    }
 
    /**
@@ -88,7 +68,6 @@ public class PaymentRequest extends BasicRequest {
       sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
       sb.append("    sender: ").append(Utils.toIndentedString(sender)).append("\n");
       sb.append("    accountRef: ").append(Utils.toIndentedString(accountRef)).append("\n");
-      sb.append("    clientRef: ").append(Utils.toIndentedString(clientRef)).append("\n");
       sb.append("    requestAmount: ").append(Utils.toIndentedString(requestAmount)).append("\n");
       sb.append("}");
       return sb.toString();
