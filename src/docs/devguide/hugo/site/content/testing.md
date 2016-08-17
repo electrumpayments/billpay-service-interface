@@ -59,10 +59,11 @@ described in the service interface will be validated as well as processed agains
 | View all PaymentReversals that have been made     | /test/allPaymentReversals |
 | View all RefundConfirmations that have been made     | /test/allRefundConfirmations |
 | View all RefundReversals that have been made     | /test/allRefundReversals |
+| Reset all accounts and remove all messges received     | /test/reset |
 
 
 ### Testing message correctness
-Messages will be validated for correctness against the service interface, in the event that a field is missing something familiar to the following can be expected:
+Messages will be validated for correctness against the service interface, in the event that a field is missing something similar to the following can be expected:
 
 ```json
 {
