@@ -4,23 +4,26 @@ menu:
   main:
     weight: 20
 ---
-Testing tools are provided to assist with development. Tools for testing either a client or a server are provided as described below. 
+Testing tools are provided to assist with development. Tools for testing either a client or a server are provided [here](https://github.com/electrumpayments/billpay-test-server) and 
+described below. 
 
 ## Testing a Server
-Testing a server implementation can be achieved using this Postman (Collection v2) REST test pack. These tests consist of correctly formatted JSON messages that validate server responses. Tests may also consist of a message flow in which multiple related messages are sent sequentially to the server to test handling of state-full interactions (such as requests and confirmations).  
+Testing a server implementation can be achieved using [this](https://github.com/electrumpayments/billpay-test-server/tree/master/test/postman) Postman (Collection v2) REST test pack. 
+These tests consist of correctly formatted JSON messages that validate server responses. Tests may also consist of a message flow in which multiple related messages are sent sequentially to the server to test handling of state-full interactions (such as requests and confirmations).  
 
-The test pack is comprised of three JSON files: `billpaytest_server_tests.postman_collection.json` , `heroku.postman_environment.json` and `localhost.postman_environment.json`. The first file contains the tests that will be run and contains the JSON message structures as detailed by the service interface. These tests are dependant variables contained in the the following two files, these being identical save for the server endpoint they point to:
+The test pack is comprised of three JSON files: `billpaytest_server_tests.postman_collection.json` , `heroku.postman_environment.json` and `localhost.postman_environment.json`. 
+The first file is a collection of JSON tests that will be run, herein one will find JSON request messages and response validation scripts. These tests are dependant on variables contained in the the preceding two files, these being identical save for the server endpoint they point to:
 
 ```json		
-		{
-			"enabled": true,
-			"key": "url",
-			"type": "text",
-			"value": "https://billpay-test-server.herokuapp.com"
-		}
+{
+  "enabled": true,
+  "key": "url",
+  "type": "text",
+  "value": "https://billpay-test-server.herokuapp.com"
+}
 ```
 
-Changing the above property within an environment will change the server to which messages are sent.
+Changing the above property within an environment will change the endpoint to which messages are sent.
 
 ###Running tests
 
@@ -30,20 +33,20 @@ There are two possible ways to run this test pack: either via the Postman deskto
 1. Download Postman at: https://www.getpostman.com/apps
 1. Import the test collection and environments via the Import option 
 1. Open the Collection Runner and select the Runs tab
-1. Select test collection and environment and hit Start Test. Note that individual test subsections may be selected.
+1. Select a test collection and environment and hit Start Test. Note that individual test subsections may be selected.
 
-Note that that tests may be run individually from the main Postman view where test conditions a structures may be changed.
+Note that that tests may be run individually from the main Postman view where test conditions and structures may be modified.
 
 ####Newman
-1. Install newman (make sure Node Package Manager is installed):
+1. Install newman (make sure Node Package Manager is installed first):
 	`npm install newman -g`
 1. Run the tests:
 	`newman run billpaytest_server_tests.postman_collection.json -e localhost.postman_environment.json`
 1. This will run all tests and provide a basic breakdown of which tests passed and failed.
 
-
 ##Testing a Client
-To test a client implementation a test server is provided at: https://billpay-test-server.herokuapp.com. Messages sent to this server via the urls described in the service interface will be validated as well as processed against a set of preloaded mock customer accounts.
+To test a client implementation a test server is provided at: https://billpay-test-server.herokuapp.com. Messages sent to this server via the urls 
+described in the service interface will be validated as well as processed against a set of preloaded mock customer accounts.
 
 ####Test utils
 | Action                                                  | Url                     |
@@ -90,14 +93,16 @@ An errorType of `FORMAT_ERROR` is returned followed by an explanation of the for
 
 * The "messageProperty" attribute containing the element in which the error occurs
 * The "field"  attribute containing the field that has been formatted incorrectly
-* The "error" field contains information on what violation has occured
+* The "error" field contains information on what violation has occurred
 * The "invalidValue" field contains the incorrectly formatted value that was used
 
 ###Customer Accounts
-Forty-five mock customer accounts are loaded and are available for the testing of payment flows. For a example changes to an accounts balance via a PaymentRequest and PaymentConfirmation will remain unless a RefundRequest and RefundConfirmation are made for said PaymentRequest. Details about all test accounts can be seen using `/test/allAccounts`.
+Forty-five mock customer accounts are loaded and are available for the testing of payment flows. For a example changes to an accounts balance via a PaymentRequest and PaymentConfirmation 
+will remain unless a RefundRequest and RefundConfirmation are made for said PaymentRequest. Details about all test accounts can be seen using `/test/allAccounts`.
 
 ###Message State
-Validation is also performed on the different messages as they relate to other messages that have been received or not received. For example if a message is with a ID that has already been used in a previous message something similar to the following will occur:
+Validation is also performed on the different messages as they relate to other messages that have been received (or not received). 
+For example if a message is received with an ID that has already been used in a previous message something similar to the following can be expected:
 
 ```json
 {
@@ -107,7 +112,7 @@ Validation is also performed on the different messages as they relate to other m
 }
 ```
 
-Or, if a reversal request is sent after a confirmation (or vice-versa) something similar to the following will occur:
+Or, if a reversal request is sent after a confirmation (or vice-versa) something similar to the following can be expected:
 
 ```json
 {
@@ -144,7 +149,7 @@ Or, if a reversal request is sent after a confirmation (or vice-versa) something
 }
 ```
 
-Or, if a confirmation or reversal is sent but no request precedes them, something similar to the following will occur:
+Or, if a confirmation or reversal are sent but no request precedes them, something similar to the following can be expected:
 
 ```json
 {
