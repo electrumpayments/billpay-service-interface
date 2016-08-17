@@ -1,4 +1,4 @@
-# Billpay Service Interface
+# Billpay Service Interface  [![CircleCI](https://circleci.com/gh/electrumpayments/billpay-service-interface/tree/master.svg?style=shield)](https://circleci.com/gh/electrumpayments/billpay-service-interface/tree/master)
 
 The Billpay Service Interface documents the messaging interface used by Electrum to connect acquirers, processors, and issuers together for performing bill payments transactions.
 
