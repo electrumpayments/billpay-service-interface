@@ -29,20 +29,20 @@ Changing the above property within an environment will change the endpoint to wh
 
 There are two possible ways to run this test pack: either via the Postman desktop client or via Newman, the command line interface for Postman.
 
-#### Postman:
+#### Postman
 1. Download Postman at: https://www.getpostman.com/apps
-1. Import the test collection and environments via the Import option 
-1. Open the Collection Runner and select the Runs tab
-1. Select a test collection and environment and hit Start Test. Note that individual test subsections may be selected.
+2. Import the test collection and environments via the Import option 
+3. Open the Collection Runner and select the Runs tab
+4. Select a test collection and environment and hit Start Test. Note that individual test subsections may be selected.
 
 Note that that tests may be run individually from the main Postman view where test conditions and structures may be modified.
 
 #### Newman
 1. Install newman (make sure Node Package Manager is installed first):
 	`npm install newman -g`
-1. Run the tests:
+2. Run the tests:
 	`newman run billpaytest_server_tests.postman_collection.json -e localhost.postman_environment.json`
-1. This will run all tests and provide a basic breakdown of which tests passed and failed.
+3. This will run all tests and provide a basic breakdown of which tests passed and failed.
 
 ## Testing a Client
 To test a client implementation a test server is provided at: https://billpay-test-server.herokuapp.com. Messages sent to this server via the urls 
