@@ -48,7 +48,7 @@ Note that that tests may be run individually from the main Postman view where te
 To test a client implementation a test server is provided at: https://billpay-test-server.herokuapp.com. Messages sent to this server via the urls 
 described in the service interface will be validated as well as processed against a set of preloaded mock customer accounts.
 
-#### Test utils
+### Test utils
 | Action                                                  | Url                     |
 |---------------------------------------------------------|-------------------------|
 | View all loaded customer accounts and their information | /test/allAccounts       |
@@ -60,6 +60,7 @@ described in the service interface will be validated as well as processed agains
 | View all RefundConfirmations that have been made     | /test/allRefundConfirmations |
 | View all RefundReversals that have been made     | /test/allRefundReversals |
 | Reset all accounts and remove all messges received     | /test/reset |
+| Add a BillPayment account     | /test/addAccount |
 
 
 ### Testing message correctness
@@ -100,6 +101,34 @@ An errorType of `FORMAT_ERROR` is returned followed by an explanation of the for
 ### Customer Accounts
 Forty-five mock customer accounts are loaded and are available for the testing of payment flows. For a example changes to an accounts balance via a PaymentRequest and PaymentConfirmation 
 will remain unless a RefundRequest and RefundConfirmation are made for said PaymentRequest. Details about all test accounts can be seen using `/test/allAccounts`.
+
+New BillPayment accounts can be added via `/test/addAccount` with JSON similar to the following:
+
+```json
+{
+    "accountRef": "3523234233",
+    "balance": {
+        "amount": 54222,
+        "currency": "ZAR"
+    },
+    "customer": {
+        "address": "Gentle Bay Hornets Nest, Midgard",
+        "contactNumber": "4410424778",
+        "firstName": "Colbey",
+        "idNumber": "3967397865159",
+        "lastName": "Calistinsson"
+    }
+}
+```
+
+The only mandatory field here is `accountRef` neglecting to poplulate the other fields will result in server generated data being used. 
+For example the following request JSON is valid:
+
+```json
+{
+    "accountRef": "3523234233"
+}
+```
 
 ### Message State
 Validation is also performed on the different messages as they relate to other messages that have been received (or not received). 
