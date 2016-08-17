@@ -2,7 +2,7 @@
 title: "Testing"
 menu:
   main:
-    weight: 20
+    weight: 40
 ---
 Testing tools are provided to assist with development. Tools for testing either a client or a server are provided [here](https://github.com/electrumpayments/billpay-test-server) and 
 described below. 
@@ -25,11 +25,11 @@ The first file is a collection of JSON tests that will be run, herein one will f
 
 Changing the above property within an environment will change the endpoint to which messages are sent.
 
-###Running tests
+### Running tests
 
 There are two possible ways to run this test pack: either via the Postman desktop client or via Newman, the command line interface for Postman.
 
-####Postman:
+#### Postman:
 1. Download Postman at: https://www.getpostman.com/apps
 1. Import the test collection and environments via the Import option 
 1. Open the Collection Runner and select the Runs tab
@@ -37,18 +37,18 @@ There are two possible ways to run this test pack: either via the Postman deskto
 
 Note that that tests may be run individually from the main Postman view where test conditions and structures may be modified.
 
-####Newman
+#### Newman
 1. Install newman (make sure Node Package Manager is installed first):
 	`npm install newman -g`
 1. Run the tests:
 	`newman run billpaytest_server_tests.postman_collection.json -e localhost.postman_environment.json`
 1. This will run all tests and provide a basic breakdown of which tests passed and failed.
 
-##Testing a Client
+## Testing a Client
 To test a client implementation a test server is provided at: https://billpay-test-server.herokuapp.com. Messages sent to this server via the urls 
 described in the service interface will be validated as well as processed against a set of preloaded mock customer accounts.
 
-####Test utils
+#### Test utils
 | Action                                                  | Url                     |
 |---------------------------------------------------------|-------------------------|
 | View all loaded customer accounts and their information | /test/allAccounts       |
@@ -61,7 +61,7 @@ described in the service interface will be validated as well as processed agains
 | View all RefundReversals that have been made     | /test/allRefundReversals |
 
 
-###Testing message correctness
+### Testing message correctness
 Messages will be validated for correctness against the service interface, in the event that a field is missing something familiar to the following can be expected:
 
 ```json
@@ -96,11 +96,11 @@ An errorType of `FORMAT_ERROR` is returned followed by an explanation of the for
 * The "error" field contains information on what violation has occurred
 * The "invalidValue" field contains the incorrectly formatted value that was used
 
-###Customer Accounts
+### Customer Accounts
 Forty-five mock customer accounts are loaded and are available for the testing of payment flows. For a example changes to an accounts balance via a PaymentRequest and PaymentConfirmation 
 will remain unless a RefundRequest and RefundConfirmation are made for said PaymentRequest. Details about all test accounts can be seen using `/test/allAccounts`.
 
-###Message State
+### Message State
 Validation is also performed on the different messages as they relate to other messages that have been received (or not received). 
 For example if a message is received with an ID that has already been used in a previous message something similar to the following can be expected:
 
