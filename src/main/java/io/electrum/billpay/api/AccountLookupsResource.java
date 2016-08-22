@@ -2,7 +2,7 @@ package io.electrum.billpay.api;
 
 import io.electrum.billpay.model.AccountLookupRequest;
 import io.electrum.billpay.model.AccountLookupResponse;
-import io.electrum.billpay.model.ErrorDetail;
+import io.electrum.vas.model.ErrorDetail;
 
 import java.util.UUID;
 

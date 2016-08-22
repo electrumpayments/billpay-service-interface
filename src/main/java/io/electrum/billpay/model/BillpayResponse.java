@@ -1,12 +1,14 @@
 package io.electrum.billpay.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.electrum.vas.model.BasicResponse;
-import io.swagger.annotations.ApiModelProperty;
+import io.electrum.vas.model.Transaction;
 
 import javax.validation.constraints.NotNull;
 
-public abstract class BillpayResponse extends BasicResponse {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModelProperty;
+
+public abstract class BillpayResponse extends Transaction {
    protected Account account = null;
    protected Customer customer = null;
 

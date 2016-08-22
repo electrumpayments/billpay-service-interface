@@ -1,10 +1,10 @@
 package io.electrum.billpay.api;
 
-import io.electrum.billpay.model.ErrorDetail;
 import io.electrum.billpay.model.RefundRequest;
 import io.electrum.billpay.model.RefundResponse;
 import io.electrum.billpay.model.RefundReversal;
 import io.electrum.vas.model.BasicAdvice;
+import io.electrum.vas.model.ErrorDetail;
 
 import java.util.UUID;
 

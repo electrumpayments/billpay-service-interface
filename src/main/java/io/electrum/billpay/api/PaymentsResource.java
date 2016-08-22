@@ -1,9 +1,9 @@
 package io.electrum.billpay.api;
 
-import io.electrum.billpay.model.ErrorDetail;
 import io.electrum.billpay.model.PaymentRequest;
 import io.electrum.billpay.model.PaymentResponse;
 import io.electrum.billpay.model.PaymentReversal;
+import io.electrum.vas.model.ErrorDetail;
 import io.electrum.vas.model.TenderAdvice;
 
 import java.util.UUID;

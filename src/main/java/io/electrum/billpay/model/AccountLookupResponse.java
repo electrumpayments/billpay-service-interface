@@ -1,6 +1,7 @@
 package io.electrum.billpay.model;
 
 import io.electrum.vas.Utils;
+import io.electrum.vas.model.ThirdPartyIdentifier;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -38,10 +39,18 @@ public class AccountLookupResponse extends BillpayResponse {
       StringBuilder sb = new StringBuilder();
       sb.append("class AccountLookupResponse {\n");
 
-      sb.append("    linkData: ").append(Utils.toIndentedString(linkData)).append("\n");
-      sb.append("    account: ").append(Utils.toIndentedString(account)).append("\n");
-      sb.append("    customer: ").append(Utils.toIndentedString(customer)).append("\n");
+      sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
+      sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
+      sb.append("    originator: ").append(Utils.toIndentedString(originator)).append("\n");
+      sb.append("    client: ").append(Utils.toIndentedString(client)).append("\n");
+      sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
+      sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
       sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
+      sb.append("    transactionIdentifiers: [");
+      for (ThirdPartyIdentifier thirdPartyIdentifier : thirdPartyIdentifiers) {
+         sb.append(Utils.toIndentedString("\n    ")).append(Utils.toIndentedString(thirdPartyIdentifier));
+      }
+      sb.append("    ]\n");
       sb.append("}");
       return sb.toString();
    }
