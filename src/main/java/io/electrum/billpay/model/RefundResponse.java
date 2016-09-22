@@ -18,6 +18,7 @@ public class RefundResponse extends BillpayResponse {
       sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
       sb.append("    account: ").append(Utils.toIndentedString(account)).append("\n");
       sb.append("    customer: ").append(Utils.toIndentedString(customer)).append("\n");
+      sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
       sb.append("}");
       return sb.toString();
    }

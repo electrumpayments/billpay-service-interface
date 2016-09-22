@@ -1,9 +1,5 @@
 package io.electrum.billpay.api;
 
-import io.electrum.billpay.model.AccountLookupRequest;
-import io.electrum.billpay.model.AccountLookupResponse;
-import io.electrum.vas.model.ErrorDetail;
-
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +16,9 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
+import io.electrum.billpay.model.AccountLookupRequest;
+import io.electrum.billpay.model.AccountLookupResponse;
+import io.electrum.billpay.model.ErrorDetail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

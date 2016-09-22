@@ -1,5 +1,6 @@
 package io.electrum.billpay.model;
 
+import io.electrum.vas.model.Amounts;
 import io.electrum.vas.model.Transaction;
 
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 public abstract class BillpayResponse extends Transaction {
    protected Account account = null;
    protected Customer customer = null;
+   protected Amounts amounts = null;
 
    /**
     * The customer account detail
@@ -47,5 +49,24 @@ public abstract class BillpayResponse extends Transaction {
 
    public void setCustomer(Customer customer) {
       this.customer = customer;
+   }
+
+   /**
+    * The message amount details such as account balance.
+    **/
+   public BillpayResponse amounts(Amounts amounts) {
+      this.amounts = amounts;
+      return this;
+   }
+
+   @ApiModelProperty(required = true, value = "The message amount details such as account balance.")
+   @JsonProperty("amounts")
+   @NotNull
+   public Amounts getAmounts() {
+      return amounts;
+   }
+
+   public void setAmounts(Amounts amounts) {
+      this.amounts = amounts;
    }
 }

@@ -1,11 +1,5 @@
 package io.electrum.billpay.api;
 
-import io.electrum.billpay.model.RefundRequest;
-import io.electrum.billpay.model.RefundResponse;
-import io.electrum.billpay.model.RefundReversal;
-import io.electrum.vas.model.BasicAdvice;
-import io.electrum.vas.model.ErrorDetail;
-
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +16,11 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
+import io.electrum.billpay.model.ErrorDetail;
+import io.electrum.billpay.model.RefundRequest;
+import io.electrum.billpay.model.RefundResponse;
+import io.electrum.vas.model.BasicAdvice;
+import io.electrum.vas.model.BasicReversal;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -117,7 +116,7 @@ public abstract class RefundsResource {
    public void reverseRefund(
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("adviceId") UUID adviceId,
          @ApiParam(value = "The UUID generated for the corresponding createRefund request", required = true) @PathParam("refundId") UUID refundId,
-         @ApiParam(value = "A refund reversal", required = true) RefundReversal body,
+         @ApiParam(value = "A refund reversal", required = true) BasicReversal body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
          @Context Request request,

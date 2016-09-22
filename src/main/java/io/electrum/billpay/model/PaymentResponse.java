@@ -1,13 +1,11 @@
 package io.electrum.billpay.model;
 
-import io.electrum.vas.Utils;
-import io.electrum.vas.model.LedgerAmount;
-import io.electrum.vas.model.ThirdPartyIdentifier;
-
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.electrum.vas.Utils;
+import io.electrum.vas.model.ThirdPartyIdentifier;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -18,7 +16,6 @@ import io.swagger.annotations.ApiModelProperty;
 public class PaymentResponse extends BillpayResponse {
 
    private SlipData slipData = null;
-   private LedgerAmount responseAmount = null;
 
    /**
     * Data that should be printed on the customer receipt
@@ -39,25 +36,6 @@ public class PaymentResponse extends BillpayResponse {
       this.slipData = slipData;
    }
 
-   /**
-    * Response amount
-    **/
-   public PaymentResponse responseAmount(LedgerAmount responseAmount) {
-      this.responseAmount = responseAmount;
-      return this;
-   }
-
-   @ApiModelProperty(required = true, value = "Response amount")
-   @JsonProperty("responseAmount")
-   @NotNull
-   public LedgerAmount getResponseAmount() {
-      return responseAmount;
-   }
-
-   public void setResponseAmount(LedgerAmount responseAmount) {
-      this.responseAmount = responseAmount;
-   }
-
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
@@ -70,10 +48,9 @@ public class PaymentResponse extends BillpayResponse {
       sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
       sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
       sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
-      sb.append("    responseAmount: ").append(Utils.toIndentedString(responseAmount)).append("\n");
+      sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
       sb.append("    transactionIdentifiers: [");
-      for(ThirdPartyIdentifier thirdPartyIdentifier : thirdPartyIdentifiers)
-      {
+      for (ThirdPartyIdentifier thirdPartyIdentifier : thirdPartyIdentifiers) {
          sb.append(Utils.toIndentedString("\n    ")).append(Utils.toIndentedString(thirdPartyIdentifier));
       }
       sb.append("    ]\n");
