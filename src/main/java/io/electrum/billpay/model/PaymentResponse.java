@@ -1,40 +1,14 @@
 package io.electrum.billpay.model;
 
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.electrum.vas.Utils;
 import io.electrum.vas.model.ThirdPartyIdentifier;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Represents a response to a payment request
  **/
 @ApiModel(description = "Represents a response to a payment request")
 public class PaymentResponse extends BillpayResponse {
-
-   private SlipData slipData = null;
-
-   /**
-    * Data that should be printed on the customer receipt
-    **/
-   public PaymentResponse slipData(SlipData slipData) {
-      this.slipData = slipData;
-      return this;
-   }
-
-   @ApiModelProperty(required = true, value = "Data that should be printed on the customer receipt")
-   @JsonProperty("slipData")
-   @NotNull
-   public SlipData getSlipData() {
-      return slipData;
-   }
-
-   public void setSlipData(SlipData slipData) {
-      this.slipData = slipData;
-   }
 
    @Override
    public String toString() {

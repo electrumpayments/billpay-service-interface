@@ -1,7 +1,5 @@
 package io.electrum.billpay.api;
 
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -45,7 +43,7 @@ public abstract class AccountLookupsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void requestAccountInfo(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("requestId") UUID requestId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("requestId") String requestId,
          @ApiParam(value = "An account lookup request", required = true) AccountLookupRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,

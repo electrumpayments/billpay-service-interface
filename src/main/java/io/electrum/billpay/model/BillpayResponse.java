@@ -13,6 +13,26 @@ public abstract class BillpayResponse extends Transaction {
    protected Account account = null;
    protected Customer customer = null;
    protected Amounts amounts = null;
+   protected BillSlipData slipData = null;
+
+   /**
+    * Data that should be printed on the customer receipt
+    **/
+   public BillpayResponse slipData(BillSlipData slipData) {
+      this.slipData = slipData;
+      return this;
+   }
+
+   @ApiModelProperty(required = true, value = "Data that should be printed on the customer receipt")
+   @JsonProperty("slipData")
+   @NotNull
+   public BillSlipData getSlipData() {
+      return slipData;
+   }
+
+   public void setSlipData(BillSlipData slipData) {
+      this.slipData = slipData;
+   }
 
    /**
     * The customer account detail

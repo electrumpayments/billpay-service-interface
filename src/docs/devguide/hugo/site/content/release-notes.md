@@ -2,59 +2,76 @@ This page describes changes to the Billpay Service Interface implemented across 
 
 ## v4.0.0
 
-Released 21 September 2016
+Released 10 October 2016
 
-- Aligned Airtime Service Interface with base service interface (v2.0.9).
-- Added amounts field (Amounts model) to VoucherRequest and VoucherResponse models.
-- Product model changes:
-  - Removed amount field.
-  - Added type field.
-  - Added name field.
-- Removed request field from VoucherReversal model thereby making VoucherReversal just a conventional BasicReversal.
-- Dropped void endpoint.
-- Dropped VoucherVoid model.
+- Aligned Billpay Service Interface with base service interface (v2.0.11).
+  - Formatting included as part of SlipLine entries in BillSlipData field.
+  - Defined BasicAdviceResponse returned when acknowledging an advice.
+  - Added request IDs and request type to ErrorDetail responses.
 
-## v3.0.0
+## v3.0.3
 
 Released 25 August 2016
 
-- Added tenders to VoucherConfirmations.
-- Added reversalReason to VoucherReversals.
+- Aligned Billpay Service Interface with base service interface (v2.0.6).
 
-## v2.0.3
+## v3.0.2
 
 Released 25 August 2016
 
-- Aligned Airtime Service Interface with base service interface (v2.0.6).
+- Aligned Billpay Service Interface with base service interface (v2.0.5).
 
-## v2.0.1
-
-Released 23 August 2016
-
-- No spec changes.
-
-## v2.0.0
+## v3.0.1
 
 Released 22 August 2016
 
-- Aligned Airtime Service Interface with base service interface (v2.0.4).
+- Aligned Billpay Service Interface with base service interface (v2.0.4).
 
-## v1.2.0
+## v3.0.0
 
-Released 15 August 2016
+Released 22 August 2016
 
-- Updated models to better specify required fields.
+- Aligned Billpay Service Interface with base service interface (v2.0.3).
 
-## v1.1.0
+## v2.0.5
 
-Released 8 August 2016
+Released 12 August 2016
 
-- Updated resource paths.
-- Added Merchant, Processor and Vendor fields to messages.
-- Added DetailMessage model.
+- Removed clientRef field from PaymentRequests
+
+## v2.0.4
+
+Released 10 August 2016
+
+- Added ID number and contact number to customer description.
+- Further minor implementation detail changes.
+
+## v2.0.3
+
+Released 4 August 2016
+
+- Further minor implementation detail changes.
+
+## v2.0.2
+
+Released 4 August 2016
+
+- Minor implementation detail changes.
+
+## v2.0.1
+
+Released 19 July 2016
+
+- Added Account and Customer to basic response to all requests.
+
+## v2.0.0
+
+Released 13 July 2016
+
+- Aligned Billpay Service Interface with base service interface v1.0.0.
 
 ## v1.0.0
 
-Released 29 July 2016
+Released 30 June 2016
 
 Initial release.

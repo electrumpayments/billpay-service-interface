@@ -1,7 +1,5 @@
 package io.electrum.billpay.api;
 
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.core.HttpHeaders;
@@ -16,8 +14,8 @@ import io.electrum.vas.model.TenderAdvice;
 public interface IPaymentsResource {
 
    public void confirmPayment(
-         UUID id,
-         UUID paymentId,
+         String id,
+         String paymentId,
          TenderAdvice body,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,
@@ -27,7 +25,7 @@ public interface IPaymentsResource {
          UriInfo uriInfo);
 
    public void createPayment(
-         UUID id,
+         String id,
          PaymentRequest body,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,
@@ -37,8 +35,8 @@ public interface IPaymentsResource {
          UriInfo uriInfo);
 
    public void reversePayment(
-         UUID id,
-         UUID paymentId,
+         String id,
+         String paymentId,
          BasicReversal body,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,
