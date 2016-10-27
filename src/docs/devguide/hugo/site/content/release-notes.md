@@ -2,12 +2,13 @@ This page describes changes to the Billpay Service Interface implemented across 
 
 ## v4.0.0
 
-Released 10 October 2016
+Released 27 October 2016
 
-- Aligned Billpay Service Interface with base service interface (v2.0.11).
+- Aligned Billpay Service Interface with base service interface (v3.0.0).
   - Formatting included as part of SlipLine entries in BillSlipData field.
   - Defined BasicAdviceResponse returned when acknowledging an advice.
   - Added request IDs and request type to ErrorDetail responses.
+  - Amounts are now encapsulated in an Amounts model.
 
 ## v3.0.3
 
