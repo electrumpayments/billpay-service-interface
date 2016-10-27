@@ -1,11 +1,5 @@
 package io.electrum.billpay.api;
 
-import io.electrum.billpay.model.AccountLookupRequest;
-import io.electrum.billpay.model.AccountLookupResponse;
-import io.electrum.vas.model.ErrorDetail;
-
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -20,6 +14,9 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
+import io.electrum.billpay.model.AccountLookupRequest;
+import io.electrum.billpay.model.AccountLookupResponse;
+import io.electrum.billpay.model.ErrorDetail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -46,7 +43,7 @@ public abstract class AccountLookupsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void requestAccountInfo(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("requestId") UUID requestId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("requestId") String requestId,
          @ApiParam(value = "An account lookup request", required = true) AccountLookupRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,

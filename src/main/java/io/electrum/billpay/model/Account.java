@@ -1,15 +1,17 @@
 package io.electrum.billpay.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.electrum.vas.model.LedgerAmount;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Length;
 import org.joda.time.LocalDate;
 
-import javax.validation.constraints.NotNull;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Represents the status of a customer account
@@ -19,7 +21,6 @@ import java.util.Objects;
 public class Account {
 
    private String accountRef = null;
-   private LedgerAmount balance = null;
    private LocalDate dueDate = null;
 
    /**
@@ -40,24 +41,6 @@ public class Account {
 
    public void setAccountRef(String accountRef) {
       this.accountRef = accountRef;
-   }
-
-   /**
-    * The customer account balance
-    **/
-   public Account balance(LedgerAmount balance) {
-      this.balance = balance;
-      return this;
-   }
-
-   @ApiModelProperty(value = "The customer account balance")
-   @JsonProperty("balance")
-   public LedgerAmount getBalance() {
-      return balance;
-   }
-
-   public void setBalance(LedgerAmount balance) {
-      this.balance = balance;
    }
 
    /**
@@ -88,13 +71,12 @@ public class Account {
          return false;
       }
       Account account = (Account) o;
-      return Objects.equals(accountRef, account.accountRef) && Objects.equals(balance, account.balance)
-            && Objects.equals(dueDate, account.dueDate);
+      return Objects.equals(accountRef, account.accountRef) && Objects.equals(dueDate, account.dueDate);
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(accountRef, balance, dueDate);
+      return Objects.hash(accountRef, dueDate);
    }
 
    @Override
@@ -103,7 +85,6 @@ public class Account {
       sb.append("class Account {\n");
 
       sb.append("    accountRef: ").append(toIndentedString(accountRef)).append("\n");
-      sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
       sb.append("    dueDate: ").append(toIndentedString(dueDate)).append("\n");
       sb.append("}");
       return sb.toString();

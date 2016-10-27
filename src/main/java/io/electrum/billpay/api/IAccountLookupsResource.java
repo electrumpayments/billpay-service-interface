@@ -1,9 +1,5 @@
 package io.electrum.billpay.api;
 
-import io.electrum.billpay.model.AccountLookupRequest;
-
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.core.HttpHeaders;
@@ -11,10 +7,12 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
+import io.electrum.billpay.model.AccountLookupRequest;
+
 public interface IAccountLookupsResource {
 
    void requestAccountInfo(
-         UUID id,
+         String id,
          AccountLookupRequest body,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,

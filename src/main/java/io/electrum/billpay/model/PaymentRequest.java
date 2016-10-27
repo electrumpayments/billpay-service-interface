@@ -1,16 +1,15 @@
 package io.electrum.billpay.model;
 
-import io.electrum.vas.Utils;
-import io.electrum.vas.model.LedgerAmount;
-import io.electrum.vas.model.ThirdPartyIdentifier;
-import io.electrum.vas.model.Transaction;
-
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.electrum.vas.Utils;
+import io.electrum.vas.model.Amounts;
+import io.electrum.vas.model.ThirdPartyIdentifier;
+import io.electrum.vas.model.Transaction;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -21,7 +20,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class PaymentRequest extends Transaction {
 
    private String accountRef = null;
-   private LedgerAmount requestAmount = null;
+   private Amounts amounts = null;
 
    /**
     * A reference number identifying the bill payments processor, bill issuer, and customer
@@ -44,22 +43,22 @@ public class PaymentRequest extends Transaction {
    }
 
    /**
-    * The requested amount
+    * Contains the payment amount.
     **/
-   public PaymentRequest requestAmount(LedgerAmount requestAmount) {
-      this.requestAmount = requestAmount;
+   public PaymentRequest amounts(Amounts amounts) {
+      this.amounts = amounts;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The cash amount, in minor denomination, paid by the customer to settle the bill")
-   @JsonProperty("requestAmount")
+   @ApiModelProperty(required = true, value = "Contains the payment amount.")
+   @JsonProperty("amounts")
    @NotNull
-   public LedgerAmount getRequestAmount() {
-      return requestAmount;
+   public Amounts getAmounts() {
+      return amounts;
    }
 
-   public void setRequestAmount(LedgerAmount requestAmount) {
-      this.requestAmount = requestAmount;
+   public void setAmounts(Amounts amounts) {
+      this.amounts = amounts;
    }
 
    @Override
@@ -74,7 +73,7 @@ public class PaymentRequest extends Transaction {
       sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
       sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
       sb.append("    accountRef: ").append(Utils.toIndentedString(accountRef)).append("\n");
-      sb.append("    requestAmount: ").append(Utils.toIndentedString(requestAmount)).append("\n");
+      sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
       sb.append("    transactionIdentifiers: [");
       for (ThirdPartyIdentifier thirdPartyIdentifier : thirdPartyIdentifiers) {
          sb.append(Utils.toIndentedString("\n    ")).append(Utils.toIndentedString(thirdPartyIdentifier));
