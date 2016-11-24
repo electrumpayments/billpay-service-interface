@@ -1,7 +1,6 @@
 package io.electrum.billpay.model;
 
 import io.electrum.vas.Utils;
-import io.electrum.vas.model.ThirdPartyIdentifier;
 import io.swagger.annotations.ApiModel;
 
 /**
@@ -23,11 +22,9 @@ public class RefundResponse extends BillpayResponse {
       sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
       sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
       sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
-      sb.append("    transactionIdentifiers: [");
-      for (ThirdPartyIdentifier thirdPartyIdentifier : thirdPartyIdentifiers) {
-         sb.append(Utils.toIndentedString("\n    ")).append(Utils.toIndentedString(thirdPartyIdentifier));
-      }
-      sb.append("    ]\n");
+      sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
+      sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
+      sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");
       sb.append("}");
       return sb.toString();
    }

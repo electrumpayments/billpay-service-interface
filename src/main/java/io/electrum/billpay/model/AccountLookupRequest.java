@@ -1,15 +1,13 @@
 package io.electrum.billpay.model;
 
-import io.electrum.vas.Utils;
-import io.electrum.vas.model.ThirdPartyIdentifier;
-import io.electrum.vas.model.Transaction;
-
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.electrum.vas.Utils;
+import io.electrum.vas.model.Transaction;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -53,11 +51,9 @@ public class AccountLookupRequest extends Transaction {
       sb.append("    client: ").append(Utils.toIndentedString(client)).append("\n");
       sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
       sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
-      sb.append("    transactionIdentifiers: [");
-      for (ThirdPartyIdentifier thirdPartyIdentifier : thirdPartyIdentifiers) {
-         sb.append(Utils.toIndentedString("\n    ")).append(Utils.toIndentedString(thirdPartyIdentifier));
-      }
-      sb.append("    ]\n");
+      sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
+      sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
+      sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");
       sb.append("}");
       return sb.toString();
    }

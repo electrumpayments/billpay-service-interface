@@ -1,6 +1,7 @@
 package io.electrum.billpay.model;
 
 import io.electrum.vas.model.Amounts;
+import io.electrum.vas.model.SlipData;
 import io.electrum.vas.model.Transaction;
 
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,16 @@ public abstract class BillpayResponse extends Transaction {
    protected Customer customer = null;
    protected Amounts amounts = null;
    protected BillSlipData slipData = null;
+   protected boolean partPaymentAllowed = true;
+   protected boolean overPaymentAllowed = true;
+
+   /**
+    * Data that should be printed on the customer receipt
+    **/
+   @Override
+   public BillpayResponse slipData(SlipData slipData) {
+      return slipData((BillSlipData) slipData);
+   }
 
    /**
     * Data that should be printed on the customer receipt
@@ -88,5 +99,41 @@ public abstract class BillpayResponse extends Transaction {
 
    public void setAmounts(Amounts amounts) {
       this.amounts = amounts;
+   }
+
+   /**
+    * Indicates whether a payment amount may be less than the amount due. Defaults to true.
+    **/
+   public BillpayResponse partPaymentAllowed (boolean partPaymentAllowed) {
+      this.partPaymentAllowed = partPaymentAllowed;
+      return this;
+   }
+
+   @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Defaults to true.")
+   @JsonProperty("partPaymentAllowed")
+   public boolean getPartPaymentAllowed() {
+      return partPaymentAllowed;
+   }
+
+   public void setPartPaymentAllowed(boolean partPaymentAllowed) {
+      this.partPaymentAllowed = partPaymentAllowed;
+   }
+
+   /**
+    * Indicates whether a payment amount may be more than the amount due. Defaults to true.
+    **/
+   public BillpayResponse overPaymentAllowed (boolean overPaymentAllowed) {
+      this.overPaymentAllowed = overPaymentAllowed;
+      return this;
+   }
+
+   @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Defaults to true.")
+   @JsonProperty("overPaymentAllowed")
+   public boolean getOverPaymentAllowed() {
+      return overPaymentAllowed;
+   }
+
+   public void setOverPaymentAllowed(boolean overPaymentAllowed) {
+      this.overPaymentAllowed = overPaymentAllowed;
    }
 }

@@ -13,38 +13,38 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Represents a request to perform a payment
+ * Represents a request to perform a payment of a traffic fine.
  **/
-@ApiModel(description = "Represents a request to perform a payment")
-public class PaymentRequest extends Transaction {
+@ApiModel(description = "Represents a request to perform a payment of a traffic fine.")
+public class TrafficFinePaymentRequest extends Transaction {
 
-   private String accountRef = null;
+   private String noticeNumber = null;
    private Amounts amounts = null;
 
    /**
-    * A reference number identifying the bill payments processor, bill issuer, and customer
+    * A reference number identifying the traffic fine to the service provider.
     **/
-   public PaymentRequest accountRef(String accountRef) {
-      this.accountRef = accountRef;
+   public TrafficFinePaymentRequest noticeNumber(String noticeNumber) {
+      this.noticeNumber = noticeNumber;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
-   @JsonProperty("accountRef")
+   @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the service provider.")
+   @JsonProperty("noticeNumber")
    @NotNull
    @Length(min = 6, max = 40)
-   public String getAccountRef() {
-      return accountRef;
+   public String getNoticeNumber() {
+      return noticeNumber;
    }
 
-   public void setAccountRef(String accountRef) {
-      this.accountRef = accountRef;
+   public void setNoticeNumber(String noticeNumber) {
+      this.noticeNumber = noticeNumber;
    }
 
    /**
     * Contains the payment amount.
     **/
-   public PaymentRequest amounts(Amounts amounts) {
+   public TrafficFinePaymentRequest amounts(Amounts amounts) {
       this.amounts = amounts;
       return this;
    }
@@ -63,7 +63,7 @@ public class PaymentRequest extends Transaction {
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
-      sb.append("class PaymentRequest {\n");
+      sb.append("class TrafficFinePaymentRequest {\n");
 
       sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
       sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
@@ -71,7 +71,7 @@ public class PaymentRequest extends Transaction {
       sb.append("    client: ").append(Utils.toIndentedString(client)).append("\n");
       sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
       sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
-      sb.append("    accountRef: ").append(Utils.toIndentedString(accountRef)).append("\n");
+      sb.append("    noticeNumber: ").append(Utils.toIndentedString(noticeNumber)).append("\n");
       sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
       sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
       sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
