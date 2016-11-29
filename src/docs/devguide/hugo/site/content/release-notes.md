@@ -4,8 +4,9 @@ This page describes changes to the Billpay Service Interface implemented across 
 
 Released 11 November 2016
 
-- Added support for Traffic Fine and Policy payments
-- Removed issuerReference from BillSlipData (no net change - see base service interface changes below)
+- Added support for Traffic Fine and Policy lookups and payments.
+- Account object in responses is now optional.
+- Removed issuerReference from BillSlipData (no net change - see base service interface changes below).
 - Added indicators for allowance of part- and over-payments of accounts etc.
 - Aligned Billpay Service Interface with base service interface (v3.2.0).
   - Added GIFT_CARD and LOYALTY tender types.

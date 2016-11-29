@@ -11,58 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 public abstract class BillpayResponse extends Transaction {
-   protected Account account = null;
    protected Customer customer = null;
    protected Amounts amounts = null;
    protected BillSlipData slipData = null;
    protected boolean partPaymentAllowed = true;
    protected boolean overPaymentAllowed = true;
-
-   /**
-    * Data that should be printed on the customer receipt
-    **/
-   @Override
-   public BillpayResponse slipData(SlipData slipData) {
-      return slipData((BillSlipData) slipData);
-   }
-
-   /**
-    * Data that should be printed on the customer receipt
-    **/
-   public BillpayResponse slipData(BillSlipData slipData) {
-      this.slipData = slipData;
-      return this;
-   }
-
-   @ApiModelProperty(required = true, value = "Data that should be printed on the customer receipt")
-   @JsonProperty("slipData")
-   @NotNull
-   public BillSlipData getSlipData() {
-      return slipData;
-   }
-
-   public void setSlipData(BillSlipData slipData) {
-      this.slipData = slipData;
-   }
-
-   /**
-    * The customer account detail
-    **/
-   public BillpayResponse account(Account account) {
-      this.account = account;
-      return this;
-   }
-
-   @ApiModelProperty(required = true, value = "The customer account detail")
-   @JsonProperty("account")
-   @NotNull
-   public Account getAccount() {
-      return account;
-   }
-
-   public void setAccount(Account account) {
-      this.account = account;
-   }
 
    /**
     * Customer detail
@@ -99,6 +52,33 @@ public abstract class BillpayResponse extends Transaction {
 
    public void setAmounts(Amounts amounts) {
       this.amounts = amounts;
+   }
+
+   /**
+    * Data that should be printed on the customer receipt
+    **/
+   @Override
+   public BillpayResponse slipData(SlipData slipData) {
+      return slipData((BillSlipData) slipData);
+   }
+
+   /**
+    * Data that should be printed on the customer receipt
+    **/
+   public BillpayResponse slipData(BillSlipData slipData) {
+      this.slipData = slipData;
+      return this;
+   }
+
+   @ApiModelProperty(required = true, value = "Data that should be printed on the customer receipt")
+   @JsonProperty("slipData")
+   @NotNull
+   public BillSlipData getSlipData() {
+      return slipData;
+   }
+
+   public void setSlipData(BillSlipData slipData) {
+      this.slipData = slipData;
    }
 
    /**

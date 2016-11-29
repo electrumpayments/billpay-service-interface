@@ -1,13 +1,38 @@
 package io.electrum.billpay.model;
 
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.electrum.vas.Utils;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Represents a response to a payment request
+ * Represents a response to a policy payment request
  **/
-@ApiModel(description = "Represents a response to a payment request")
+@ApiModel(description = "Represents a response to a policy payment request")
 public class PolicyPaymentResponse extends BillpayResponse {
+   protected Policy policy = null;
+
+   /**
+    * The customer policy detail
+    **/
+   public BillpayResponse policy(Policy policy) {
+      this.policy = policy;
+      return this;
+   }
+
+   @ApiModelProperty(required = true, value = "The customer policy detail")
+   @JsonProperty("policy")
+   @NotNull
+   public Policy getPolicy() {
+      return policy;
+   }
+
+   public void setPolicy(Policy policy) {
+      this.policy = policy;
+   }
 
    @Override
    public String toString() {
@@ -20,8 +45,9 @@ public class PolicyPaymentResponse extends BillpayResponse {
       sb.append("    client: ").append(Utils.toIndentedString(client)).append("\n");
       sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
       sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
-      sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
       sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
+      sb.append("    customer: ").append(Utils.toIndentedString(customer)).append("\n");
+      sb.append("    policy: ").append(Utils.toIndentedString(policy)).append("\n");
       sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
       sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
       sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");

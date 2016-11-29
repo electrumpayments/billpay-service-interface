@@ -1,13 +1,39 @@
 package io.electrum.billpay.model;
 
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.electrum.vas.Utils;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Represents a response to a payment request
  **/
 @ApiModel(description = "Represents a response to a payment request")
 public class TrafficFinePaymentResponse extends BillpayResponse {
+   
+   protected TrafficFine trafficFine = null;
+
+   /**
+    * The customer account detail
+    **/
+   public BillpayResponse trafficFine(TrafficFine trafficFine) {
+      this.trafficFine = trafficFine;
+      return this;
+   }
+
+   @ApiModelProperty(required = true, value = "The customer account detail")
+   @JsonProperty("trafficFine")
+   @NotNull
+   public TrafficFine getTrafficFine() {
+      return trafficFine;
+   }
+
+   public void setTrafficFine(TrafficFine trafficFine) {
+      this.trafficFine = trafficFine;
+   }
 
    @Override
    public String toString() {
@@ -22,6 +48,8 @@ public class TrafficFinePaymentResponse extends BillpayResponse {
       sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
       sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
       sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
+      sb.append("    customer: ").append(Utils.toIndentedString(customer)).append("\n");
+      sb.append("    trafficFine: ").append(Utils.toIndentedString(trafficFine)).append("\n");
       sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
       sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
       sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");

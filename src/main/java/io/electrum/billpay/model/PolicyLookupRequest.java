@@ -2,57 +2,58 @@ package io.electrum.billpay.model;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.electrum.vas.Utils;
+import io.electrum.vas.model.Transaction;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * The data resulting from an account lookup request
+ * The data required to request policy info
  **/
-@ApiModel(description = "The data resulting from an account lookup request")
-public class AccountLookupResponse extends BillpayResponse {
-   protected Account account = null;
+@ApiModel(description = "The data required to request policy info")
+public class PolicyLookupRequest extends Transaction {
+
+   private String policyRef = null;
 
    /**
-    * The customer account detail
+    * A reference number identifying the policy to the service provider.
     **/
-   public BillpayResponse account(Account account) {
-      this.account = account;
+   public PolicyLookupRequest policyRef(String policyRef) {
+      this.policyRef = policyRef;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The customer account detail")
-   @JsonProperty("account")
+   @ApiModelProperty(required = true, value = "A reference number identifying the policy to the service provider.")
+   @JsonProperty("policyRef")
    @NotNull
-   public Account getAccount() {
-      return account;
+   @Length(min = 6, max = 40)
+   public String getPolicyRef() {
+      return policyRef;
    }
 
-   public void setAccount(Account account) {
-      this.account = account;
+   public void setPolicyRef(String policyRef) {
+      this.policyRef = policyRef;
    }
 
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
-      sb.append("class AccountLookupResponse {\n");
+      sb.append("class PolicyLookupRequest {\n");
 
       sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
+      sb.append("    policyRef: ").append(Utils.toIndentedString(policyRef)).append("\n");
       sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
       sb.append("    originator: ").append(Utils.toIndentedString(originator)).append("\n");
       sb.append("    client: ").append(Utils.toIndentedString(client)).append("\n");
       sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
       sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
-      sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
-      sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
-      sb.append("    customer: ").append(Utils.toIndentedString(customer)).append("\n");
-      sb.append("    account: ").append(Utils.toIndentedString(account)).append("\n");
       sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
+      sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
       sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");
-      sb.append("    partPaymentAllowed: ").append(Utils.toIndentedString(partPaymentAllowed)).append("\n");
-      sb.append("    overPaymentAllowed: ").append(Utils.toIndentedString(overPaymentAllowed)).append("\n");
       sb.append("}");
       return sb.toString();
    }

@@ -15,44 +15,44 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Represents the status of a customer account
+ * Represents the status of a traffic fine
  **/
 
-@ApiModel(description = "Represents the status of a customer account")
-public class Account {
+@ApiModel(description = "Represents the status of a traffic fine")
+public class TrafficFine {
 
-   protected String accountRef = null;
+   protected String noticeNumber = null;
    protected LocalDate dueDate = null;
 
    /**
-    * A reference number identifying the bill payments processor, bill issuer, and customer
+    * A reference number identifying the traffic fine to the processor's system.
     **/
-   public Account accountRef(String accountRef) {
-      this.accountRef = accountRef;
+   public TrafficFine noticeNumber(String noticeNumber) {
+      this.noticeNumber = noticeNumber;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
-   @JsonProperty("accountRef")
+   @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the processor's system.")
+   @JsonProperty("trafficFine")
    @NotNull
    @Length(min = 6, max = 40)
-   public String getAccountRef() {
-      return accountRef;
+   public String getTrafficFine() {
+      return noticeNumber;
    }
 
-   public void setAccountRef(String accountRef) {
-      this.accountRef = accountRef;
+   public void setTrafficFine(String noticeNumber) {
+      this.noticeNumber = noticeNumber;
    }
 
    /**
-    * The effective date of the current billing period
+    * The date by which the traffic fine should be paid.
     **/
-   public Account dueDate(LocalDate dueDate) {
+   public TrafficFine dueDate(LocalDate dueDate) {
       this.dueDate = dueDate;
       return this;
    }
 
-   @ApiModelProperty(value = "The effective date of the current billing period")
+   @ApiModelProperty(value = "The date by which the traffic fine should be paid.")
    @JsonProperty("dueDate")
    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "UTC")
    public LocalDate getDueDate() {
@@ -71,21 +71,21 @@ public class Account {
       if (o == null || getClass() != o.getClass()) {
          return false;
       }
-      Account account = (Account) o;
-      return Objects.equals(accountRef, account.accountRef) && Objects.equals(dueDate, account.dueDate);
+      TrafficFine trafficFine = (TrafficFine) o;
+      return Objects.equals(noticeNumber, trafficFine.noticeNumber) && Objects.equals(dueDate, trafficFine.dueDate);
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(accountRef, dueDate);
+      return Objects.hash(noticeNumber, dueDate);
    }
 
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
-      sb.append("class Account {\n");
+      sb.append("class TrafficFine {\n");
 
-      sb.append("    accountRef: ").append(Utils.toIndentedString(accountRef)).append("\n");
+      sb.append("    noticeNumber: ").append(Utils.toIndentedString(noticeNumber)).append("\n");
       sb.append("    dueDate: ").append(Utils.toIndentedString(dueDate)).append("\n");
       sb.append("}");
       return sb.toString();
