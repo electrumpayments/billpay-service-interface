@@ -17,26 +17,26 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "The data required to request policy info")
 public class PolicyLookupRequest extends Transaction {
 
-   private String policyRef = null;
+   private String policyNumber = null;
 
    /**
     * A reference number identifying the policy to the service provider.
     **/
-   public PolicyLookupRequest policyRef(String policyRef) {
-      this.policyRef = policyRef;
+   public PolicyLookupRequest policyNumber(String policyNumber) {
+      this.policyNumber = policyNumber;
       return this;
    }
 
    @ApiModelProperty(required = true, value = "A reference number identifying the policy to the service provider.")
-   @JsonProperty("policyRef")
+   @JsonProperty("policyNumber")
    @NotNull
    @Length(min = 6, max = 40)
-   public String getPolicyRef() {
-      return policyRef;
+   public String getPolicyNumber() {
+      return policyNumber;
    }
 
-   public void setPolicyRef(String policyRef) {
-      this.policyRef = policyRef;
+   public void setPolicyNumber(String policyNumber) {
+      this.policyNumber = policyNumber;
    }
 
    @Override
@@ -45,7 +45,7 @@ public class PolicyLookupRequest extends Transaction {
       sb.append("class PolicyLookupRequest {\n");
 
       sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
-      sb.append("    policyRef: ").append(Utils.toIndentedString(policyRef)).append("\n");
+      sb.append("    policyNumber: ").append(Utils.toIndentedString(policyNumber)).append("\n");
       sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
       sb.append("    originator: ").append(Utils.toIndentedString(originator)).append("\n");
       sb.append("    client: ").append(Utils.toIndentedString(client)).append("\n");

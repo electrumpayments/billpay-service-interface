@@ -33,7 +33,7 @@ public class TrafficFine {
    }
 
    @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the processor's system.")
-   @JsonProperty("trafficFine")
+   @JsonProperty("noticeNumber")
    @NotNull
    @Length(min = 6, max = 40)
    public String getTrafficFine() {

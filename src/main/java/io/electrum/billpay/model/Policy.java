@@ -21,27 +21,27 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Represents the status of a customer policy")
 public class Policy {
 
-   protected String policyRef = null;
+   protected String policyNumber = null;
    protected LocalDate dueDate = null;
 
    /**
     * A reference number identifying the policy to the processor.
     **/
-   public Policy policyRef(String policyRef) {
-      this.policyRef = policyRef;
+   public Policy policyNumber(String policyNumber) {
+      this.policyNumber = policyNumber;
       return this;
    }
 
    @ApiModelProperty(required = true, value = "A reference number identifying the policy to the processor.")
-   @JsonProperty("policyRef")
+   @JsonProperty("policyNumber")
    @NotNull
    @Length(min = 6, max = 40)
-   public String getPolicyRef() {
-      return policyRef;
+   public String getPolicyNumber() {
+      return policyNumber;
    }
 
-   public void setPolicyRef(String policyRef) {
-      this.policyRef = policyRef;
+   public void setPolicyNumber(String policyNumber) {
+      this.policyNumber = policyNumber;
    }
 
    /**
@@ -72,12 +72,12 @@ public class Policy {
          return false;
       }
       Policy policy = (Policy) o;
-      return Objects.equals(policyRef, policy.policyRef) && Objects.equals(dueDate, policy.dueDate);
+      return Objects.equals(policyNumber, policy.policyNumber) && Objects.equals(dueDate, policy.dueDate);
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(policyRef, dueDate);
+      return Objects.hash(policyNumber, dueDate);
    }
 
    @Override
@@ -85,7 +85,7 @@ public class Policy {
       StringBuilder sb = new StringBuilder();
       sb.append("class Policy {\n");
 
-      sb.append("    policyRef: ").append(Utils.toIndentedString(policyRef)).append("\n");
+      sb.append("    policyNumber: ").append(Utils.toIndentedString(policyNumber)).append("\n");
       sb.append("    dueDate: ").append(Utils.toIndentedString(dueDate)).append("\n");
       sb.append("}");
       return sb.toString();
