@@ -9,35 +9,35 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * The data resulting from an account lookup request
+ * The data resulting from a policy lookup request
  **/
-@ApiModel(description = "The data resulting from an account lookup request")
-public class AccountLookupResponse extends BillpayResponse {
-   protected Account account = null;
+@ApiModel(description = "The data resulting from a policy lookup request")
+public class PolicyLookupResponse extends BillpayResponse {
+   protected Policy policy = null;
 
    /**
-    * The customer account detail
+    * The customer policy detail
     **/
-   public BillpayResponse account(Account account) {
-      this.account = account;
+   public BillpayResponse policy(Policy policy) {
+      this.policy = policy;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The customer account detail")
-   @JsonProperty("account")
+   @ApiModelProperty(required = true, value = "The customer policy detail")
+   @JsonProperty("policy")
    @NotNull
-   public Account getAccount() {
-      return account;
+   public Policy getPolicy() {
+      return policy;
    }
 
-   public void setAccount(Account account) {
-      this.account = account;
+   public void setPolicy(Policy policy) {
+      this.policy = policy;
    }
 
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
-      sb.append("class AccountLookupResponse {\n");
+      sb.append("class PolicyLookupResponse {\n");
 
       sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
       sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
@@ -48,7 +48,7 @@ public class AccountLookupResponse extends BillpayResponse {
       sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
       sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
       sb.append("    customer: ").append(Utils.toIndentedString(customer)).append("\n");
-      sb.append("    account: ").append(Utils.toIndentedString(account)).append("\n");
+      sb.append("    policy: ").append(Utils.toIndentedString(policy)).append("\n");
       sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
       sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");
       sb.append("    partPaymentAllowed: ").append(Utils.toIndentedString(partPaymentAllowed)).append("\n");

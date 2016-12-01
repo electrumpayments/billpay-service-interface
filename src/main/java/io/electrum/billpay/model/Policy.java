@@ -15,44 +15,44 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Represents the status of a customer account
+ * Represents the status of a customer policy
  **/
 
-@ApiModel(description = "Represents the status of a customer account")
-public class Account {
+@ApiModel(description = "Represents the status of a customer policy")
+public class Policy {
 
-   protected String accountRef = null;
+   protected String policyNumber = null;
    protected LocalDate dueDate = null;
 
    /**
-    * A reference number identifying the bill payments processor, bill issuer, and customer
+    * A reference number identifying the policy to the processor.
     **/
-   public Account accountRef(String accountRef) {
-      this.accountRef = accountRef;
+   public Policy policyNumber(String policyNumber) {
+      this.policyNumber = policyNumber;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
-   @JsonProperty("accountRef")
+   @ApiModelProperty(required = true, value = "A reference number identifying the policy to the processor.")
+   @JsonProperty("policyNumber")
    @NotNull
    @Length(min = 6, max = 40)
-   public String getAccountRef() {
-      return accountRef;
+   public String getPolicyNumber() {
+      return policyNumber;
    }
 
-   public void setAccountRef(String accountRef) {
-      this.accountRef = accountRef;
+   public void setPolicyNumber(String policyNumber) {
+      this.policyNumber = policyNumber;
    }
 
    /**
-    * The effective date of the current billing period
+    * The date by which the next policy payment must be made.
     **/
-   public Account dueDate(LocalDate dueDate) {
+   public Policy dueDate(LocalDate dueDate) {
       this.dueDate = dueDate;
       return this;
    }
 
-   @ApiModelProperty(value = "The effective date of the current billing period")
+   @ApiModelProperty(value = "The date by which the next policy payment must be made.")
    @JsonProperty("dueDate")
    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "UTC")
    public LocalDate getDueDate() {
@@ -71,21 +71,21 @@ public class Account {
       if (o == null || getClass() != o.getClass()) {
          return false;
       }
-      Account account = (Account) o;
-      return Objects.equals(accountRef, account.accountRef) && Objects.equals(dueDate, account.dueDate);
+      Policy policy = (Policy) o;
+      return Objects.equals(policyNumber, policy.policyNumber) && Objects.equals(dueDate, policy.dueDate);
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(accountRef, dueDate);
+      return Objects.hash(policyNumber, dueDate);
    }
 
    @Override
    public String toString() {
       StringBuilder sb = new StringBuilder();
-      sb.append("class Account {\n");
+      sb.append("class Policy {\n");
 
-      sb.append("    accountRef: ").append(Utils.toIndentedString(accountRef)).append("\n");
+      sb.append("    policyNumber: ").append(Utils.toIndentedString(policyNumber)).append("\n");
       sb.append("    dueDate: ").append(Utils.toIndentedString(dueDate)).append("\n");
       sb.append("}");
       return sb.toString();

@@ -1,14 +1,28 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
-## v4.0.0
+## v4.1.0
 
-Released 27 October 2016
+Released 11 November 2016
 
-- Aligned Billpay Service Interface with base service interface (v3.0.0).
-  - Formatting included as part of SlipLine entries in BillSlipData field.
-  - Defined BasicAdviceResponse returned when acknowledging an advice.
-  - Added request IDs and request type to ErrorDetail responses.
-  - Amounts are now encapsulated in an Amounts model.
+- Added support for Traffic Fine and Policy lookups and payments.
+- Account object in responses is now optional.
+- Removed issuerReference from BillSlipData (no net change - see base service interface changes below).
+- Added indicators for allowance of part- and over-payments of accounts etc.
+- Aligned Billpay Service Interface with base service interface (v3.2.0).
+  - Added GIFT_CARD and LOYALTY tender types.
+  - Relaxed restrictions on allowed characters in Originator.terminalId field.
+  - Included issuerReference as part of basic SlipData and extended length to 40.
+  - Added basketRef field to indicate related transactions.
+
+  ## v4.0.0
+
+  Released 27 October 2016
+
+  - Aligned Billpay Service Interface with base service interface (v3.0.0).
+    - Formatting included as part of SlipLine entries in BillSlipData field.
+    - Defined BasicAdviceResponse returned when acknowledging an advice.
+    - Added request IDs and request type to ErrorDetail responses.
+    - Amounts are now encapsulated in an Amounts model.
 
 ## v3.0.3
 
