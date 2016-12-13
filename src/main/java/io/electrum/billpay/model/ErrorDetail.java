@@ -54,8 +54,11 @@ public class ErrorDetail {
     */
    public enum RequestType {
       ACCOUNT_LOOKUP_REQUEST("ACCOUNT_LOOKUP_REQUEST"),
+      TRAFFIC_FINE_LOOKUP_REQUEST("TRAFFIC_FINE_LOOKUP_REQUEST"),
+      POLICY_LOOKUP_REQUEST("POLICY_LOOKUP_REQUEST"),
       PAYMENT_REQUEST("PAYMENT_REQUEST"),
       TRAFFIC_FINE_PAYMENT_REQUEST("TRAFFIC_FINE_PAYMENT_REQUEST"),
+      POLICY_PAYMENT_REQUEST("POLICY_PAYMENT_REQUEST"),
       PAYMENT_REVERSAL("PAYMENT_REVERSAL"),
       TRAFFIC_FINE_PAYMENT_REVERSAL("TRAFFIC_FINE_PAYMENT_REVERSAL"),
       PAYMENT_CONFIRMATION("PAYMENT_CONFIRMATION"),
@@ -125,14 +128,14 @@ public class ErrorDetail {
    }
 
    /**
-    * The type of request for which the error.
+    * The type of request being processed when the error occurred. Refer to Release Notes for deprecated values.
     **/
    public ErrorDetail requestType(RequestType requestType) {
       this.requestType = requestType;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The type of request being processed when the error occurred.")
+   @ApiModelProperty(required = true, value = "The type of request being processed when the error occurred. Refer to Release Notes for deprecated values.")
    @JsonProperty("requestType")
    @NotNull
    public RequestType getRequestType() {
