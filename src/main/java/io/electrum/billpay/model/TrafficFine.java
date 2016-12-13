@@ -36,11 +36,11 @@ public class TrafficFine {
    @JsonProperty("noticeNumber")
    @NotNull
    @Length(min = 6, max = 40)
-   public String getTrafficFine() {
+   public String getNoticeNumber() {
       return noticeNumber;
    }
 
-   public void setTrafficFine(String noticeNumber) {
+   public void setNoticeNumber(String noticeNumber) {
       this.noticeNumber = noticeNumber;
    }
 
