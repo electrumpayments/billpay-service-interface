@@ -2,7 +2,7 @@ This page describes changes to the Billpay Service Interface implemented across 
 
 ## v4.2.0
 
-Released 13 December 2016
+Released 05 January 2017
 
 - Added the following RequestType enumerated values to ErrorDetail:
   - TRAFFIC_FINE_LOOKUP_REQUEST
