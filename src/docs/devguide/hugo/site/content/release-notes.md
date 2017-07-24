@@ -1,5 +1,11 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.3.0
+
+Released 24 July 2017
+
+- Added INVALID_MERCHANT ErrorType.
+
 ## v4.2.0
 
 Released 05 January 2017
