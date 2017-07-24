@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.electrum</groupId>
   <artifactId>billpay-service-interface</artifactId>
-  <version>4.2.0</version>
+  <version>4.3.0</version>
   <packaging>jar</packaging>
   <name>Bill Payments Service Interface</name>
   <description>Bill Payments Service Interface</description>
