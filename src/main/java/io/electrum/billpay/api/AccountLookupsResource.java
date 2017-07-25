@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 
-@Path("/billpay/v4/accountLookups")
+@Path("/accountLookups")
 @Consumes({ "application/json" })
 @Produces({ "application/json" })
 @Api(description = "the accountLookups API", authorizations = { @Authorization("httpBasic") })

@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ResponseHeader;
 
-@Path("/billpay/v4/refunds/{refundId}")
+@Path("/refunds/{refundId}")
 @Consumes({ "application/json" })
 @Produces({ "application/json" })
 @Api(description = "the payments API", authorizations = { @Authorization("httpBasic") })
