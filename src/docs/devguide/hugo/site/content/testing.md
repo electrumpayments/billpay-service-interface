@@ -45,7 +45,7 @@ Note that that tests may be run individually from the main Postman view where te
 3. This will run all tests and provide a basic breakdown of which tests passed and failed.
 
 ## Testing a Client
-To test a client implementation a test server is provided at: https://billpay-test-server.herokuapp.com. Messages sent to this server via the urls 
+To test a client implementation a test server is provided at: https://billpay-test-server.herokuapp.com/billpay/v4. Messages sent to this server via the urls 
 described in the service interface will be validated as well as processed against a set of preloaded mock customer accounts.
 
 ### Test utils
