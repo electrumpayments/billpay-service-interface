@@ -1,5 +1,11 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.3.1
+
+Released 25 July 2017
+
+- Fixed resource base path in Swagger.
+
 ## v4.3.0
 
 Released 24 July 2017
