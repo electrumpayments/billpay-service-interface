@@ -1,5 +1,6 @@
 package io.electrum.billpay.model;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,6 +27,7 @@ public class AccountLookupResponse extends BillpayResponse {
    @ApiModelProperty(required = true, value = "The customer account detail")
    @JsonProperty("account")
    @NotNull
+   @Valid
    public Account getAccount() {
       return account;
    }

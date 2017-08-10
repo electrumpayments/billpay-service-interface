@@ -1,5 +1,6 @@
 package io.electrum.billpay.model;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -52,6 +53,7 @@ public class PolicyPaymentRequest extends Transaction {
    @ApiModelProperty(required = true, value = "Contains the payment amount.")
    @JsonProperty("amounts")
    @NotNull
+   @Valid
    public Amounts getAmounts() {
       return amounts;
    }
