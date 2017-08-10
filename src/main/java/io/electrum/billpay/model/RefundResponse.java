@@ -6,6 +6,8 @@ import io.electrum.vas.Utils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.Valid;
+
 /**
  * Represents a response to a payment request
  **/
@@ -25,6 +27,7 @@ public class RefundResponse extends BillpayResponse {
 
    @ApiModelProperty(value = "The customer account detail")
    @JsonProperty("account")
+   @Valid
    public Account getAccount() {
       return account;
    }
@@ -43,6 +46,7 @@ public class RefundResponse extends BillpayResponse {
 
    @ApiModelProperty(value = "The customer trafficFine detail")
    @JsonProperty("trafficFine")
+   @Valid
    public TrafficFine getTrafficFine() {
       return trafficFine;
    }
@@ -61,6 +65,7 @@ public class RefundResponse extends BillpayResponse {
 
    @ApiModelProperty(value = "The customer policy detail")
    @JsonProperty("policy")
+   @Valid
    public Policy getPolicy() {
       return policy;
    }

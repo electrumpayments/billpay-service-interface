@@ -4,6 +4,7 @@ import io.electrum.vas.model.Amounts;
 import io.electrum.vas.model.SlipData;
 import io.electrum.vas.model.Transaction;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,6 +28,7 @@ public abstract class BillpayResponse extends Transaction {
 
    @ApiModelProperty(value = "Customer detail")
    @JsonProperty("customer")
+   @Valid
    public Customer getCustomer() {
       return customer;
    }
@@ -46,6 +48,7 @@ public abstract class BillpayResponse extends Transaction {
    @ApiModelProperty(required = true, value = "The message amount details such as account balance.")
    @JsonProperty("amounts")
    @NotNull
+   @Valid
    public Amounts getAmounts() {
       return amounts;
    }
@@ -73,6 +76,7 @@ public abstract class BillpayResponse extends Transaction {
    @ApiModelProperty(required = true, value = "Data that should be printed on the customer receipt")
    @JsonProperty("slipData")
    @NotNull
+   @Valid
    public BillSlipData getSlipData() {
       return slipData;
    }
