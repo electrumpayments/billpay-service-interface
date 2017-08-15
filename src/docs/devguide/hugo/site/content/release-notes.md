@@ -1,5 +1,11 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.4.1
+
+Released 15 Aug 2017
+
+- Align with base service interface (v3.3.0) to include missing validation annotations
+
 ## v4.4.0
 
 Released 10 Aug 2017
