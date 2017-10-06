@@ -52,9 +52,9 @@ public class Account {
       return this;
    }
 
-   @ApiModelProperty(value = "The effective date of the current billing period")
+   @ApiModelProperty(value = "The effective date of the current billing period in the format yyyy-MM-dd")
    @JsonProperty("dueDate")
-   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "UTC")
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
    public LocalDate getDueDate() {
       return dueDate;
    }
