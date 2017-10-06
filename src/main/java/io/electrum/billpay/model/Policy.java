@@ -52,9 +52,9 @@ public class Policy {
       return this;
    }
 
-   @ApiModelProperty(value = "The date by which the next policy payment must be made.")
+   @ApiModelProperty(value = "The date by which the next policy payment must be made in the format yyyy-MM-dd.")
    @JsonProperty("dueDate")
-   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "UTC")
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
    public LocalDate getDueDate() {
       return dueDate;
    }

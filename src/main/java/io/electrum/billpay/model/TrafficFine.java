@@ -52,9 +52,9 @@ public class TrafficFine {
       return this;
    }
 
-   @ApiModelProperty(value = "The date by which the traffic fine should be paid.")
+   @ApiModelProperty(value = "The date by which the traffic fine should be paid in the format yyyy-MM-dd.")
    @JsonProperty("dueDate")
-   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yy-MM-dd", timezone = "UTC")
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
    public LocalDate getDueDate() {
       return dueDate;
    }
