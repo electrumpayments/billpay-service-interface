@@ -1,5 +1,18 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.4.3
+
+Released 9 October 2017
+
+- Update Swagger Jersey 2 JAX-RS version to v1.5.16.
+- Remove included SLF4J library.
+
+## v4.4.2
+
+Released 6 October 2017
+
+- Defined due date format in responses as yyyy-MM-dd
+
 ## v4.4.1
 
 Released 15 Aug 2017
