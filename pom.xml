@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.electrum</groupId>
   <artifactId>billpay-service-interface</artifactId>
-  <version>4.5.0</version>
+  <version>4.5.1</version>
   <packaging>jar</packaging>
   <name>Bill Payments Service Interface</name>
   <description>Bill Payments Service Interface</description>
@@ -49,6 +49,7 @@
       <groupId>io.electrum</groupId>
       <artifactId>service-interface-base</artifactId>
       <version>${service-interface-base-version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>joda-time</groupId>
