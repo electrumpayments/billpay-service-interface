@@ -6,13 +6,18 @@ You can find documentation for this project [here](https://electrumpayments.gith
 
 ## Java projects
 
-To include the service interface into your maven project, include the below dependency.
+To include the service interface into your maven project, include the below dependencies.
 
 ```xml
 <dependency>
     <groupId>io.electrum</groupId>
     <artifactId>billpay-service-interface</artifactId>
-    <version>4.5.0</version>
+    <version>4.5.1</version>
+</dependency>
+<dependency>
+    <groupId>io.electrum</groupId>
+    <artifactId>service-interface-base</artifactId>
+    <version>3.4.0</version>
 </dependency>
 ```
 
