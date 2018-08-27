@@ -166,7 +166,6 @@
               <locations>io.electrum.billpay.api</locations>
               <schemes>https</schemes>
               <host>billpay-test-server.herokuapp.com</host>
-              <basePath>${apiBasePath}</basePath>
               <info>
                 <title>Bill Payments Service Interface</title>
                 <version>${project.version}</version>
