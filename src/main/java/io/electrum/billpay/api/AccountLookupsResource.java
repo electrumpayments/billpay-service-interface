@@ -10,6 +10,7 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
@@ -21,6 +22,7 @@ import io.electrum.billpay.model.PolicyLookupRequest;
 import io.electrum.billpay.model.PolicyLookupResponse;
 import io.electrum.billpay.model.TrafficFineLookupRequest;
 import io.electrum.billpay.model.TrafficFineLookupResponse;
+import io.electrum.billpay.utils.Paths;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,19 +30,21 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 
-@Path("/accountLookups")
-@Consumes({ "application/json" })
-@Produces({ "application/json" })
+@Path(Paths.BASE_PATH)
+@Consumes({MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_JSON})
 @Api(description = "the accountLookups API", authorizations = { @Authorization("httpBasic") })
 public abstract class AccountLookupsResource {
 
    protected abstract IAccountLookupsResource getResourceImplementation();
 
    @POST
-   @Path("/{requestId}")
-   @Consumes({ "application/json" })
-   @Produces({ "application/json" })
-   @ApiOperation(value = "Basic account information request", notes = "Requests the current status of the account identified by the supplied account reference. Not all services support account lookups. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned")
+   @Path(Paths.REQUEST_ACCOUNT_INFO)
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Basic account information request",
+           nickname = Operations.REQUEST_ACCOUNT_INFO,
+           notes = "Requests the current status of the account identified by the supplied account reference. Not all services support account lookups. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned")
    @ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = AccountLookupResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -69,10 +73,12 @@ public abstract class AccountLookupsResource {
    }
 
    @POST
-   @Path("/traffic/{requestId}")
-   @Consumes({ "application/json" })
-   @Produces({ "application/json" })
-   @ApiOperation(value = "Basic traffic fine info request", notes = "Requests information related to a specific traffic fine as identified by the noticeNumber. In the case where this function is not supported by the relevant service provider, a 501 HTTP status code may be returned")
+   @Path(Paths.REQUEST_TRAFFIC_FINE_INFO)
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Basic traffic fine info request",
+           nickname = Operations.REQUEST_TRAFFIC_FINE_INFO,
+           notes = "Requests information related to a specific traffic fine as identified by the noticeNumber. In the case where this function is not supported by the relevant service provider, a 501 HTTP status code may be returned")
    @ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = TrafficFineLookupResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -101,10 +107,12 @@ public abstract class AccountLookupsResource {
    }
 
    @POST
-   @Path("/policy/{requestId}")
-   @Consumes({ "application/json" })
-   @Produces({ "application/json" })
-   @ApiOperation(value = "Basic policy info request", notes = "Requests the current status of the policy identified by the supplied policy reference. Not all service providers support policy lookups. In the case where this function is not supported by the requested service provider, a 501 HTTP status code may be returned")
+   @Path(Paths.REQUEST_POLICY_INFO)
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Basic policy info request",
+           nickname = Operations.REQUEST_POLICY_INFO,
+           notes = "Requests the current status of the policy identified by the supplied policy reference. Not all service providers support policy lookups. In the case where this function is not supported by the requested service provider, a 501 HTTP status code may be returned")
    @ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = PolicyLookupResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -131,4 +139,11 @@ public abstract class AccountLookupsResource {
             httpHeaders,
             uriInfo);
    }
+
+   public class Operations {
+      public final static String REQUEST_POLICY_INFO = "requestPolicyInfo";
+      public final static String REQUEST_TRAFFIC_FINE_INFO = "requestTrafficFineInfo";
+      public final static String REQUEST_ACCOUNT_INFO = "requestAccountInfo";
+   }
+
 }

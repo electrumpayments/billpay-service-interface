@@ -10,6 +10,7 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.UriInfo;
 import io.electrum.billpay.model.ErrorDetail;
 import io.electrum.billpay.model.RefundRequest;
 import io.electrum.billpay.model.RefundResponse;
+import io.electrum.billpay.utils.Paths;
 import io.electrum.vas.model.BasicAdvice;
 import io.electrum.vas.model.BasicAdviceResponse;
 import io.electrum.vas.model.BasicReversal;
@@ -28,19 +30,21 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ResponseHeader;
 
-@Path("/refunds/{refundId}")
-@Consumes({ "application/json" })
-@Produces({ "application/json" })
+@Path(Paths.BASE_PATH)
+@Consumes({MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_JSON})
 @Api(description = "the payments API", authorizations = { @Authorization("httpBasic") })
 public abstract class RefundsResource {
 
    protected abstract IRefundsResource getResourceImplementation();
 
    @POST
-   @Path("/confirmations/{adviceId}")
-   @Consumes({ "application/json" })
-   @Produces({ "application/json" })
-   @ApiOperation(value = "Confirm an existing bill payment refund", notes = "If a createRefund request previously succeeded with a 201 status it must be confirmed or reversed to complete the transaction. confirmRefund can only succeed if a refund was created but not reversed. confirmRefund must be repeated until a final HTTP status code is received (not 500 or 504). If a status code of either 500 or 504 is received, or no response is received, the request must be repeated. confirmRefund may be called repeatedly on the same refund resource without negative effect.")
+   @Path(Paths.CONFIRM_REFUND)
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Confirm an existing bill payment refund",
+           nickname = Operations.CONFIRM_REFUND,
+           notes = "If a createRefund request previously succeeded with a 201 status it must be confirmed or reversed to complete the transaction. confirmRefund can only succeed if a refund was created but not reversed. confirmRefund must be repeated until a final HTTP status code is received (not 500 or 504). If a status code of either 500 or 504 is received, or no response is received, the request must be repeated. confirmRefund may be called repeatedly on the same refund resource without negative effect.")
    @ApiResponses(value = { @ApiResponse(code = 202, message = "Accepted", response = BasicAdviceResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -70,9 +74,12 @@ public abstract class RefundsResource {
    }
 
    @POST
-   @Consumes({ "application/json" })
-   @Produces({ "application/json" })
-   @ApiOperation(value = "Creates a refund of previously confirmed payment", notes = "If a payment is completed and confirmed successfully, some services support that customers may request a refund for a particular payment for some time after the payment took place. Not all services support refunds. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned")
+   @Path(Paths.CREATE_REFUND)
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Creates a refund of previously confirmed payment",
+           nickname = Operations.CREATE_REFUND,
+           notes = "If a payment is completed and confirmed successfully, some services support that customers may request a refund for a particular payment for some time after the payment took place. Not all services support refunds. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned")
    @ApiResponses(value = {
          @ApiResponse(code = 201, message = "Created", response = RefundResponse.class, responseHeaders = {
                @ResponseHeader(name = "Location", description = "The location of the created refund resource", response = String.class) }),
@@ -103,10 +110,12 @@ public abstract class RefundsResource {
    }
 
    @POST
-   @Path("/reversals/{adviceId}")
-   @Consumes({ "application/json" })
-   @Produces({ "application/json" })
-   @ApiOperation(value = "Reverse a refund request that failed or timed out", notes = "If a createRefund request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not refelected on a customer's account. reverseRefund must be repeated until a final HTTP status code is received (not 500 or 504). reverseRefund may be called repeatedly on the same payment resource without negative effect.")
+   @Path(Paths.REVERSE_REFUND)
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Reverse a refund request that failed or timed out",
+           nickname = Operations.REVERSE_REFUND,
+           notes = "If a createRefund request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not refelected on a customer's account. reverseRefund must be repeated until a final HTTP status code is received (not 500 or 504). reverseRefund may be called repeatedly on the same payment resource without negative effect.")
    @ApiResponses(value = { @ApiResponse(code = 202, message = "Accepted", response = BasicAdviceResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -133,5 +142,11 @@ public abstract class RefundsResource {
             httpServletRequest,
             httpHeaders,
             uriInfo);
+   }
+
+   public class Operations {
+      public final static String CREATE_REFUND = "createRefund";
+      public final static String CONFIRM_REFUND = "confirmRefund";
+      public final static String REVERSE_REFUND = "reverseRefund";
    }
 }
