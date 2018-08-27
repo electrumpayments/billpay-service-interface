@@ -1,5 +1,14 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.6.0
+
+Released TBC
+
+- Update Service Interface Base Version to v3.13.0
+- Update to support Circle 2.0
+- Make paths constants 
+- Update Hugo build 
+
 ## v4.5.0
 
 Released 8 November 2017
