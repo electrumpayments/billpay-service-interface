@@ -285,5 +285,6 @@
           </execution>
         </executions>
       </plugin>
-    </plugins>g
+    </plugins>
+  </build>
 </project>
