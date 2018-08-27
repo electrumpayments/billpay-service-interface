@@ -145,8 +145,8 @@ public abstract class RefundsResource {
    }
 
    public class Operations {
-      public final static String CREATE_REFUND = "createRefund";
-      public final static String CONFIRM_REFUND = "confirmRefund";
-      public final static String REVERSE_REFUND = "reverseRefund";
+      public static final String CREATE_REFUND = "createRefund";
+      public static final String CONFIRM_REFUND = "confirmRefund";
+      public static final String REVERSE_REFUND = "reverseRefund";
    }
 }

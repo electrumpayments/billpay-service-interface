@@ -141,9 +141,9 @@ public abstract class AccountLookupsResource {
    }
 
    public class Operations {
-      public final static String REQUEST_POLICY_INFO = "requestPolicyInfo";
-      public final static String REQUEST_TRAFFIC_FINE_INFO = "requestTrafficFineInfo";
-      public final static String REQUEST_ACCOUNT_INFO = "requestAccountInfo";
+      public static final String REQUEST_POLICY_INFO = "requestPolicyInfo";
+      public static final String REQUEST_TRAFFIC_FINE_INFO = "requestTrafficFineInfo";
+      public static final String REQUEST_ACCOUNT_INFO = "requestAccountInfo";
    }
 
 }

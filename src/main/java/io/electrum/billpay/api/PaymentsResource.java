@@ -218,10 +218,10 @@ public abstract class PaymentsResource {
    }
 
    public class Operations {
-      public final static String CREATE_POLICY_PAYMENT = "createPolicyPayment";
-      public final static String CREATE_TRAFFICE_FINE_PAYMENT = "createTrafficFinePayment";
-      public final static String CREATE_ACCOUNT_PAYMENT =  "createAccountPayment";
-      public final static String CONFIRM_PAYMENT = "confirmPayment";
-      public final static String REVERSE_PAYMENT = "reversePayment";
+      public static final String CREATE_POLICY_PAYMENT = "createPolicyPayment";
+      public static final String CREATE_TRAFFICE_FINE_PAYMENT = "createTrafficFinePayment";
+      public static final String CREATE_ACCOUNT_PAYMENT =  "createAccountPayment";
+      public static final String CONFIRM_PAYMENT = "confirmPayment";
+      public static final String REVERSE_PAYMENT = "reversePayment";
    }
 }
