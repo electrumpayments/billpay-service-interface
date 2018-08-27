@@ -18,6 +18,7 @@ import javax.ws.rs.core.UriInfo;
 import io.electrum.billpay.model.ErrorDetail;
 import io.electrum.billpay.model.RefundRequest;
 import io.electrum.billpay.model.RefundResponse;
+import io.electrum.billpay.utils.PathParams;
 import io.electrum.billpay.utils.Paths;
 import io.electrum.vas.model.BasicAdvice;
 import io.electrum.vas.model.BasicAdviceResponse;
@@ -51,8 +52,8 @@ public abstract class RefundsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void confirmRefund(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("adviceId") String adviceId,
-         @ApiParam(value = "The UUID generated for the corresponding createRefund request", required = true) @PathParam("refundId") String refundId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(PathParams.ADVICE_ID) String adviceId,
+         @ApiParam(value = "The UUID generated for the corresponding createRefund request", required = true) @PathParam(PathParams.REFUND_ID) String refundId,
          @ApiParam(value = "A refund confirmation", required = true) BasicAdvice body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -89,7 +90,7 @@ public abstract class RefundsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void createRefund(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("refundId") String refundId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(PathParams.REFUND_ID) String refundId,
          @ApiParam(value = "A refund request", required = true) RefundRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -122,8 +123,8 @@ public abstract class RefundsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void reverseRefund(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam("adviceId") String adviceId,
-         @ApiParam(value = "The UUID generated for the corresponding createRefund request", required = true) @PathParam("refundId") String refundId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(PathParams.ADVICE_ID) String adviceId,
+         @ApiParam(value = "The UUID generated for the corresponding createRefund request", required = true) @PathParam(PathParams.REFUND_ID) String refundId,
          @ApiParam(value = "A refund reversal", required = true) BasicReversal body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,

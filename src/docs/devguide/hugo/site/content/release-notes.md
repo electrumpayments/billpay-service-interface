@@ -4,7 +4,7 @@ This page describes changes to the Billpay Service Interface implemented across 
 
 Released TBC
 
-- Update Service Interface Base Version to v3.13.0
+- Update Service Interface Base Version to v3.14.0
 - Update to support Circle 2.0
 - Make paths constants 
 - Update Hugo build 
