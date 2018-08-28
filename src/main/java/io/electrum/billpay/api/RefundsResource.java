@@ -31,7 +31,6 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ResponseHeader;
 
-@Path(Paths.BASE_PATH)
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
 @Api(description = "the payments API", authorizations = { @Authorization("httpBasic") })
