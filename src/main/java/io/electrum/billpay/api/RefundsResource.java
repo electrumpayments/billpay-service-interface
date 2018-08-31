@@ -33,7 +33,7 @@ import io.swagger.annotations.ResponseHeader;
 
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
-@Api(description = "the payments API", authorizations = { @Authorization("httpBasic") })
+@Api(description = "the refunds API", authorizations = { @Authorization("httpBasic") })
 public abstract class RefundsResource {
 
    protected abstract IRefundsResource getResourceImplementation();
