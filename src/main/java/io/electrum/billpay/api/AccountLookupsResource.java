@@ -31,9 +31,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 
-@Path(Paths.ACCOUNT_LOOKUP_BASE_PATH)
-@Consumes({ MediaType.APPLICATION_JSON })
-@Produces({ MediaType.APPLICATION_JSON })
+@Path("")
+@Consumes({MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_JSON})
 @Api(description = "the accountLookups API", authorizations = { @Authorization("httpBasic") })
 public abstract class AccountLookupsResource {
 
@@ -41,9 +41,11 @@ public abstract class AccountLookupsResource {
 
    @POST
    @Path(Paths.REQUEST_ACCOUNT_INFO)
-   @Consumes({ MediaType.APPLICATION_JSON })
-   @Produces({ MediaType.APPLICATION_JSON })
-   @ApiOperation(value = "Basic account information request", nickname = Operations.REQUEST_ACCOUNT_INFO, notes = "Requests the current status of the account identified by the supplied account reference. Not all services support account lookups. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned")
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Basic account information request",
+           nickname = Operations.REQUEST_ACCOUNT_INFO,
+           notes = "Requests the current status of the account identified by the supplied account reference. Not all services support account lookups. In the case where this function is not supported for the requested service, a 501 HTTP status code may be returned")
    @ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = AccountLookupResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -73,9 +75,11 @@ public abstract class AccountLookupsResource {
 
    @POST
    @Path(Paths.REQUEST_TRAFFIC_FINE_INFO)
-   @Consumes({ MediaType.APPLICATION_JSON })
-   @Produces({ MediaType.APPLICATION_JSON })
-   @ApiOperation(value = "Basic traffic fine info request", nickname = Operations.REQUEST_TRAFFIC_FINE_INFO, notes = "Requests information related to a specific traffic fine as identified by the noticeNumber. In the case where this function is not supported by the relevant service provider, a 501 HTTP status code may be returned")
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Basic traffic fine info request",
+           nickname = Operations.REQUEST_TRAFFIC_FINE_INFO,
+           notes = "Requests information related to a specific traffic fine as identified by the noticeNumber. In the case where this function is not supported by the relevant service provider, a 501 HTTP status code may be returned")
    @ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = TrafficFineLookupResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -105,9 +109,11 @@ public abstract class AccountLookupsResource {
 
    @POST
    @Path(Paths.REQUEST_POLICY_INFO)
-   @Consumes({ MediaType.APPLICATION_JSON })
-   @Produces({ MediaType.APPLICATION_JSON })
-   @ApiOperation(value = "Basic policy info request", nickname = Operations.REQUEST_POLICY_INFO, notes = "Requests the current status of the policy identified by the supplied policy reference. Not all service providers support policy lookups. In the case where this function is not supported by the requested service provider, a 501 HTTP status code may be returned")
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Basic policy info request",
+           nickname = Operations.REQUEST_POLICY_INFO,
+           notes = "Requests the current status of the policy identified by the supplied policy reference. Not all service providers support policy lookups. In the case where this function is not supported by the requested service provider, a 501 HTTP status code may be returned")
    @ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = PolicyLookupResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),

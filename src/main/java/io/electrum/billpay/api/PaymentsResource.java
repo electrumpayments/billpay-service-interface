@@ -35,9 +35,9 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ResponseHeader;
 
-@Path(Paths.PAYMENTS_BASE_PATH)
-@Consumes({ MediaType.APPLICATION_JSON })
-@Produces({ MediaType.APPLICATION_JSON })
+@Path("")
+@Consumes({MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_JSON})
 @Api(description = "the payments API", authorizations = { @Authorization("httpBasic") })
 public abstract class PaymentsResource {
 
@@ -45,9 +45,11 @@ public abstract class PaymentsResource {
 
    @POST
    @Path(Paths.CONFIRM_PAYMENT)
-   @Consumes({ MediaType.APPLICATION_JSON })
-   @Produces({ MediaType.APPLICATION_JSON })
-   @ApiOperation(value = "Confirm an existing bill payment", nickname = Operations.CONFIRM_PAYMENT, notes = "If a createPayment request previously succeeded with a 201 status it must be confirmed or cancelled to complete the transaction. confirmPayment can only succeed if a payment was created but not cancelled. confirmPayment must be repeated until a final HTTP status code is received (not 500 or 504). If a status code of either 500 or 504 is received, or no response is received, the request must be repeated. confirmPayment may be called repeatedly on the same payment resource without negative effect.")
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Confirm an existing bill payment",
+           nickname = Operations.CONFIRM_PAYMENT,
+           notes = "If a createPayment request previously succeeded with a 201 status it must be confirmed or cancelled to complete the transaction. confirmPayment can only succeed if a payment was created but not cancelled. confirmPayment must be repeated until a final HTTP status code is received (not 500 or 504). If a status code of either 500 or 504 is received, or no response is received, the request must be repeated. confirmPayment may be called repeatedly on the same payment resource without negative effect.")
    @ApiResponses(value = { @ApiResponse(code = 202, message = "Accepted", response = BasicAdviceResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -78,9 +80,11 @@ public abstract class PaymentsResource {
 
    @POST
    @Path(Paths.CREATE_ACCOUNT_PAYMENT)
-   @Consumes({ MediaType.APPLICATION_JSON })
-   @Produces({ MediaType.APPLICATION_JSON })
-   @ApiOperation(value = "Initiate a bill payment transaction", nickname = Operations.CREATE_ACCOUNT_PAYMENT, notes = "Requests that a payment be made towards a customer account")
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Initiate a bill payment transaction",
+           nickname = Operations.CREATE_ACCOUNT_PAYMENT,
+           notes = "Requests that a payment be made towards a customer account")
    @ApiResponses(value = {
          @ApiResponse(code = 201, message = "Created", response = PaymentResponse.class, responseHeaders = {
                @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
@@ -111,9 +115,11 @@ public abstract class PaymentsResource {
 
    @POST
    @Path(Paths.CREATE_TRAFFIC_FINE_PAYMENT)
-   @Consumes({ MediaType.APPLICATION_JSON })
-   @Produces({ MediaType.APPLICATION_JSON })
-   @ApiOperation(value = "Initiate a traffic fine payment transaction", nickname = Operations.CREATE_TRAFFICE_FINE_PAYMENT, notes = "Requests that a payment be made towards a traffic fine.")
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Initiate a traffic fine payment transaction",
+           nickname = Operations.CREATE_TRAFFICE_FINE_PAYMENT,
+           notes = "Requests that a payment be made towards a traffic fine.")
    @ApiResponses(value = {
          @ApiResponse(code = 201, message = "Created", response = TrafficFinePaymentResponse.class, responseHeaders = {
                @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
@@ -144,9 +150,11 @@ public abstract class PaymentsResource {
 
    @POST
    @Path(Paths.CREATE_POLICY_PAYMENT)
-   @Consumes({ MediaType.APPLICATION_JSON })
-   @Produces({ MediaType.APPLICATION_JSON })
-   @ApiOperation(value = "Initiate a policy payment transaction", nickname = Operations.CREATE_POLICY_PAYMENT, notes = "Requests that a payment be made towards a policy.")
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Initiate a policy payment transaction",
+           nickname = Operations.CREATE_POLICY_PAYMENT,
+           notes = "Requests that a payment be made towards a policy.")
    @ApiResponses(value = {
          @ApiResponse(code = 201, message = "Created", response = PolicyPaymentResponse.class, responseHeaders = {
                @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
@@ -177,9 +185,11 @@ public abstract class PaymentsResource {
 
    @POST
    @Path(Paths.REVERSE_PAYMENT)
-   @Consumes({ MediaType.APPLICATION_JSON })
-   @Produces({ MediaType.APPLICATION_JSON })
-   @ApiOperation(value = "Reverse a payment request that failed or timed out", nickname = Operations.REVERSE_PAYMENT, notes = "If a createPayment request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not reflected on a customer's account. reversePayment must be repeated until a final HTTP status code is received (not 500 or 504). reversePayment may be called repeatedly on the same payment resource without negative effect.")
+   @Consumes({MediaType.APPLICATION_JSON})
+   @Produces({MediaType.APPLICATION_JSON})
+   @ApiOperation(value = "Reverse a payment request that failed or timed out",
+           nickname = Operations.REVERSE_PAYMENT,
+           notes = "If a createPayment request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not reflected on a customer's account. reversePayment must be repeated until a final HTTP status code is received (not 500 or 504). reversePayment may be called repeatedly on the same payment resource without negative effect.")
    @ApiResponses(value = { @ApiResponse(code = 202, message = "Accepted", response = BasicAdviceResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
@@ -211,7 +221,7 @@ public abstract class PaymentsResource {
    public class Operations {
       public static final String CREATE_POLICY_PAYMENT = "createPolicyPayment";
       public static final String CREATE_TRAFFICE_FINE_PAYMENT = "createTrafficFinePayment";
-      public static final String CREATE_ACCOUNT_PAYMENT = "createAccountPayment";
+      public static final String CREATE_ACCOUNT_PAYMENT =  "createAccountPayment";
       public static final String CONFIRM_PAYMENT = "confirmPayment";
       public static final String REVERSE_PAYMENT = "reversePayment";
    }
