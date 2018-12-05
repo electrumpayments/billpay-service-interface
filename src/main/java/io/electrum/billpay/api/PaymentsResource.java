@@ -22,8 +22,6 @@ import io.electrum.billpay.model.PolicyPaymentRequest;
 import io.electrum.billpay.model.PolicyPaymentResponse;
 import io.electrum.billpay.model.TrafficFinePaymentRequest;
 import io.electrum.billpay.model.TrafficFinePaymentResponse;
-import io.electrum.billpay.utils.PathParams;
-import io.electrum.billpay.utils.Paths;
 import io.electrum.vas.model.BasicAdviceResponse;
 import io.electrum.vas.model.BasicReversal;
 import io.electrum.vas.model.TenderAdvice;
@@ -35,29 +33,86 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import io.swagger.annotations.ResponseHeader;
 
-@Path("")
-@Consumes({MediaType.APPLICATION_JSON})
-@Produces({MediaType.APPLICATION_JSON})
+@Path(PaymentsResource.PATH)
+@Consumes({ MediaType.APPLICATION_JSON })
+@Produces({ MediaType.APPLICATION_JSON })
 @Api(description = "the payments API", authorizations = { @Authorization("httpBasic") })
 public abstract class PaymentsResource {
 
    protected abstract IPaymentsResource getResourceImplementation();
 
+   public static final String PATH = BillpayApi.API_BASE_PATH + "/payments";
+
+   public class ConfirmPayment {
+      public static final String OPERATION = "confirmPayment";
+      public static final int SUCCESS = 202;
+      public static final String RELATIVE_PATH =
+            "/" + "{" + PathParameters.PAYMENT_ID + "}" + "/confirmations/" + "{" + PathParameters.ADVICE_ID + "}";
+      public static final String FULL_PATH = PaymentsResource.PATH + RELATIVE_PATH;
+
+      public class PathParameters {
+         public static final String PAYMENT_ID = "paymentId";
+         public static final String ADVICE_ID = "adviceId";
+      }
+   }
+
+   public class CreateAccountPayment {
+      public static final String OPERATION = "createAccountPayment";
+      public static final int SUCCESS = 201;
+      public static final String RELATIVE_PATH = "/" + "{" + PathParameters.PAYMENT_ID + "}";
+      public static final String FULL_PATH = PaymentsResource.PATH + RELATIVE_PATH;
+
+      public class PathParameters {
+         public static final String PAYMENT_ID = "paymentId";
+      }
+   }
+
+   public class CreateTrafficFinePayment {
+      public static final String OPERATION = "createTrafficFinePayment";
+      public static final int SUCCESS = 201;
+      public static final String RELATIVE_PATH = "/traffic/" + "{" + PathParameters.PAYMENT_ID + "}";
+      public static final String FULL_PATH = PaymentsResource.PATH + RELATIVE_PATH;
+
+      public class PathParameters {
+         public static final String PAYMENT_ID = "paymentId";
+      }
+   }
+
+   public class CreatePolicyPayment {
+      public static final String OPERATION = "createPolicyPayment";
+      public static final int SUCCESS = 201;
+      public static final String RELATIVE_PATH = "/policy/" + "{" + PathParameters.PAYMENT_ID + "}";
+      public static final String FULL_PATH = PaymentsResource.PATH + RELATIVE_PATH;
+
+      public class PathParameters {
+         public static final String PAYMENT_ID = "paymentId";
+      }
+   }
+
+   public class ReversePayment {
+      public static final String OPERATION = "reversePayment";
+      public static final int SUCCESS = 202;
+      public static final String RELATIVE_PATH =
+            "/{" + PathParameters.PAYMENT_ID + "}/reversals/" + "{" + PathParameters.ADVICE_ID + "}";
+      public static final String FULL_PATH = PaymentsResource.PATH + RELATIVE_PATH;
+
+      public class PathParameters {
+         public static final String PAYMENT_ID = "paymentId";
+         public static final String ADVICE_ID = "adviceId";
+      }
+   }
+
    @POST
-   @Path(Paths.CONFIRM_PAYMENT)
-   @Consumes({MediaType.APPLICATION_JSON})
-   @Produces({MediaType.APPLICATION_JSON})
-   @ApiOperation(value = "Confirm an existing bill payment",
-           nickname = Operations.CONFIRM_PAYMENT,
-           notes = "If a createPayment request previously succeeded with a 201 status it must be confirmed or cancelled to complete the transaction. confirmPayment can only succeed if a payment was created but not cancelled. confirmPayment must be repeated until a final HTTP status code is received (not 500 or 504). If a status code of either 500 or 504 is received, or no response is received, the request must be repeated. confirmPayment may be called repeatedly on the same payment resource without negative effect.")
+   @Path(ConfirmPayment.RELATIVE_PATH)
+   @ApiOperation(value = "Confirm an existing bill payment", nickname = ConfirmPayment.OPERATION, notes = "If a createPayment request previously succeeded with a 201 status it must be confirmed or cancelled to complete the transaction. confirmPayment can only succeed if a payment was created but not cancelled. confirmPayment must be repeated until a final HTTP status code is received (not 500 or 504). If a status code of either 500 or 504 is received, or no response is received, the request must be repeated. confirmPayment may be called repeatedly on the same payment resource without negative effect.")
    @ApiResponses(value = { @ApiResponse(code = 202, message = "Accepted", response = BasicAdviceResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void confirmPayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(PathParams.ADVICE_ID) String adviceId,
-         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam(PathParams.PAYMENT_ID) String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(ConfirmPayment.PathParameters.ADVICE_ID) String adviceId,
+         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam(ConfirmPayment.PathParameters.PAYMENT_ID) String paymentId,
          @ApiParam(value = "A payment confirmation", required = true) TenderAdvice body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -79,12 +134,8 @@ public abstract class PaymentsResource {
    }
 
    @POST
-   @Path(Paths.CREATE_ACCOUNT_PAYMENT)
-   @Consumes({MediaType.APPLICATION_JSON})
-   @Produces({MediaType.APPLICATION_JSON})
-   @ApiOperation(value = "Initiate a bill payment transaction",
-           nickname = Operations.CREATE_ACCOUNT_PAYMENT,
-           notes = "Requests that a payment be made towards a customer account")
+   @Path(CreateAccountPayment.RELATIVE_PATH)
+   @ApiOperation(value = "Initiate a bill payment transaction", nickname = CreateAccountPayment.OPERATION, notes = "Requests that a payment be made towards a customer account")
    @ApiResponses(value = {
          @ApiResponse(code = 201, message = "Created", response = PaymentResponse.class, responseHeaders = {
                @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
@@ -93,7 +144,7 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void createPayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(PathParams.PAYMENT_ID) String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreateAccountPayment.PathParameters.PAYMENT_ID) String paymentId,
          @ApiParam(value = "A payment request", required = true) PaymentRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -114,12 +165,8 @@ public abstract class PaymentsResource {
    }
 
    @POST
-   @Path(Paths.CREATE_TRAFFIC_FINE_PAYMENT)
-   @Consumes({MediaType.APPLICATION_JSON})
-   @Produces({MediaType.APPLICATION_JSON})
-   @ApiOperation(value = "Initiate a traffic fine payment transaction",
-           nickname = Operations.CREATE_TRAFFICE_FINE_PAYMENT,
-           notes = "Requests that a payment be made towards a traffic fine.")
+   @Path(CreateTrafficFinePayment.RELATIVE_PATH)
+   @ApiOperation(value = "Initiate a traffic fine payment transaction", nickname = CreateTrafficFinePayment.OPERATION, notes = "Requests that a payment be made towards a traffic fine.")
    @ApiResponses(value = {
          @ApiResponse(code = 201, message = "Created", response = TrafficFinePaymentResponse.class, responseHeaders = {
                @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
@@ -128,7 +175,7 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void createPayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(PathParams.PAYMENT_ID) String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreateTrafficFinePayment.PathParameters.PAYMENT_ID) String paymentId,
          @ApiParam(value = "A traffic fine payment request", required = true) TrafficFinePaymentRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -149,12 +196,8 @@ public abstract class PaymentsResource {
    }
 
    @POST
-   @Path(Paths.CREATE_POLICY_PAYMENT)
-   @Consumes({MediaType.APPLICATION_JSON})
-   @Produces({MediaType.APPLICATION_JSON})
-   @ApiOperation(value = "Initiate a policy payment transaction",
-           nickname = Operations.CREATE_POLICY_PAYMENT,
-           notes = "Requests that a payment be made towards a policy.")
+   @Path(CreatePolicyPayment.RELATIVE_PATH)
+   @ApiOperation(value = "Initiate a policy payment transaction", nickname = CreatePolicyPayment.OPERATION, notes = "Requests that a payment be made towards a policy.")
    @ApiResponses(value = {
          @ApiResponse(code = 201, message = "Created", response = PolicyPaymentResponse.class, responseHeaders = {
                @ResponseHeader(name = "Location", description = "The location of the created payments resource", response = String.class) }),
@@ -163,7 +206,7 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void createPayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(PathParams.PAYMENT_ID) String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreatePolicyPayment.PathParameters.PAYMENT_ID) String paymentId,
          @ApiParam(value = "A policy payment request", required = true) PolicyPaymentRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -184,20 +227,16 @@ public abstract class PaymentsResource {
    }
 
    @POST
-   @Path(Paths.REVERSE_PAYMENT)
-   @Consumes({MediaType.APPLICATION_JSON})
-   @Produces({MediaType.APPLICATION_JSON})
-   @ApiOperation(value = "Reverse a payment request that failed or timed out",
-           nickname = Operations.REVERSE_PAYMENT,
-           notes = "If a createPayment request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not reflected on a customer's account. reversePayment must be repeated until a final HTTP status code is received (not 500 or 504). reversePayment may be called repeatedly on the same payment resource without negative effect.")
+   @Path(ReversePayment.RELATIVE_PATH)
+   @ApiOperation(value = "Reverse a payment request that failed or timed out", nickname = ReversePayment.OPERATION, notes = "If a createPayment request fails with a 500 or 504 HTTP status code, or no response was received within the timeout period, it must be reversed to ensure the payment is not reflected on a customer's account. reversePayment must be repeated until a final HTTP status code is received (not 500 or 504). reversePayment may be called repeatedly on the same payment resource without negative effect.")
    @ApiResponses(value = { @ApiResponse(code = 202, message = "Accepted", response = BasicAdviceResponse.class),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void reversePayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(PathParams.ADVICE_ID) String adviceId,
-         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam(PathParams.PAYMENT_ID) String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(ReversePayment.PathParameters.ADVICE_ID) String adviceId,
+         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam(ReversePayment.PathParameters.PAYMENT_ID) String paymentId,
          @ApiParam(value = "A payment reversal", required = true) BasicReversal body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -218,10 +257,15 @@ public abstract class PaymentsResource {
             uriInfo);
    }
 
+   /**
+    * Use <code>ConfirmPayment.OPERATION, CreateAccountPayment.OPERATION, CreateTrafficFinePayment.OPERATION, 
+    * CreatePolicyPayment.OPERATION, ReversePayment.OPERATION </code> instead.
+    */
+   @Deprecated
    public class Operations {
       public static final String CREATE_POLICY_PAYMENT = "createPolicyPayment";
       public static final String CREATE_TRAFFICE_FINE_PAYMENT = "createTrafficFinePayment";
-      public static final String CREATE_ACCOUNT_PAYMENT =  "createAccountPayment";
+      public static final String CREATE_ACCOUNT_PAYMENT = "createAccountPayment";
       public static final String CONFIRM_PAYMENT = "confirmPayment";
       public static final String REVERSE_PAYMENT = "reversePayment";
    }

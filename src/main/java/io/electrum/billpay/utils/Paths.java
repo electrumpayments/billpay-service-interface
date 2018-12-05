@@ -1,9 +1,12 @@
 package io.electrum.billpay.utils;
 
+/**
+ * Use path constants defined in {@link io.electrum.billpay.api.AccountLookupsResource}, 
+ * {@link io.electrum.billpay.api.PaymentsResource} and 
+ * {@link io.electrum.billpay.api.RefundsResource}.
+ */
+@Deprecated
 public class Paths {
-   // Base paths
-   public static final String VERSION_NUMBER = "/v4";
-   public static final String BASE_PATH = "/billpay" + VERSION_NUMBER;
 
    // Account lookup paths
    public static final String ACCOUNT_LOOKUP_BASE_PATH = "/accountLookups";
