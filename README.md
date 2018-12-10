@@ -12,12 +12,12 @@ To include the service interface into your maven project, include the below depe
 <dependency>
     <groupId>io.electrum</groupId>
     <artifactId>billpay-service-interface</artifactId>
-    <version>4.5.1</version>
+    <version>4.6.0</version>
 </dependency>
 <dependency>
     <groupId>io.electrum</groupId>
     <artifactId>service-interface-base</artifactId>
-    <version>3.4.0</version>
+    <version>3.14.0</version>
 </dependency>
 ```
 
