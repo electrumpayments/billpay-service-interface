@@ -1,14 +1,19 @@
 package io.electrum.billpay.model;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.internal.Nullable;
 
 import io.electrum.vas.Utils;
 import io.electrum.vas.model.Amounts;
+import io.electrum.vas.model.PaymentMethod;
+import io.electrum.vas.model.Tender;
 import io.electrum.vas.model.Transaction;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,6 +26,10 @@ public class PaymentRequest extends Transaction {
 
    private String accountRef = null;
    private Amounts amounts = null;
+   private List<Tender> tenders = null;
+   private List<PaymentMethod> paymentMethods = null;
+   private String product = null;
+   private Customer customer = null;
 
    /**
     * A reference number identifying the bill payments processor, bill issuer, and customer
@@ -62,23 +71,77 @@ public class PaymentRequest extends Transaction {
       this.amounts = amounts;
    }
 
+   public PaymentRequest tender(List<Tender> tenders) {
+      this.tenders = tenders;
+      return this;
+   }
+
+   @ApiModelProperty(required = false, value = "Contains the tenders for the payment request if available")
+   @JsonProperty("tenders")
+   @Nullable
+   public List<Tender> getTenders() {
+      return tenders;
+   }
+
+   public void setTenders(List<Tender> tenders) {
+      this.tenders = tenders;
+   }
+
+   public PaymentRequest paymentMethods(List<PaymentMethod> paymentMethods) {
+      this.paymentMethods = paymentMethods;
+      return this;
+   }
+
+   @ApiModelProperty(required = false, value = "Contains the payment method for the payment request if available")
+   @JsonProperty("paymentMethods")
+   @Nullable
+   public List<PaymentMethod> getPaymentMethods() {
+      return paymentMethods;
+   }
+
+   public void setPaymentMethods(List<PaymentMethod> paymentMethods) {
+      this.paymentMethods = paymentMethods;
+   }
+
+   public PaymentRequest product(String product) {
+      this.product = product;
+      return this;
+   }
+
+   @ApiModelProperty(required = false, value = "Contains the product of the transaction in the Payment Request")
+   @JsonProperty("product")
+   @Nullable
+   public String getProduct() {
+      return product;
+   }
+
+   public void setProduct(String product) {
+      this.product = product;
+   }
+
    @Override
    public String toString() {
-      StringBuilder sb = new StringBuilder();
-      sb.append("class PaymentRequest {\n");
-
-      sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
-      sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
-      sb.append("    originator: ").append(Utils.toIndentedString(originator)).append("\n");
-      sb.append("    client: ").append(Utils.toIndentedString(client)).append("\n");
-      sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
-      sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
-      sb.append("    accountRef: ").append(Utils.toIndentedString(accountRef)).append("\n");
-      sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
-      sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
-      sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
-      sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");
-      sb.append("}");
-      return sb.toString();
+      return new StringBuilder().append("PaymentRequest{")
+            .append(System.lineSeparator())
+            .append("    accountRef: ")
+            .append(Utils.toIndentedString(accountRef))
+            .append(System.lineSeparator())
+            .append("    amounts: ")
+            .append(Utils.toIndentedString(amounts))
+            .append(System.lineSeparator())
+            .append("    tenders: ")
+            .append(Utils.toIndentedString(tenders))
+            .append(System.lineSeparator())
+            .append("    paymentMethods: ")
+            .append(Utils.toIndentedString(paymentMethods))
+            .append(System.lineSeparator())
+            .append("    product: ")
+            .append(Utils.toIndentedString(product))
+            .append(System.lineSeparator())
+            .append("    customer: ")
+            .append(Utils.toIndentedString(customer))
+            .append(System.lineSeparator())
+            .append("}")
+            .toString();
    }
 }
