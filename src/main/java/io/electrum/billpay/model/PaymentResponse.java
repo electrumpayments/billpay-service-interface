@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.sun.istack.internal.Nullable;
 import io.electrum.vas.Utils;
 import io.electrum.vas.model.PaymentMethod;
 import io.electrum.vas.model.Tender;
@@ -50,7 +49,6 @@ public class PaymentResponse extends BillpayResponse {
 
    @ApiModelProperty(required = false, value = "Contains the tenders for the payment response if available")
    @JsonProperty("tenders")
-   @Nullable
    public List<Tender> getTenders() {
       return tenders;
    }
@@ -66,7 +64,6 @@ public class PaymentResponse extends BillpayResponse {
 
    @ApiModelProperty(required = false, value = "Contains the payment method for the payment response if available")
    @JsonProperty("paymentMethods")
-   @Nullable
    public List<PaymentMethod> getPaymentMethods() {
       return paymentMethods;
    }
