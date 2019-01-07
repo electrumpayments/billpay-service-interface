@@ -5,9 +5,14 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.sun.istack.internal.Nullable;
 import io.electrum.vas.Utils;
+import io.electrum.vas.model.PaymentMethod;
+import io.electrum.vas.model.Tender;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.List;
 
 /**
  * Represents a response to a payment request
@@ -15,6 +20,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Represents a response to a payment request")
 public class PaymentResponse extends BillpayResponse {
    protected Account account = null;
+   private List<Tender> tenders = null;
+   private List<PaymentMethod> paymentMethods = null;
 
    /**
     * The customer account detail
@@ -36,26 +43,63 @@ public class PaymentResponse extends BillpayResponse {
       this.account = account;
    }
 
+   public PaymentResponse tender(List<Tender> tenders) {
+      this.tenders = tenders;
+      return this;
+   }
+
+   @ApiModelProperty(required = false, value = "Contains the tenders for the payment response if available")
+   @JsonProperty("tenders")
+   @Nullable
+   public List<Tender> getTenders() {
+      return tenders;
+   }
+
+   public void setTenders(List<Tender> tenders) {
+      this.tenders = tenders;
+   }
+
+   public PaymentResponse paymentMethods(List<PaymentMethod> paymentMethods) {
+      this.paymentMethods = paymentMethods;
+      return this;
+   }
+
+   @ApiModelProperty(required = false, value = "Contains the payment method for the payment response if available")
+   @JsonProperty("paymentMethods")
+   @Nullable
+   public List<PaymentMethod> getPaymentMethods() {
+      return paymentMethods;
+   }
+
+   public void setPaymentMethods(List<PaymentMethod> paymentMethods) {
+      this.paymentMethods = paymentMethods;
+   }
+
    @Override
    public String toString() {
-      StringBuilder sb = new StringBuilder();
-      sb.append("class PaymentResponse {\n");
-
-      sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
-      sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
-      sb.append("    originator: ").append(Utils.toIndentedString(originator)).append("\n");
-      sb.append("    client: ").append(Utils.toIndentedString(client)).append("\n");
-      sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
-      sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
-      sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
-      sb.append("    customer: ").append(Utils.toIndentedString(customer)).append("\n");
-      sb.append("    account: ").append(Utils.toIndentedString(account)).append("\n");
-      sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
-      sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
-      sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");
-      sb.append("    partPaymentAllowed: ").append(Utils.toIndentedString(partPaymentAllowed)).append("\n");
-      sb.append("    overPaymentAllowed: ").append(Utils.toIndentedString(overPaymentAllowed)).append("\n");
-      sb.append("}");
-      return sb.toString();
+      return new StringBuilder()
+              .append("PaymentResponse{").append(System.lineSeparator())
+              .append("    account: ").append(Utils.toIndentedString(account)).append(System.lineSeparator())
+              .append("    tenders: ").append(Utils.toIndentedString(tenders)).append(System.lineSeparator())
+              .append("    paymentMethods: ").append(Utils.toIndentedString(paymentMethods)).append(System.lineSeparator())
+              .append("    customer: ").append(Utils.toIndentedString(customer)).append(System.lineSeparator())
+              .append("    amounts: ").append(Utils.toIndentedString(amounts)).append(System.lineSeparator())
+              .append("    slipData: ").append(Utils.toIndentedString(slipData)).append(System.lineSeparator())
+              .append("    partPaymentAllowed: ").append(Utils.toIndentedString(partPaymentAllowed)).append(System.lineSeparator())
+              .append("    overPaymentAllowed: ").append(Utils.toIndentedString(overPaymentAllowed)).append(System.lineSeparator())
+              .append("    id: ").append(Utils.toIndentedString(id)).append(System.lineSeparator())
+              .append("    time: ").append(Utils.toIndentedString(time)).append(System.lineSeparator())
+              .append("    originator: ").append(Utils.toIndentedString(originator)).append(System.lineSeparator())
+              .append("    client: ").append(Utils.toIndentedString(client)).append(System.lineSeparator())
+              .append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append(System.lineSeparator())
+              .append("    receiver: ").append(Utils.toIndentedString(receiver)).append(System.lineSeparator())
+              .append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append(System.lineSeparator())
+              .append("    slipData: ").append(Utils.toIndentedString(slipData)).append(System.lineSeparator())
+              .append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append(System.lineSeparator())
+              .append("    tranType: ").append(Utils.toIndentedString(tranType)).append(System.lineSeparator())
+              .append("    srcAccType: ").append(Utils.toIndentedString(srcAccType)).append(System.lineSeparator())
+              .append("    destAccType: ").append(Utils.toIndentedString(destAccType)).append(System.lineSeparator())
+              .append("}")
+              .toString();
    }
 }

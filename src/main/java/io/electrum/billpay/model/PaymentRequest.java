@@ -28,7 +28,6 @@ public class PaymentRequest extends Transaction {
    private Amounts amounts = null;
    private List<Tender> tenders = null;
    private List<PaymentMethod> paymentMethods = null;
-   private String product = null;
    private Customer customer = null;
 
    /**
@@ -103,22 +102,6 @@ public class PaymentRequest extends Transaction {
       this.paymentMethods = paymentMethods;
    }
 
-   public PaymentRequest product(String product) {
-      this.product = product;
-      return this;
-   }
-
-   @ApiModelProperty(required = false, value = "Contains the product of the transaction in the Payment Request")
-   @JsonProperty("product")
-   @Nullable
-   public String getProduct() {
-      return product;
-   }
-
-   public void setProduct(String product) {
-      this.product = product;
-   }
-
    @Override
    public String toString() {
       return new StringBuilder().append("PaymentRequest{")
@@ -134,9 +117,6 @@ public class PaymentRequest extends Transaction {
             .append(System.lineSeparator())
             .append("    paymentMethods: ")
             .append(Utils.toIndentedString(paymentMethods))
-            .append(System.lineSeparator())
-            .append("    product: ")
-            .append(Utils.toIndentedString(product))
             .append(System.lineSeparator())
             .append("    customer: ")
             .append(Utils.toIndentedString(customer))
