@@ -99,6 +99,25 @@ public class PaymentRequest extends Transaction {
       this.paymentMethods = paymentMethods;
    }
 
+   /**
+    * Customer detail
+    **/
+   public PaymentRequest customer(Customer customer) {
+      this.customer = customer;
+      return this;
+   }
+
+   @ApiModelProperty(value = "Customer detail")
+   @JsonProperty("customer")
+   @Valid
+   public Customer getCustomer() {
+      return customer;
+   }
+
+   public void setCustomer(Customer customer) {
+      this.customer = customer;
+   }
+
    @Override
    public String toString() {
       return new StringBuilder().append("PaymentRequest{")
