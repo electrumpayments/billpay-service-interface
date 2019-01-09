@@ -1,5 +1,12 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.7.0
+
+Released 9 January 2019
+
+- Add Tender and PaymentsMethods fields to PaymentRequest and PaymentResponse
+- Add Customer fields to PaymentRequest 
+
 ## v4.6.0
 
 Released 31 August 2018
