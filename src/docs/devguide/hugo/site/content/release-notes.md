@@ -1,5 +1,9 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.7.1 
+Released 9 January 2019
+- Fix Customer field setters and getters in PaymentRequest
+
 ## v4.7.0
 
 Released 9 January 2019
