@@ -1,5 +1,6 @@
 package io.electrum.billpay.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -25,8 +26,8 @@ public class PaymentRequest extends Transaction {
 
    private String accountRef = null;
    private Amounts amounts = null;
-   private List<Tender> tenders = null;
-   private List<PaymentMethod> paymentMethods = null;
+   private List<Tender> tenders = new ArrayList<>();
+   private List<PaymentMethod> paymentMethods = new ArrayList<>();
    private Customer customer = null;
 
    /**
