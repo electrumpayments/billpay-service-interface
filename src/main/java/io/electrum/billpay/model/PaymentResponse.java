@@ -11,6 +11,7 @@ import io.electrum.vas.model.Tender;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +20,8 @@ import java.util.List;
 @ApiModel(description = "Represents a response to a payment request")
 public class PaymentResponse extends BillpayResponse {
    protected Account account = null;
-   private List<Tender> tenders = null;
-   private List<PaymentMethod> paymentMethods = null;
+   private List<Tender> tenders = new ArrayList<>();
+   private List<PaymentMethod> paymentMethods = new ArrayList<>();
 
    /**
     * The customer account detail
