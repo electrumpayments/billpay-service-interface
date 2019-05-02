@@ -1,6 +1,7 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
 ## v4.7.4
+
 Released 02 May 2019
 
 - Modified PAYMENT_NOT_ALLOWED_USING_SETTLEMENT_ENTITY to BLOCKED_USING_SETTLEMENT_ENTITY
