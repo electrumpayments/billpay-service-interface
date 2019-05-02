@@ -1,5 +1,9 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4,7,3
+Released 02 May 2019
+- Added the following ErrorTypes: RECEIVER_BLACKLISTED, LUHN_CHECK_FAILED, and PAYMENT_NOT_ALLOWED_USING_SETTLEMENT_ENTITY
+
 ## v4.7.2
 Released 13 February 2019
 - Fix Lists in PaymentRequest and PaymentResponse to be initialised rather than be set to null. 
