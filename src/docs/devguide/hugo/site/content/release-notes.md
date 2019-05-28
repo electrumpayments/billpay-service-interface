@@ -5,6 +5,9 @@ Released xx
 
 * Added `TRANSACTION_DECLINED` error type
 * Added `CREDIT_CARD_SCHEME_NOT_SUPPORTED` error type
+* Added `INVALID_AN32_TOKEN` error type
+* Added `DO_NOT_HONOR` error type
+* Added `INVALID_LOYALTY_CARD` error type
 
 - Update base service interface version to v3.20.0.
   - Added new models:
