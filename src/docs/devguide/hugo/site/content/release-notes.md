@@ -1,5 +1,25 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## 4.8.0
+Released xx
+
+* Added `TRANSACTION_DECLINED` error type
+* Added `CREDIT_CARD_SCHEME_NOT_SUPPORTED` error type
+* Added `INVALID_AN32_TOKEN` error type
+* Added `DO_NOT_HONOR` error type
+* Added `INVALID_LOYALTY_CARD` error type
+
+- Update base service interface version to v3.20.0.
+  - Added new models:
+      - `Pin` a base PIN model
+      - `PinClear` for PINs in the clear
+      - `PinEncrypted` for encrypted PIN blocks with the PIN block format, accountNumber and the key index
+  - `Pin` was added to `CardPayment`, taking precedence over the existing `encryptedPin` field
+  - Added `PaymentMethod` subtype `CardPayment`
+  - Added explicit fields for STAN and RRN values to `BasicAdvice` and `Transaction` models.
+  - Added `ExchangeRate` to describe the exchange rate between two currencies
+  - The limitations on the `id` field of the `Institution` model have been removed to make the field suitable for a wider range of applications.
+
 ## v4.7.4
 
 Released 02 May 2019
