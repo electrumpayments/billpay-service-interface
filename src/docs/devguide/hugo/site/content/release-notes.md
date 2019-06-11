@@ -1,5 +1,11 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.7.5
+
+Released 11 June 2019
+
+- Added the following ErrorTypes: BELOW_MINIMUM_ALLOWED_AMOUNT and ABOVE_MAXIMUM_ALLOWED_AMOUNT
+
 ## v4.7.4
 
 Released 02 May 2019
