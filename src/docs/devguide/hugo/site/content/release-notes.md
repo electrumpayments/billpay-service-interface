@@ -2,7 +2,7 @@ This page describes changes to the Billpay Service Interface implemented across 
 
 ## v4.7.5
 
-Released TBC
+Released 11 June 2019
 
 - Added the following ErrorTypes: BELOW_MINIMUM_ALLOWED_AMOUNT and ABOVE_MAXIMUM_ALLOWED_AMOUNT
 
