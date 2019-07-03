@@ -173,6 +173,7 @@ workflows:
       - code-coverage-report:
           context: java
       - build-website:
+          context: java
              requires:
              - build-and-release
   nightly:
@@ -180,6 +181,7 @@ workflows:
       - build-with-latest-deps:
           context: java
       - build-website:
+          context: java
              requires:
              - build-with-latest-deps
     triggers:
