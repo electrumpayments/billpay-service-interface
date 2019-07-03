@@ -131,11 +131,9 @@ jobs:
       - run: # run tests
           name: Install Gatsby
           command: sudo npm install -g gatsby-cli
-      - run: pwd
-      - run: mkdir swagger
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /home/circleci/project/swagger
+          at: /home/circleci/project
       - run: cd swagger
       - run: ls -al
       - run: # cloning
