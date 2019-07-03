@@ -134,8 +134,7 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /swagger
-      
-     
+      - run: mkdir swagger
       - run: # cloning
           name: clone website repo
           command: git clone https://github.com/electrumpayments/billpay-service-interface-website.git website
@@ -146,10 +145,6 @@ jobs:
       - run: # modules
           name: install gatsby modules
           command: npm install
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
       - run: # build
           name: run gatsby
           command: gatsby build
