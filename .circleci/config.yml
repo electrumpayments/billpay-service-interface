@@ -135,7 +135,7 @@ jobs:
       - run: mkdir swagger
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /swagger
+          at: /home/circleci/project/swagger
       
       - run: # cloning
           name: clone website repo
