@@ -131,10 +131,12 @@ jobs:
       - run: # run tests
           name: install gatsby
           command: sudo npm install -g gatsby-cli
+      - run: pwd
+      - run: mkdir swagger
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /swagger
-      - run: mkdir swagger
+      
       - run: # cloning
           name: clone website repo
           command: git clone https://github.com/electrumpayments/billpay-service-interface-website.git website
