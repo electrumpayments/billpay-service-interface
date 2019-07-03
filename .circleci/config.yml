@@ -129,27 +129,28 @@ jobs:
     steps: # a collection of executable commands
       
       - run: # run tests
-          name: install gatsby
+          name: Install Gatsby
           command: sudo npm install -g gatsby-cli
       - run: pwd
       - run: mkdir swagger
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /home/circleci/project/swagger
-      
+      - run: cd swagger
+      - run: ls -al
       - run: # cloning
-          name: clone website repo
+          name: Clone Website Repo
           command: git clone https://github.com/electrumpayments/billpay-service-interface-website.git website
       - run: cp swagger/swagger.json website/src/pages/
       - run: cp swagger/swagger.yaml website/src/pages/
       - run: cp swagger/openapi.yaml website/src/pages/
       - run: cd website
       - run: # modules
-          name: install gatsby modules
-          command: npm install
+          name: Install Gatsby Modules
+          command: sudo npm install
       - run: # build
-          name: run gatsby
-          command: gatsby build
+          name: Run
+          command: sudo gatsby build
       
           
 
