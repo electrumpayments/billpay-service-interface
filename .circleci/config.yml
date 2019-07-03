@@ -120,7 +120,7 @@ jobs:
           destination: logs
     
     
-    build-website: 
+  build-website: 
     docker:
       - image: 813968012009.dkr.ecr.us-east-1.amazonaws.com/circleci-node8
         aws_auth:
