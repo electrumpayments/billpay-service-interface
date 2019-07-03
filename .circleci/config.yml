@@ -32,7 +32,7 @@ jobs:
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
           # taken to be the root directory of the workspace.
-          root: target/swagger
+          root: /home/circleci/project/target
           # Must be relative path from root
           paths:
             - swagger
@@ -141,15 +141,15 @@ jobs:
           command: npm install -g gatsby-cli
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /tmp/swagger
+          at: /swagger
       
      
       - run: # cloning
           name: clone website repo
-          command: git clone https://github.com/electrumpayments/billpay-service-interface-website.git
-      - run: cp tmp/swagger/swagger.json website/src/pages/
-      - run: cp tmp/swagger/swagger.yaml website/src/pages/
-      - run: cp tmp/swagger/openapi.yaml website/src/pages/
+          command: git clone https://github.com/electrumpayments/billpay-service-interface-website.git website
+      - run: cp swagger/swagger.json website/src/pages/
+      - run: cp swagger/swagger.yaml website/src/pages/
+      - run: cp swagger/openapi.yaml website/src/pages/
       - run: cd website
       - run: # modules
           name: install gatsby modules
