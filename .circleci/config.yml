@@ -127,12 +127,10 @@ jobs:
           aws_access_key_id: $AWS_ACCESS_KEY_ID
           aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
     steps: # a collection of executable commands
-      - run:
-          name: check node version
-          command: node -v
+      
       - run: # run tests
           name: install gatsby
-          command: npm install -g gatsby-cli
+          command: sudo npm install -g gatsby-cli
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /swagger
