@@ -134,8 +134,9 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /home/circleci/project
+      - run: ls -l
       - run: cd swagger
-      - run: ls -al
+      - run: ls -l
       - run: # cloning
           name: Clone Website Repo
           command: git clone https://github.com/electrumpayments/billpay-service-interface-website.git website
