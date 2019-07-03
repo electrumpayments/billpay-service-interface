@@ -27,9 +27,16 @@ jobs:
       - run:
           name: Compile, Test, and Release
           command: /electrum/bin/simpleTestAndReleaseJava.sh
-      - run:
-          name: Deploy docs to Github Pages
-          command: /electrum/bin/deployGithubPages.sh ~/project/target/devguide/site
+
+      # Persist the specified paths into the workspace for use in downstream job. 
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
+          # taken to be the root directory of the workspace.
+          root: target/swagger
+          # Must be relative path from root
+          paths:
+            - swagger
+
       - run:
           name: Release failed! Revert any release steps that might have been taken
           command: /electrum/bin/revertReleaseJava.sh
@@ -102,6 +109,7 @@ jobs:
             if [ -d target/surefire-reports ]; then mkdir -p ~/tests/surefire/; cp target/surefire-reports/*.xml ~/tests/surefire/; fi
             if [ -d target/failsafe-reports ]; then mkdir -p ~/tests/failsafe/; cp target/failsafe-reports/*.xml ~/tests/failsafe/; fi
           when: always
+      
       - store_test_results:
           path: ~/tests
       - store_artifacts:
@@ -110,6 +118,51 @@ jobs:
       - store_artifacts:
           path: logs
           destination: logs
+    
+    
+    build-website: 
+    docker:
+      - image: 813968012009.dkr.ecr.us-east-1.amazonaws.com/circleci-node8
+        aws_auth:
+          aws_access_key_id: $AWS_ACCESS_KEY_ID
+          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
+    steps: # a collection of executable commands
+      - checkout # special step to check out source code to working directory
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache: # special step to restore the dependency cache
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          key: dependency-cache-{{ checksum "package.json" }}
+      
+     
+      - run: # run tests
+          name: install gatsby
+          command: npm install -g gatsby-cli
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /tmp/swagger
+      
+     
+      - run: # cloning
+          name: clone website repo
+          command: git clone https://github.com/electrumpayments/billpay-service-interface-website.git
+      - run: cp tmp/swagger/swagger.json website/src/pages/
+      - run: cp tmp/swagger/swagger.yaml website/src/pages/
+      - run: cp tmp/swagger/openapi.yaml website/src/pages/
+      - run: cd website
+      - run: # modules
+          name: install gatsby modules
+          command: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run: # build
+          name: run gatsby
+          command: gatsby build
+      
+          
 
 workflows:
   version: 2
@@ -119,10 +172,16 @@ workflows:
           context: java
       - code-coverage-report:
           context: java
+      - build-website:
+             requires:
+             - build-and-release
   nightly:
     jobs:
       - build-with-latest-deps:
           context: java
+      - build-website:
+             requires:
+             - build-with-latest-deps
     triggers:
       - schedule:
           # every night at 00:00 SAST (22:00 UTC)
