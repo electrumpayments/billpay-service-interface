@@ -127,13 +127,9 @@ jobs:
           aws_access_key_id: $AWS_ACCESS_KEY_ID
           aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
     steps: # a collection of executable commands
-      - checkout # special step to check out source code to working directory
       - run:
           name: check node version
           command: node -v
-      - run:
-          name: update-npm
-          command: 'sudo npm install -g npm@latest'
       - run: # run tests
           name: install gatsby
           command: npm install -g gatsby-cli
