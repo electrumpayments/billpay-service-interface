@@ -29,8 +29,8 @@ jobs:
           command: /electrum/bin/simpleTestAndReleaseJava.sh
       - add_ssh_keys:
           fingerprints:
-            - "c1:6c:e3:9c:f7:6c:9f:5a:44:b0:52:a3:86:e7:a9:e9"
-      - run: cd /home/circleci/project/target/swagger && git clone git@github.com:electrumpayments/billpay-service-interface-website.git website
+            - "f5:65:d8:50:6e:ec:05:73:ab:cd:6a:1c:27:15:c4:d8"
+      - run: cd /home/circleci/project/target/swagger
       - run: cd /home/circleci/project/target/swagger && ls -l
 
       # Persist the specified paths into the workspace for use in downstream job. 
