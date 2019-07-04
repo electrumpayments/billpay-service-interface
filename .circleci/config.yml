@@ -133,8 +133,6 @@ jobs:
       - run: # run tests
           name: Install Gatsby
           command: sudo npm install -g gatsby-cli
-      - run: sudo npm install -g n
-      - run: node -v
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /home/circleci/project
@@ -147,7 +145,7 @@ jobs:
       - run: cd swagger/website && sh src/createSwagger.sh
       - run: # build
           name: Run
-          command: cd swagger/website && gatsby build
+          command: cd swagger/website && NODE_ENV=production gatsby build
       - run: 
           name: Serve
           command: cd swagger/website && gatsby serve
