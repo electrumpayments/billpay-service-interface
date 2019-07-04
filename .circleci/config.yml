@@ -140,14 +140,14 @@ jobs:
       - run: cp swagger/swagger.yaml swagger/website/src/pages
       - run: # modules
           name: Install Gatsby Modules
-          command: cd swagger/website && sudo npm install
+          command: cd swagger/website && npm install
       - run: cd swagger/website && sh src/createSwagger.sh
       - run: # build
           name: Run
-          command: cd swagger/website && sudo gatsby build
+          command: cd swagger/website && gatsby build
       - run: 
           name: Serve
-          command: cd swagger/website && sudo gatsby serve
+          command: cd swagger/website && gatsby serve
       
           
 
