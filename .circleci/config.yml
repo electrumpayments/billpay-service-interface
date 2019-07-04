@@ -138,6 +138,7 @@ jobs:
           at: /home/circleci/project
       - run: cp swagger/swagger.json swagger/website/src/pages
       - run: cp swagger/swagger.yaml swagger/website/src/pages
+      - run: cd swagger/website/src/pages && ls -l
       - run: # modules
           name: Install Gatsby Modules
           command: cd swagger/website && npm install
