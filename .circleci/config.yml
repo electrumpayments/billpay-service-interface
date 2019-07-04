@@ -29,6 +29,8 @@ jobs:
           command: /electrum/bin/simpleTestAndReleaseJava.sh
       - run: ls -l
       - run: pwd
+      - run: cd /home/circleci/project/target/swagger
+      - run: ls -l
       # Persist the specified paths into the workspace for use in downstream job. 
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
@@ -135,22 +137,23 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /home/circleci/project
-      - run: ls -l
-      - run: cd swagger
-      - run: ls -l
       - run: # cloning
           name: Clone Website Repo
           command: git clone git@github.com:electrumpayments/billpay-service-interface-website.git website
-      - run: cp swagger/swagger.json website/src/pages/
-      - run: cp swagger/swagger.yaml website/src/pages/
-      - run: cp swagger/openapi.yaml website/src/pages/
+      - run: cp swagger/swagger.json website/src/pages
+      - run: cp swagger/swagger.yaml website/src/pages
+      - run: cp swagger/openapi.yaml website/src/pages
       - run: cd website
       - run: # modules
           name: Install Gatsby Modules
           command: sudo npm install
+      - run: sh src/createSwagger.sh
       - run: # build
           name: Run
           command: sudo gatsby build
+      - run: 
+          name: Serve
+          command: sudo gatsby serve
       
           
 
