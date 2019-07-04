@@ -148,6 +148,7 @@ jobs:
       - run: 
           name: Serve
           command: cd swagger/website && gatsby serve
+      - echo "Success"
       
           
 
