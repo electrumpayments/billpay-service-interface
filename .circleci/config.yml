@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Compile, Test, and Release
           command: /electrum/bin/simpleTestAndReleaseJava.sh
-      - run: cd /home/circleci/project/target/swagger && git clone git@github.com:electrumpayments/billpay-service-interface-website.git website
+      - run: cd /home/circleci/project/target/swagger && git clone -b circleci git@github.com:electrumpayments/billpay-service-interface-website.git website
       - run: cd /home/circleci/project/target/swagger && ls -l
 
       # Persist the specified paths into the workspace for use in downstream job. 
@@ -136,13 +136,10 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /home/circleci/project
-      - run: # cloning
-          name: Clone Website Repo
-          command: git clone git@github.com:electrumpayments/billpay-service-interface-website.git website
-      - run: cp swagger/swagger.json website/src/pages
-      - run: cp swagger/swagger.yaml website/src/pages
-      - run: cp swagger/openapi.yaml website/src/pages
-      - run: cd website
+      - run: cp swagger/swagger.json swagger/website/src/pages
+      - run: cp swagger/swagger.yaml swagger/website/src/pages
+      - run: cp swagger/openapi.yaml swagger/website/src/pages
+      - run: cd swagger/website
       - run: # modules
           name: Install Gatsby Modules
           command: sudo npm install
