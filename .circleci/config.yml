@@ -27,6 +27,9 @@ jobs:
       - run:
           name: Compile, Test, and Release
           command: /electrum/bin/simpleTestAndReleaseJava.sh
+      - add_ssh_keys:
+          fingerprints:
+            - "c1:6c:e3:9c:f7:6c:9f:5a:44:b0:52:a3:86:e7:a9:e9"
       - run: cd /home/circleci/project/target/swagger && git clone git@github.com:electrumpayments/billpay-service-interface-website.git website
       - run: cd /home/circleci/project/target/swagger && ls -l
 
