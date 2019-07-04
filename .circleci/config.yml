@@ -29,7 +29,7 @@ jobs:
           command: /electrum/bin/simpleTestAndReleaseJava.sh
       - run: ls -l
       - run: pwd
-      - run: cd /home/circleci/project/target/swagger
+      - run: cd /home/circleci/project/target/swagger && ls -l
       - run: ls -l
       # Persist the specified paths into the workspace for use in downstream job. 
       - persist_to_workspace:
