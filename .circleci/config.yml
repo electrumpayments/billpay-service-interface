@@ -28,7 +28,7 @@ jobs:
           name: Compile, Test, and Release
           command: /electrum/bin/simpleTestAndReleaseJava.sh
       - run: cd /home/circleci/project/target/swagger && git clone git@github.com:electrumpayments/billpay-service-interface-website.git website
-      - run: cd /home/circleci/project/target/swagger
+      - run: cd /home/circleci/project/target/swagger && ls -l
 
       # Persist the specified paths into the workspace for use in downstream job. 
       - persist_to_workspace:
