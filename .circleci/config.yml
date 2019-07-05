@@ -190,7 +190,7 @@ workflows:
       - deploy:
           context: java
           requires:
-            - build-and-release
+            - build-website
   nightly:
     jobs:
       - build-with-latest-deps:
