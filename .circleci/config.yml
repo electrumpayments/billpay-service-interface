@@ -146,10 +146,10 @@ jobs:
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
           # taken to be the root directory of the workspace.
-          root: /home/circleci/project/swagger/docs
+          root: /home/circleci/project/swagger
           # Must be relative path from root
           paths:
-            - public
+            - docs
       #- run: cd swagger/docs && echo yes | npm run deploy
 
       #- run: # build
@@ -173,7 +173,7 @@ jobs:
           at: /home/circleci/project/target
       - run:
           name: Deploy docs to Github Pages
-          command: cd target/public && chmod +x deployGithubPages.sh && ./deployGithubPages.sh ~/project/target/docs
+          command: cd target/docs && chmod +x deployGithubPages.sh && ./deployGithubPages.sh ~/project/target/docs/public
   
           
 
