@@ -123,6 +123,7 @@ jobs:
     
     
   build-website: 
+    - checkout
     docker:
       - image: circleci/node:lts
     steps: # a collection of executable commands
