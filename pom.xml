@@ -155,28 +155,6 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>io.openapitools.swagger</groupId>
-        <artifactId>swagger-maven-plugin</artifactId>
-        <version>2.1.0</version>
-        <configuration>
-          <resourcePackages>
-            <resourcePackage>io.swagger.api</resourcePackage>
-          </resourcePackages>
-          <outputDirectory>${basedir}/target/swagger/</outputDirectory>
-          <outputFilename>openapi</outputFilename>
-          <outputFormats>YAML</outputFormats>
-          <prettyPrint>true</prettyPrint>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
 
       <plugin>
         <groupId>io.openapitools.swagger</groupId>
