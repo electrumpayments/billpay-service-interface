@@ -127,7 +127,6 @@ jobs:
     docker:
       - image: circleci/node:lts
     steps: # a collection of executable commands
-      
       - run: # run tests
           name: Install Gatsby
           command: sudo npm install -g gatsby-cli
