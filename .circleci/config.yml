@@ -170,7 +170,7 @@ jobs:
           at: /home/circleci/project/target
       - run:
           name: Deploy docs to Github Pages
-          command: cd target/docs && ls
+          command: cd target/docs && ./deployGithubPages.sh ~/project/target/docs
           #./deployGithubPages ~/project/target/docs
       
     
