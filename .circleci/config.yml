@@ -138,15 +138,17 @@ jobs:
       - run: cd swagger/website/src/pages && ls 
       - run: # modules
           name: Install Gatsby Modules
-          command: cd swagger/website && npm install
+          command: cd swagger/website && npm install --save-dev
       - run: cd swagger/website && sh src/createSwagger.sh
-      - run: # build
-          name: Run
-          command: cd swagger/website && NODE_ENV=production gatsby build
-      - run: 
-          name: Serve
-          command: cd swagger/website && gatsby serve
-      - run: echo "Success"
+      - run: cd swagger/website && npm run deploy
+
+      #- run: # build
+      #    name: Run
+      #    command: cd swagger/website && NODE_ENV=production gatsby build
+      #- run: 
+      #    name: Serve
+      #    command: cd swagger/website && gatsby serve
+      #- run: echo "Success"
 
       
           
