@@ -150,6 +150,36 @@ jobs:
       #    command: cd swagger/website && gatsby serve
       #- run: echo "Success"
 
+  deploy: 
+    docker:
+      - image: 813968012009.dkr.ecr.us-east-1.amazonaws.com/circleci-openjdk8-8u162
+        aws_auth:
+          aws_access_key_id: $AWS_ACCESS_KEY_ID
+          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
+    steps: # a collection of executable commands
+      - run: node -v
+      - run: # run tests
+          name: Deploy Site
+          command: /electrum/bin/deployGithubPages.sh
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /home/circleci/project
+      - run: cp swagger/swagger.json swagger/website/src/pages
+      #- run: cp swagger/swagger.yaml swagger/website/src/pages
+      - run: cd swagger/website/src/pages && ls 
+      - run: # modules
+          name: Install Gatsby Modules
+          command: cd swagger/website && npm install --save-dev
+      - run: cd swagger/website && sh src/createSwagger.sh
+      - run: cd swagger/website && echo yes | npm run deploy
+
+      #- run: # build
+      #    name: Run
+      #    command: cd swagger/website && NODE_ENV=production gatsby build
+      #- run: 
+      #    name: Serve
+      #    command: cd swagger/website && gatsby serve
+      #- run: echo "Success"
       
           
 
