@@ -197,7 +197,7 @@
               </securityDefinitions>
               <templatePath>${basedir}/src/docs/devguide/handlebars-templates/swaggerfile.hbs</templatePath>
               <outputPath>${project.build.directory}/devguide/specification.md</outputPath>
-              <outputFormats>json</outputFormats>
+              <outputFormats>yaml</outputFormats>
               <swaggerDirectory>${project.build.directory}/swagger</swaggerDirectory>
             </apiSource>
           </apiSources>
