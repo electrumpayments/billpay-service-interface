@@ -172,6 +172,7 @@ jobs:
           name: Deploy docs to Github Pages
           command: cd target/docs && chmod +x deployGithubPages.sh && ./deployGithubPages.sh ~/project/target/docs
           
+          
       
     
       
