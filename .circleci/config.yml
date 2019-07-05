@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Compile, Test, and Release
           command: /electrum/bin/simpleTestAndReleaseJava.sh
-      - run: cd /home/circleci/project/target/swagger && git clone git@github.com:electrumpayments/billpay-service-interface-website.git website
+      - run: cd /home/circleci/project/target/swagger && git clone git@github.com:electrumpayments/billpay-service-interface-website.git docs
       - run: cd /home/circleci/project/target/swagger && ls -l
 
       # Persist the specified paths into the workspace for use in downstream job. 
@@ -133,21 +133,28 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: /home/circleci/project
-      - run: cp swagger/swagger.json swagger/website/src/pages
-      #- run: cp swagger/swagger.yaml swagger/website/src/pages
-      - run: cd swagger/website/src/pages && ls 
+      - run: cp swagger/swagger.json swagger/docs/src/pages
+      - run: cp swagger/swagger.yaml swagger/docs/src/pages
+      - run: cd swagger/docs/src/pages && ls 
       - run: # modules
           name: Install Gatsby Modules
-          command: cd swagger/website && npm install --save-dev
-      - run: cd swagger/website && sh src/createSwagger.sh
-      - run: cd swagger/website && echo yes | npm run deploy
+          command: cd swagger/docs && npm install --save-dev
+      - run: cd swagger/docs && sh src/createSwagger.sh
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
+          # taken to be the root directory of the workspace.
+          root: /home/circleci/project/swagger
+          # Must be relative path from root
+          paths:
+            - docs
+      #- run: cd swagger/docs && echo yes | npm run deploy
 
       #- run: # build
       #    name: Run
-      #    command: cd swagger/website && NODE_ENV=production gatsby build
+      #    command: cd swagger/docs && NODE_ENV=production gatsby build
       #- run: 
       #    name: Serve
-      #    command: cd swagger/website && gatsby serve
+      #    command: cd swagger/docs && gatsby serve
       #- run: echo "Success"
 
   deploy: 
@@ -157,29 +164,14 @@ jobs:
           aws_access_key_id: $AWS_ACCESS_KEY_ID
           aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
     steps: # a collection of executable commands
-      - run: node -v
-      - run: # run tests
-          name: Deploy Site
-          command: /electrum/bin/deployGithubPages.sh
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /home/circleci/project
-      - run: cp swagger/swagger.json swagger/website/src/pages
-      #- run: cp swagger/swagger.yaml swagger/website/src/pages
-      - run: cd swagger/website/src/pages && ls 
-      - run: # modules
-          name: Install Gatsby Modules
-          command: cd swagger/website && npm install --save-dev
-      - run: cd swagger/website && sh src/createSwagger.sh
-      - run: cd swagger/website && echo yes | npm run deploy
-
-      #- run: # build
-      #    name: Run
-      #    command: cd swagger/website && NODE_ENV=production gatsby build
-      #- run: 
-      #    name: Serve
-      #    command: cd swagger/website && gatsby serve
-      #- run: echo "Success"
+          at: /home/circleci/project/target
+      - run:
+          name: Deploy docs to Github Pages
+          command: /electrum/bin/deployGithubPages.sh ~/project/target/docs
+      
+    
       
           
 
@@ -192,6 +184,10 @@ workflows:
       - code-coverage-report:
           context: java
       - build-website:
+          context: java
+          requires:
+            - build-and-release
+      - deploy:
           context: java
           requires:
             - build-and-release
