@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Compile, Test, and Release
           command: /electrum/bin/simpleTestAndReleaseJava.sh
-      - run: cd /home/circleci/project/target/swagger && git clone -b circleci git@github.com:electrumpayments/billpay-service-interface-website.git website
+      - run: cd /home/circleci/project/target/swagger && git clone git@github.com:electrumpayments/billpay-service-interface-website.git website
       - run: cd /home/circleci/project/target/swagger && ls -l
 
       # Persist the specified paths into the workspace for use in downstream job. 
@@ -124,12 +124,9 @@ jobs:
     
   build-website: 
     docker:
-      - image: 813968012009.dkr.ecr.us-east-1.amazonaws.com/circleci-node8
-        aws_auth:
-          aws_access_key_id: $AWS_ACCESS_KEY_ID
-          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
+      - image: circleci/node:lts
     steps: # a collection of executable commands
-      
+      - run: node -v
       - run: # run tests
           name: Install Gatsby
           command: sudo npm install -g gatsby-cli
