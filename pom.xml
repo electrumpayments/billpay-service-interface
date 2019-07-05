@@ -213,9 +213,10 @@
             <configuration>
               <publisher>
                 <contextUrl>${artifactory-url}/</contextUrl>
-                <username>${artifactory-username}</username>
-                <password>${artifactory-password}</password>
-                <repoKey>oss-local</repoKey>
+<username>${artifactory-username}</username>
+<password>${artifactory-password}</password>
+<repoKey>libs-release-local</repoKey>
+<snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
               </publisher>
             </configuration>
           </execution>
