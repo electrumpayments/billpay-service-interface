@@ -140,7 +140,7 @@ jobs:
           name: Install Gatsby Modules
           command: cd swagger/website && npm install --save-dev
       - run: cd swagger/website && sh src/createSwagger.sh
-      - run: cd swagger/website && npm run deploy
+      - run: cd swagger/website && echo yes | npm run deploy
 
       #- run: # build
       #    name: Run
