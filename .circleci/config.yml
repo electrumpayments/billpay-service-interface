@@ -139,41 +139,15 @@ jobs:
       - run: # modules
           name: Install Gatsby Modules
           command: cd swagger/docs && npm install --save-dev
+      - run: cd swagger/docs && git init
       - run: cd swagger/docs && sh src/createSwagger.sh
       - run: # build
           name: Run
-          command: cd swagger/docs && NODE_ENV=production gatsby build
-      - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
-          # taken to be the root directory of the workspace.
-          root: /home/circleci/project/swagger
-          # Must be relative path from root
-          paths:
-            - docs
-      #- run: cd swagger/docs && echo yes | npm run deploy
-
-      #- run: # build
-      #    name: Run
-      #    command: cd swagger/docs && NODE_ENV=production gatsby build
-      #- run: 
-      #    name: Serve
-      #    command: cd swagger/docs && gatsby serve
-      #- run: echo "Success"
-
-  deploy: 
-    docker:
-      - image: 813968012009.dkr.ecr.us-east-1.amazonaws.com/circleci-openjdk8-8u162
-        aws_auth:
-          aws_access_key_id: $AWS_ACCESS_KEY_ID
-          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
-    steps: # a collection of executable commands
-      - checkout
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: /home/circleci/project/target
-      - run:
-          name: Deploy docs to Github Pages
-          command: cd target/docs && chmod +x deployGithubPages.sh && ./deployGithubPages.sh ~/project/target/docs/public
+          command: cd swagger/docs && NODE_ENV=production gatsby build && git add .
+      - run: cd swagger/docs && git commit -m "Docs"
+      - run: cd swagger/docs && git remote add origin https://github.com/electrumpayments/billpay-service-interface-website.git
+      - run: git remote -v
+      - run: git push -u origin master
   
           
 
@@ -190,10 +164,6 @@ workflows:
           context: java
           requires:
             - build-and-release
-      - deploy:
-          context: java
-          requires:
-            - build-website
   nightly:
     jobs:
       - build-with-latest-deps:
