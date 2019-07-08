@@ -139,16 +139,15 @@ jobs:
       - run: # modules
           name: Install Gatsby Modules
           command: cd swagger/docs && npm install --save-dev
-      - run: cd swagger/docs && git init
+      - run: cd swagger/docs && git init && git remote set-url origin git@github.com:electrumpayments/billpay-service-interface-website.git
       - run: cd swagger/docs && git config --global user.email "kialanpillay@gmail.com" && git config --global user.name "kialanpillay"
       - run: cd swagger/docs && sh src/createSwagger.sh
       - run: # build
           name: Run
           command: cd swagger/docs && NODE_ENV=production gatsby build && git add .
-      - run: cd swagger/docs && git commit -m "Docs"
-      - run: cd swagger/docs && git remote add origin https://github.com/electrumpayments/billpay-service-interface-website.git
+      - run: cd swagger/docs && git commit -m "Documentation"
       - run: git remote -v
-      - run: git push -u origin master
+      - run: cd swagger/docs git push -u origin master
   
           
 
