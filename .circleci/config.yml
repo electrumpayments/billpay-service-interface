@@ -140,6 +140,7 @@ jobs:
           name: Install Gatsby Modules
           command: cd swagger/docs && npm install --save-dev
       - run: cd swagger/docs && git init
+      - run: cd swagger/docs && git config --global user.email "kialanpillay@gmail.com" && git config --global user.name "kialanpillay"
       - run: cd swagger/docs && sh src/createSwagger.sh
       - run: # build
           name: Run
