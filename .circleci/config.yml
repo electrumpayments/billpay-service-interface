@@ -138,8 +138,7 @@ jobs:
       - run: # modules
           name: Install Gatsby Modules
           command: cd swagger/docs && npm install --save-dev
-      - run: set +e && set +o pipefail
-      - run: ssh -T -o StrictHostKeyChecking=no git@github.com
+      - run: set +e && set +o pipefail && ssh -T -o StrictHostKeyChecking=no git@github.com
       - run: cd swagger/docs && git init && git remote set-url origin git@github.com:electrumpayments/billpay-service-interface-website.git
       - run: cd swagger/docs && git config --global user.email "kialanpillay@gmail.com" && git config --global user.name "kialanpillay"
       - run: cd swagger/docs && sh src/createSwagger.sh
