@@ -145,7 +145,7 @@ jobs:
           name: Run
           command: cd swagger/docs && NODE_ENV=production gatsby build && git add .
       - run: cd swagger/docs && git commit -m "Documentation"
-      - run: cd swagger/docs && ssh -o StrictHostKeyChecking=no && push -u origin master
+      - run: cd swagger/docs && yes | git push -u origin master
   
 workflows:
   version: 2
