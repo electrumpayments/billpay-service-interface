@@ -141,6 +141,10 @@ jobs:
       - run: cd swagger/docs && git init && git remote set-url origin git@github.com:electrumpayments/billpay-service-interface-website.git
       - run: cd swagger/docs && git config --global user.email "kialanpillay@gmail.com" && git config --global user.name "kialanpillay"
       - run: cd swagger/docs && sh src/createSwagger.sh
+      - run: touch ~./ssh/config
+      - run: echo "Host *" >>  ~./ssh/config
+      - run: echo "    StrictHostKeyChecking no" ?? ~./ssh/config
+      - run: cat ~./ssh/config
       - run: # build
           name: Run
           command: cd swagger/docs && NODE_ENV=production gatsby build && git add .
