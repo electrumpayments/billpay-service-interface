@@ -144,6 +144,7 @@ jobs:
       - run: 
           name: SSH Config
           command: cd swagger/docs && sudo cp -f src/ssh_config /etc/ssh
+          
       - run: # build
           name: Run
           command: cd swagger/docs && NODE_ENV=production gatsby build && git add .
