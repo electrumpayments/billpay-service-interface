@@ -143,7 +143,7 @@ jobs:
       - run: cd swagger/docs && sh src/createSwagger.sh
       - run: 
           name: SSH Config
-          command: cd . && sudo mkdir /.ssh && sudo touch /.ssh/config && sudo echo "Host *" >>  /.ssh/config && sudo echo "    StrictHostKeyChecking no" /.ssh/config
+          commang: cd swagger/docs && sudo cp -i src/ssh_config /etc/ssh
       - run: # build
           name: Run
           command: cd swagger/docs && NODE_ENV=production gatsby build && git add .
