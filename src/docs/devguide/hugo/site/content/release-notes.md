@@ -1,5 +1,11 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.8.0
+
+Released TBA 2020
+
+- Added Javax Validation Annotations to resources
+
 ## v4.7.5
 
 Released 11 June 2019
