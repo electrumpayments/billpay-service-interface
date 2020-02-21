@@ -24,6 +24,7 @@ import io.electrum.billpay.model.PolicyPaymentRequest;
 import io.electrum.billpay.model.PolicyPaymentResponse;
 import io.electrum.billpay.model.TrafficFinePaymentRequest;
 import io.electrum.billpay.model.TrafficFinePaymentResponse;
+import io.electrum.billpay.validation.Uuid;
 import io.electrum.vas.model.BasicAdviceResponse;
 import io.electrum.vas.model.BasicReversal;
 import io.electrum.vas.model.TenderAdvice;
@@ -113,8 +114,8 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void confirmPayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(ConfirmPayment.PathParameters.ADVICE_ID) @NotNull String adviceId,
-         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam(ConfirmPayment.PathParameters.PAYMENT_ID) @NotNull String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(ConfirmPayment.PathParameters.ADVICE_ID) @NotNull @Uuid String adviceId,
+         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam(ConfirmPayment.PathParameters.PAYMENT_ID) @NotNull @Uuid String paymentId,
          @ApiParam(value = "A payment confirmation", required = true) @NotNull @Valid TenderAdvice body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -146,7 +147,7 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void createPayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreateAccountPayment.PathParameters.PAYMENT_ID) @NotNull String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreateAccountPayment.PathParameters.PAYMENT_ID) @NotNull @Uuid String paymentId,
          @ApiParam(value = "A payment request", required = true) @NotNull @Valid PaymentRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -177,7 +178,7 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void createPayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreateTrafficFinePayment.PathParameters.PAYMENT_ID) @NotNull String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreateTrafficFinePayment.PathParameters.PAYMENT_ID) @NotNull @Uuid String paymentId,
          @ApiParam(value = "A traffic fine payment request", required = true) @NotNull @Valid TrafficFinePaymentRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -208,7 +209,7 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void createPayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreatePolicyPayment.PathParameters.PAYMENT_ID) @NotNull String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreatePolicyPayment.PathParameters.PAYMENT_ID) @NotNull @Uuid String paymentId,
          @ApiParam(value = "A policy payment request", required = true) @NotNull @Valid PolicyPaymentRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -237,8 +238,8 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void reversePayment(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(ReversePayment.PathParameters.ADVICE_ID) @NotNull String adviceId,
-         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam(ReversePayment.PathParameters.PAYMENT_ID) @NotNull String paymentId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(ReversePayment.PathParameters.ADVICE_ID) @NotNull @Uuid String adviceId,
+         @ApiParam(value = "The UUID generated for the original createPayment request", required = true) @PathParam(ReversePayment.PathParameters.PAYMENT_ID) @NotNull @Uuid String paymentId,
          @ApiParam(value = "A payment reversal", required = true) @NotNull @Valid BasicReversal body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,

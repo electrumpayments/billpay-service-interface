@@ -24,6 +24,7 @@ import io.electrum.billpay.model.PolicyLookupRequest;
 import io.electrum.billpay.model.PolicyLookupResponse;
 import io.electrum.billpay.model.TrafficFineLookupRequest;
 import io.electrum.billpay.model.TrafficFineLookupResponse;
+import io.electrum.billpay.validation.Uuid;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -84,7 +85,7 @@ public abstract class AccountLookupsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void requestAccountInfo(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(RequestAccountInfo.PathParameters.REQUEST_ID) @NotNull String requestId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(RequestAccountInfo.PathParameters.REQUEST_ID) @NotNull @Uuid String requestId,
          @ApiParam(value = "An account lookup request", required = true) @NotNull @Valid AccountLookupRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -114,7 +115,7 @@ public abstract class AccountLookupsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void requestTrafficFineInfo(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(RequestTrafficFineInfo.PathParameters.REQUEST_ID) @NotNull String requestId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(RequestTrafficFineInfo.PathParameters.REQUEST_ID) @NotNull @Uuid String requestId,
          @ApiParam(value = "A traffic fine lookup request", required = true) @NotNull @Valid TrafficFineLookupRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
@@ -144,7 +145,7 @@ public abstract class AccountLookupsResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public void requestPolicyInfo(
-         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(RequestPolicyInfo.PathParameters.REQUEST_ID) @NotNull String requestId,
+         @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(RequestPolicyInfo.PathParameters.REQUEST_ID) @NotNull @Uuid String requestId,
          @ApiParam(value = "A policy lookup request", required = true) @NotNull @Valid PolicyLookupRequest body,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
