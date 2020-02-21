@@ -10,6 +10,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.ConstraintTarget;
 import javax.validation.Payload;
 
 import io.electrum.vas.model.Transaction;
@@ -18,7 +19,7 @@ import io.electrum.vas.model.Transaction;
  * Checks that for two parameters (String,? extends Transaction), that the first String parameter is the same ID that is
  * used as the identifier in the Transaction.
  */
-@Target({ METHOD, CONSTRUCTOR, ANNOTATION_TYPE })
+@Target({ METHOD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = ConsistentTransactionIdValidator.class)
 @Documented
@@ -31,4 +32,6 @@ public @interface ConsistentTransactionId {
    Class<?>[] groups() default {};
 
    Class<? extends Payload>[] payload() default {};
+
+   ConstraintTarget validationAppliesTo() default ConstraintTarget.PARAMETERS;
 }

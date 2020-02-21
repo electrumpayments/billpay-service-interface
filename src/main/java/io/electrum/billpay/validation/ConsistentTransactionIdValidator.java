@@ -2,9 +2,12 @@ package io.electrum.billpay.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraintvalidation.SupportedValidationTarget;
+import javax.validation.constraintvalidation.ValidationTarget;
 
 import io.electrum.vas.model.Transaction;
 
+@SupportedValidationTarget(ValidationTarget.PARAMETERS)
 public class ConsistentTransactionIdValidator implements ConstraintValidator<ConsistentTransactionId, Object[]> {
 
    private String parameterName;
