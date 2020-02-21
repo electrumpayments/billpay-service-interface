@@ -13,25 +13,21 @@ import javax.validation.Constraint;
 import javax.validation.ConstraintTarget;
 import javax.validation.Payload;
 
-import io.electrum.vas.model.Transaction;
-
 /**
  * Checks that for two parameters (String,? extends Transaction), that the first String parameter is the same ID that is
  * used as the identifier in the Transaction.
  */
-@Target({ METHOD, ANNOTATION_TYPE })
-@Retention(RUNTIME)
 @Constraint(validatedBy = ConsistentTransactionIdValidator.class)
+@Target({ METHOD, CONSTRUCTOR, ANNOTATION_TYPE })
+@Retention(RUNTIME)
 @Documented
 public @interface ConsistentTransactionId {
 
-   String DEFAULT_MESSAGE = "";
+   String DEFAULT_MESSAGE = "has inconsistent transaction identifier";
 
-   String message() default "has inconsistent transaction identifier";
+   String message() default DEFAULT_MESSAGE;
 
    Class<?>[] groups() default {};
 
    Class<? extends Payload>[] payload() default {};
-
-   ConstraintTarget validationAppliesTo() default ConstraintTarget.PARAMETERS;
 }

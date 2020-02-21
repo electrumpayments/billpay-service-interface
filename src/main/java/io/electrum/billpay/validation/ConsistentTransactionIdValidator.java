@@ -10,9 +10,6 @@ import io.electrum.vas.model.Transaction;
 @SupportedValidationTarget(ValidationTarget.PARAMETERS)
 public class ConsistentTransactionIdValidator implements ConstraintValidator<ConsistentTransactionId, Object[]> {
 
-   private String parameterName;
-   private Class<? extends Transaction> objectClass;
-
    @Override
    public void initialize(ConsistentTransactionId constraintAnnotation) {
    }
