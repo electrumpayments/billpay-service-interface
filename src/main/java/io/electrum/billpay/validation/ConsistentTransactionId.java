@@ -23,7 +23,7 @@ import javax.validation.Payload;
 @Documented
 public @interface ConsistentTransactionId {
 
-   String DEFAULT_MESSAGE = "path param transaction identifier must match payload transaction identifier";
+   String DEFAULT_MESSAGE = "path param transaction identifier must match entity id";
 
    String message() default DEFAULT_MESSAGE;
 
