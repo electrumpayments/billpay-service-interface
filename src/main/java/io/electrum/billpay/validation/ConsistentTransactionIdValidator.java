@@ -1,9 +1,13 @@
 package io.electrum.billpay.validation;
 
+import java.text.MessageFormat;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraintvalidation.SupportedValidationTarget;
 import javax.validation.constraintvalidation.ValidationTarget;
+
+import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
 
 import io.electrum.vas.model.Transaction;
 
@@ -29,6 +33,22 @@ public class ConsistentTransactionIdValidator implements ConstraintValidator<Con
                "First two parameters of method signature must be String, ? extends Transaction.");
       }
 
-      return value[0].equals(((Transaction) value[1]).getId());
+      Transaction transaction = (Transaction) value[1];
+      boolean isValid = value[0].equals(transaction.getId());
+      if (!isValid) {
+         if (context instanceof ConstraintValidatorContextImpl) {
+            context.unwrap(ConstraintValidatorContextImpl.class);
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate(
+                  MessageFormat.format(
+                        "{0} {1} must match entity id {2}",
+                        ((ConstraintValidatorContextImpl) context).getMethodParameterNames().get(0),
+                        value[0],
+                        transaction.getId()))
+                  .addConstraintViolation();
+         }
+      }
+
+      return isValid;
    }
 }

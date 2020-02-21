@@ -10,12 +10,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
-import javax.validation.ConstraintTarget;
 import javax.validation.Payload;
 
 /**
- * Checks that for two parameters (String,? extends Transaction), that the first String parameter is the same ID that is
- * used as the identifier in the Transaction.
+ * Checks that for resources which have the transaction identifier as a path parameter (resulting in 8 parameters in
+ * total), where the first two parameters are (String tranId, (? extends Transaction) entity), that the tranId is the
+ * same as the identifier in the Transaction.
  */
 @Constraint(validatedBy = ConsistentTransactionIdValidator.class)
 @Target({ METHOD, CONSTRUCTOR, ANNOTATION_TYPE })
@@ -23,7 +23,7 @@ import javax.validation.Payload;
 @Documented
 public @interface ConsistentTransactionId {
 
-   String DEFAULT_MESSAGE = "has inconsistent transaction identifier";
+   String DEFAULT_MESSAGE = "path param transaction identifier must match payload transaction identifier";
 
    String message() default DEFAULT_MESSAGE;
 
