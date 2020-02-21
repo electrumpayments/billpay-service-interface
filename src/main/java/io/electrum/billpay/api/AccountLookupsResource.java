@@ -24,6 +24,7 @@ import io.electrum.billpay.model.PolicyLookupRequest;
 import io.electrum.billpay.model.PolicyLookupResponse;
 import io.electrum.billpay.model.TrafficFineLookupRequest;
 import io.electrum.billpay.model.TrafficFineLookupResponse;
+import io.electrum.billpay.validation.ConsistentTransactionId;
 import io.electrum.billpay.validation.Uuid;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -114,6 +115,7 @@ public abstract class AccountLookupsResource {
          @ApiResponse(code = 501, message = "Not implemented", response = ErrorDetail.class),
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
+   @ConsistentTransactionId
    public void requestTrafficFineInfo(
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(RequestTrafficFineInfo.PathParameters.REQUEST_ID) @NotNull @Uuid String requestId,
          @ApiParam(value = "A traffic fine lookup request", required = true) @NotNull @Valid TrafficFineLookupRequest body,
@@ -144,6 +146,7 @@ public abstract class AccountLookupsResource {
          @ApiResponse(code = 501, message = "Not implemented", response = ErrorDetail.class),
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
+   @ConsistentTransactionId
    public void requestPolicyInfo(
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(RequestPolicyInfo.PathParameters.REQUEST_ID) @NotNull @Uuid String requestId,
          @ApiParam(value = "A policy lookup request", required = true) @NotNull @Valid PolicyLookupRequest body,
