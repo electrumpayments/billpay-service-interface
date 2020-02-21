@@ -37,12 +37,12 @@ public class ConsistentTransactionIdValidator implements ConstraintValidator<Con
       boolean isValid = value[0].equals(transaction.getId());
       if (!isValid) {
          if (context instanceof ConstraintValidatorContextImpl) {
-            context.unwrap(ConstraintValidatorContextImpl.class);
+            ConstraintValidatorContextImpl contextImpl = (ConstraintValidatorContextImpl) context;
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(
                   MessageFormat.format(
                         "{0} {1} must match entity id {2}",
-                        ((ConstraintValidatorContextImpl) context).getMethodParameterNames().get(0),
+                        contextImpl.getMethodParameterNames().get(0),
                         value[0],
                         transaction.getId()))
                   .addConstraintViolation();
