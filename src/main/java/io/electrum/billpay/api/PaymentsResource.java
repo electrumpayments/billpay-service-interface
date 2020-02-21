@@ -24,6 +24,7 @@ import io.electrum.billpay.model.PolicyPaymentRequest;
 import io.electrum.billpay.model.PolicyPaymentResponse;
 import io.electrum.billpay.model.TrafficFinePaymentRequest;
 import io.electrum.billpay.model.TrafficFinePaymentResponse;
+import io.electrum.billpay.validation.ConsistentTransactionId;
 import io.electrum.billpay.validation.Uuid;
 import io.electrum.vas.model.BasicAdviceResponse;
 import io.electrum.vas.model.BasicReversal;
@@ -146,6 +147,7 @@ public abstract class PaymentsResource {
          @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorDetail.class),
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
+   @ConsistentTransactionId
    public void createPayment(
          @ApiParam(value = "The randomly generated UUID of this request", required = true) @PathParam(CreateAccountPayment.PathParameters.PAYMENT_ID) @NotNull @Uuid String paymentId,
          @ApiParam(value = "A payment request", required = true) @NotNull @Valid PaymentRequest body,

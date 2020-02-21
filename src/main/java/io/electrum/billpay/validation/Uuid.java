@@ -14,6 +14,9 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * The annotated element must be a valid {@link java.util.UUID}.
+ */
 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = UuidValidator.class)
