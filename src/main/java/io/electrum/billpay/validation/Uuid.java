@@ -20,7 +20,9 @@ import javax.validation.Payload;
 @Documented
 public @interface Uuid {
 
-   String message() default "{io.electrum.billpay.validation.Uuid.message}";
+   String DEFAULT_MESSAGE = "must be a valid UUID";
+
+   String message() default DEFAULT_MESSAGE;
 
    Class<?>[] groups() default {};
 
