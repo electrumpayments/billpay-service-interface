@@ -16,6 +16,7 @@ public class ConsistentTransactionIdValidator implements ConstraintValidator<Con
 
    @Override
    public void initialize(ConsistentTransactionId constraintAnnotation) {
+      // initialize is not needed
    }
 
    @Override
@@ -35,15 +36,13 @@ public class ConsistentTransactionIdValidator implements ConstraintValidator<Con
 
       Transaction transaction = (Transaction) value[1];
       boolean isValid = value[0].equals(transaction.getId());
-      if (!isValid) {
-         if (context instanceof ConstraintValidatorContextImpl) {
-            ConstraintValidatorContextImpl contextImpl = (ConstraintValidatorContextImpl) context;
-            context.disableDefaultConstraintViolation();
-            context
-                  .buildConstraintViolationWithTemplate(
-                        MessageFormat.format("{0} must match entity id", contextImpl.getMethodParameterNames().get(0)))
-                  .addConstraintViolation();
-         }
+      if (!isValid && context instanceof ConstraintValidatorContextImpl) {
+         ConstraintValidatorContextImpl contextImpl = (ConstraintValidatorContextImpl) context;
+         context.disableDefaultConstraintViolation();
+         context
+               .buildConstraintViolationWithTemplate(
+                     MessageFormat.format("{0} must match entity id", contextImpl.getMethodParameterNames().get(0)))
+               .addConstraintViolation();
       }
 
       return isValid;

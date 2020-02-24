@@ -9,6 +9,7 @@ public class UuidValidator implements ConstraintValidator<Uuid, String> {
 
    @Override
    public void initialize(Uuid constraintAnnotation) {
+      // initialize is not needed
    }
 
    @Override

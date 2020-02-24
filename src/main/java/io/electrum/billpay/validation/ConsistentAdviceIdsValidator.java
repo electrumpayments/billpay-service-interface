@@ -7,16 +7,16 @@ import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraintvalidation.SupportedValidationTarget;
 import javax.validation.constraintvalidation.ValidationTarget;
 
-import io.electrum.vas.model.BasicAdvice;
 import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
 
-import io.electrum.vas.model.Transaction;
+import io.electrum.vas.model.BasicAdvice;
 
 @SupportedValidationTarget(ValidationTarget.PARAMETERS)
 public class ConsistentAdviceIdsValidator implements ConstraintValidator<ConsistentAdviceIds, Object[]> {
 
    @Override
    public void initialize(ConsistentAdviceIds constraintAnnotation) {
+      // initialize is not needed
    }
 
    @Override
@@ -37,22 +37,19 @@ public class ConsistentAdviceIdsValidator implements ConstraintValidator<Consist
       BasicAdvice basicAdvice = (BasicAdvice) value[2];
       boolean isValidAdvice = value[0].equals(basicAdvice.getId());
       boolean isValidRequest = value[1].equals(basicAdvice.getRequestId());
-      if (!(isValidAdvice&&isValidRequest)) {
-         if (context instanceof ConstraintValidatorContextImpl) {
-            ConstraintValidatorContextImpl contextImpl = (ConstraintValidatorContextImpl) context;
-            context.disableDefaultConstraintViolation();
-            if (!isValidAdvice) {
-               context
-                       .buildConstraintViolationWithTemplate(
-                               MessageFormat.format("{0} must match entity id", contextImpl.getMethodParameterNames().get(0)))
-                       .addConstraintViolation();
-            }
-            if (!isValidRequest) {
-               context
-                       .buildConstraintViolationWithTemplate(
-                               MessageFormat.format("{0} must match entity requestId", contextImpl.getMethodParameterNames().get(1)))
-                       .addConstraintViolation();
-            }
+      if (!(isValidAdvice && isValidRequest) && context instanceof ConstraintValidatorContextImpl) {
+         ConstraintValidatorContextImpl contextImpl = (ConstraintValidatorContextImpl) context;
+         context.disableDefaultConstraintViolation();
+         if (!isValidAdvice) {
+            context
+                  .buildConstraintViolationWithTemplate(
+                        MessageFormat.format("{0} must match entity id", contextImpl.getMethodParameterNames().get(0)))
+                  .addConstraintViolation();
+         }
+         if (!isValidRequest) {
+            context.buildConstraintViolationWithTemplate(
+                  MessageFormat.format("{0} must match entity requestId", contextImpl.getMethodParameterNames().get(1)))
+                  .addConstraintViolation();
          }
       }
 
