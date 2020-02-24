@@ -13,10 +13,10 @@ import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintVa
 import io.electrum.vas.model.Transaction;
 
 @SupportedValidationTarget(ValidationTarget.PARAMETERS)
-public class ConsistentAdviceIdsValidator implements ConstraintValidator<ConsistentTransactionId, Object[]> {
+public class ConsistentAdviceIdsValidator implements ConstraintValidator<ConsistentAdviceIds, Object[]> {
 
    @Override
-   public void initialize(ConsistentTransactionId constraintAnnotation) {
+   public void initialize(ConsistentAdviceIds constraintAnnotation) {
    }
 
    @Override

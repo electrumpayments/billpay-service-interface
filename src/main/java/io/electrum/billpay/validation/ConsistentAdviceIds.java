@@ -18,7 +18,7 @@ import javax.validation.Payload;
  * requestId, (? extends Transaction) entity), that the tranId is the same as the identifier in the BasicAdvice, and
  * that the requestId is the same as the request identifier in the BasicAdvice.
  */
-@Constraint(validatedBy = ConsistentTransactionIdValidator.class)
+@Constraint(validatedBy = ConsistentAdviceIdsValidator.class)
 @Target({ METHOD, CONSTRUCTOR, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Documented
