@@ -50,7 +50,7 @@ public class ConsistentAdviceIdsValidator implements ConstraintValidator<Consist
             if (!isValidRequest) {
                context
                        .buildConstraintViolationWithTemplate(
-                               MessageFormat.format("{0} must match entity request id", contextImpl.getMethodParameterNames().get(1)))
+                               MessageFormat.format("{0} must match entity requestId", contextImpl.getMethodParameterNames().get(1)))
                        .addConstraintViolation();
             }
          }
