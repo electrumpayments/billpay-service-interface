@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.electrum.vas.JsonUtil;
@@ -69,6 +70,7 @@ public class PolicyPaymentRequest extends Transaction {
     * @deprecated - Use {@link #amounts(BillpayAmounts)} instead.
     **/
    @Deprecated
+   @JsonIgnore
    public PolicyPaymentRequest amounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
@@ -100,6 +102,7 @@ public class PolicyPaymentRequest extends Transaction {
     * @deprecated - Use {@link #setAmounts(BillpayAmounts)} instead.
     */
    @Deprecated
+   @JsonIgnore
    public void setAmounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
@@ -183,6 +186,15 @@ public class PolicyPaymentRequest extends Transaction {
             .append(System.lineSeparator())
             .append("    amounts: ")
             .append(Utils.toIndentedString(amounts))
+            .append(System.lineSeparator())
+            .append("    tenders: ")
+            .append(Utils.toIndentedString(tenders))
+            .append(System.lineSeparator())
+            .append("    paymentMethods: ")
+            .append(Utils.toIndentedString(paymentMethods))
+            .append(System.lineSeparator())
+            .append("    customer: ")
+            .append(Utils.toIndentedString(customer))
             .append(System.lineSeparator())
             .append("}")
             .append(System.lineSeparator())

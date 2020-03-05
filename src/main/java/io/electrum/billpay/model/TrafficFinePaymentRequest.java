@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.electrum.vas.JsonUtil;
@@ -68,6 +69,7 @@ public class TrafficFinePaymentRequest extends Transaction {
     * @deprecated - Use {@link #amounts(BillpayAmounts)} instead.
     **/
    @Deprecated
+   @JsonIgnore
    public TrafficFinePaymentRequest amounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
@@ -99,6 +101,7 @@ public class TrafficFinePaymentRequest extends Transaction {
     * @deprecated - Use {@link #setAmounts(BillpayAmounts)} instead.
     */
    @Deprecated
+   @JsonIgnore
    public void setAmounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);

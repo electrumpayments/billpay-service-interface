@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.electrum.vas.JsonUtil;
@@ -55,6 +56,7 @@ public abstract class BillpayResponse extends Transaction {
     * @deprecated - Use {@link #amounts(BillpayAmounts)} instead.
     **/
    @Deprecated
+   @JsonIgnore
    public BillpayResponse amounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
@@ -86,6 +88,7 @@ public abstract class BillpayResponse extends Transaction {
     * @deprecated - Use {@link #setAmounts(BillpayAmounts)} instead.
     */
    @Deprecated
+   @JsonIgnore
    public void setAmounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
