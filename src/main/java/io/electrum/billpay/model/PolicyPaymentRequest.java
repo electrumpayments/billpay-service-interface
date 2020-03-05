@@ -71,6 +71,7 @@ public class PolicyPaymentRequest extends Transaction {
     **/
    @Deprecated
    @JsonIgnore
+   @ApiModelProperty(name = "amounts", access = "overloaded-method")
    public PolicyPaymentRequest amounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
@@ -103,6 +104,7 @@ public class PolicyPaymentRequest extends Transaction {
     */
    @Deprecated
    @JsonIgnore
+   @ApiModelProperty(name = "amounts", access = "overloaded-method")
    public void setAmounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);

@@ -37,10 +37,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <apiBasePath>/billpay/v4</apiBasePath>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <service-interface-base-version>3.14.0</service-interface-base-version>
+    <service-interface-base-version>3.23.0</service-interface-base-version>
     <joda-time-version>2.9.4</joda-time-version>
     <swagger-version>1.5.16</swagger-version>
-    <jetty-version>9.2.14.v20151106</jetty-version>
+    <jetty-version>9.3.24.v20180605</jetty-version>
     <jersey-version>2.22.1</jersey-version>
     <hibernate-validator-version>5.2.2.Final</hibernate-validator-version>
     <el-version>2.2.4</el-version>
@@ -48,7 +48,7 @@
     <logback-version>1.0.13</logback-version>
     <major-version>4</major-version>
     <minor-version>8</minor-version>
-    <patch-version>5</patch-version>
+    <patch-version>0</patch-version>
   </properties>
 
   <dependencies>
@@ -199,6 +199,9 @@
               <outputPath>${project.build.directory}/devguide/specification.md</outputPath>
               <outputFormats>yaml</outputFormats>
               <swaggerDirectory>${project.build.directory}/swagger</swaggerDirectory>
+			  <apiModelPropertyAccessExclusions>
+				<apiModelPropertyAccessExclusion>overloaded-method</apiModelPropertyAccessExclusion>
+			  </apiModelPropertyAccessExclusions>
             </apiSource>
           </apiSources>
         </configuration>
