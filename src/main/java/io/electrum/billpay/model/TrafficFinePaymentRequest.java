@@ -1,5 +1,9 @@
 package io.electrum.billpay.model;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -7,8 +11,11 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.electrum.vas.JsonUtil;
 import io.electrum.vas.Utils;
 import io.electrum.vas.model.Amounts;
+import io.electrum.vas.model.PaymentMethod;
+import io.electrum.vas.model.Tender;
 import io.electrum.vas.model.Transaction;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,7 +27,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class TrafficFinePaymentRequest extends Transaction {
 
    private String noticeNumber = null;
-   private Amounts amounts = null;
+   private BillpayAmounts amounts = null;
+   private List<Tender> tenders = new ArrayList<>();
+   private List<PaymentMethod> paymentMethods = new ArrayList<>();
+   private Customer customer = null;
 
    /**
     * A reference number identifying the traffic fine to the service provider.
@@ -44,41 +54,130 @@ public class TrafficFinePaymentRequest extends Transaction {
 
    /**
     * Contains the payment amount.
+    * 
+    * @since v4.8.0
     **/
-   public TrafficFinePaymentRequest amounts(Amounts amounts) {
+   public TrafficFinePaymentRequest amounts(BillpayAmounts amounts) {
       this.amounts = amounts;
       return this;
+   }
+
+   /**
+    * Contains the payment amount.
+    * 
+    * @deprecated - Use {@link #amounts(BillpayAmounts)} instead.
+    **/
+   @Deprecated
+   public TrafficFinePaymentRequest amounts(Amounts amounts) {
+      try {
+         this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
+         return this;
+      } catch (IOException ioe) {
+         throw new RuntimeException(ioe);
+      }
    }
 
    @ApiModelProperty(required = true, value = "Contains the payment amount.")
    @JsonProperty("amounts")
    @NotNull
    @Valid
-   public Amounts getAmounts() {
+   public BillpayAmounts getAmounts() {
       return amounts;
    }
 
-   public void setAmounts(Amounts amounts) {
+   /**
+    * @since v4.8.0
+    * @param amounts
+    */
+   public void setAmounts(BillpayAmounts amounts) {
       this.amounts = amounts;
+   }
+
+   /**
+    * 
+    * @param amounts
+    * @deprecated - Use {@link #setAmounts(BillpayAmounts)} instead.
+    */
+   @Deprecated
+   public void setAmounts(Amounts amounts) {
+      try {
+         this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
+      } catch (IOException ioe) {
+         throw new RuntimeException(ioe);
+      }
+   }
+
+   public TrafficFinePaymentRequest tender(List<Tender> tenders) {
+      this.tenders = tenders;
+      return this;
+   }
+
+   @ApiModelProperty(required = false, value = "Contains the tenders for the payment request if available")
+   @JsonProperty("tenders")
+   public List<Tender> getTenders() {
+      return tenders;
+   }
+
+   public void setTenders(List<Tender> tenders) {
+      this.tenders = tenders;
+   }
+
+   public TrafficFinePaymentRequest paymentMethods(List<PaymentMethod> paymentMethods) {
+      this.paymentMethods = paymentMethods;
+      return this;
+   }
+
+   @ApiModelProperty(required = false, value = "Contains the payment method for the payment request if available")
+   @JsonProperty("paymentMethods")
+   public List<PaymentMethod> getPaymentMethods() {
+      return paymentMethods;
+   }
+
+   public void setPaymentMethods(List<PaymentMethod> paymentMethods) {
+      this.paymentMethods = paymentMethods;
+   }
+
+   /**
+    * Customer detail
+    **/
+   public TrafficFinePaymentRequest customer(Customer customer) {
+      this.customer = customer;
+      return this;
+   }
+
+   @ApiModelProperty(value = "Customer detail")
+   @JsonProperty("customer")
+   @Valid
+   public Customer getCustomer() {
+      return customer;
+   }
+
+   public void setCustomer(Customer customer) {
+      this.customer = customer;
    }
 
    @Override
    public String toString() {
-      StringBuilder sb = new StringBuilder();
-      sb.append("class TrafficFinePaymentRequest {\n");
-
-      sb.append("    id: ").append(Utils.toIndentedString(id)).append("\n");
-      sb.append("    time: ").append(Utils.toIndentedString(time)).append("\n");
-      sb.append("    originator: ").append(Utils.toIndentedString(originator)).append("\n");
-      sb.append("    client: ").append(Utils.toIndentedString(client)).append("\n");
-      sb.append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append("\n");
-      sb.append("    receiver: ").append(Utils.toIndentedString(receiver)).append("\n");
-      sb.append("    noticeNumber: ").append(Utils.toIndentedString(noticeNumber)).append("\n");
-      sb.append("    amounts: ").append(Utils.toIndentedString(amounts)).append("\n");
-      sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
-      sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
-      sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");
-      sb.append("}");
-      return sb.toString();
+      return new StringBuilder().append("class TrafficFinePaymentRequest {")
+            .append(System.lineSeparator())
+            .append("    noticeNumber: ")
+            .append(Utils.toIndentedString(noticeNumber))
+            .append(System.lineSeparator())
+            .append("    amounts: ")
+            .append(Utils.toIndentedString(amounts))
+            .append(System.lineSeparator())
+            .append("    tenders: ")
+            .append(Utils.toIndentedString(tenders))
+            .append(System.lineSeparator())
+            .append("    paymentMethods: ")
+            .append(Utils.toIndentedString(paymentMethods))
+            .append(System.lineSeparator())
+            .append("    customer: ")
+            .append(Utils.toIndentedString(customer))
+            .append(System.lineSeparator())
+            .append("}")
+            .append(System.lineSeparator())
+            .append(super.toString())
+            .toString();
    }
 }
