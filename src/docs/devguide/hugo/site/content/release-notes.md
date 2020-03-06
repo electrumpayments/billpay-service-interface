@@ -2,7 +2,7 @@ This page describes changes to the Billpay Service Interface implemented across 
 
 ## v4.8.0
 
-Released 5 March 2020
+Released 6 March 2020
 
 - Replaced `Amounts` in the following models with `BillpayAmounts` in order to facilitate maximum and minimum payment amounts:
   - `BillpayResponse` (extended by `PaymentResponse`, `PolicyPaymentResponse` and `TrafficFinePaymentResponse`)
