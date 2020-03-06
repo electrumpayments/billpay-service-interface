@@ -5,6 +5,8 @@ This page describes changes to the Billpay Service Interface implemented across 
 Released TBA 2020
 
 - Added Javax Validation Annotations to resources
+    - `@ConsistentTransactionId` is an annotation for methods which validates that the first parameter (which must be a `String`) corresponds to the `id` field of the second parameter (which must extend `Transaction`).
+    - `@ConsistentAdviceIds` is an annotation for methods which validates that the first parameter (which must be a `String`) and the second parameter (which must be a `String`)  correspond to the `id` and `requestId` fields of the third parameter (which must extend `BasicAdvice`)
 
 ## v4.7.5
 

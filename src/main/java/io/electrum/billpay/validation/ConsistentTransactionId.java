@@ -1,7 +1,5 @@
 package io.electrum.billpay.validation;
 
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
-import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -18,7 +16,7 @@ import javax.validation.Payload;
  * same as the identifier in the Transaction.
  */
 @Constraint(validatedBy = ConsistentTransactionIdValidator.class)
-@Target({ METHOD, CONSTRUCTOR, ANNOTATION_TYPE })
+@Target({ METHOD })
 @Retention(RUNTIME)
 @Documented
 public @interface ConsistentTransactionId {

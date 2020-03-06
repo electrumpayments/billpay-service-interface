@@ -25,7 +25,7 @@ import io.electrum.billpay.model.PolicyLookupResponse;
 import io.electrum.billpay.model.TrafficFineLookupRequest;
 import io.electrum.billpay.model.TrafficFineLookupResponse;
 import io.electrum.billpay.validation.ConsistentTransactionId;
-import io.electrum.billpay.validation.Uuid;
+import io.electrum.vas.validation.Uuid;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
