@@ -1,5 +1,6 @@
 package io.electrum.billpay.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,10 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.electrum.vas.JsonUtil;
 import io.electrum.vas.Utils;
 import io.electrum.vas.model.Amounts;
 import io.electrum.vas.model.PaymentMethod;
@@ -25,7 +28,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class PaymentRequest extends Transaction {
 
    private String accountRef = null;
-   private Amounts amounts = null;
+   private BillpayAmounts amounts = null;
    private List<Tender> tenders = new ArrayList<>();
    private List<PaymentMethod> paymentMethods = new ArrayList<>();
    private Customer customer = null;
@@ -52,22 +55,61 @@ public class PaymentRequest extends Transaction {
 
    /**
     * Contains the payment amount.
+    * 
+    * @since v4.8.0
     **/
-   public PaymentRequest amounts(Amounts amounts) {
+   public PaymentRequest amounts(BillpayAmounts amounts) {
       this.amounts = amounts;
       return this;
+   }
+
+   /**
+    * Contains the payment amount.
+    * 
+    * @deprecated - Use {@link #amounts(BillpayAmounts)} instead.
+    **/
+   @Deprecated
+   @JsonIgnore
+   @ApiModelProperty(name = "amounts", access = "overloaded-method")
+   public PaymentRequest amounts(Amounts amounts) {
+      try {
+         this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
+         return this;
+      } catch (IOException ioe) {
+         throw new RuntimeException(ioe);
+      }
    }
 
    @ApiModelProperty(required = true, value = "Contains the payment amount.")
    @JsonProperty("amounts")
    @NotNull
    @Valid
-   public Amounts getAmounts() {
+   public BillpayAmounts getAmounts() {
       return amounts;
    }
 
-   public void setAmounts(Amounts amounts) {
+   /**
+    * @since v4.8.0
+    * @param amounts
+    */
+   public void setAmounts(BillpayAmounts amounts) {
       this.amounts = amounts;
+   }
+
+   /**
+    * 
+    * @param amounts
+    * @deprecated - Use {@link #setAmounts(BillpayAmounts)} instead.
+    */
+   @Deprecated
+   @JsonIgnore
+   @ApiModelProperty(name = "amounts", access = "overloaded-method")
+   public void setAmounts(Amounts amounts) {
+      try {
+         this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
+      } catch (IOException ioe) {
+         throw new RuntimeException(ioe);
+      }
    }
 
    public PaymentRequest tender(List<Tender> tenders) {
@@ -139,6 +181,8 @@ public class PaymentRequest extends Transaction {
             .append(Utils.toIndentedString(customer))
             .append(System.lineSeparator())
             .append("}")
+            .append(System.lineSeparator())
+            .append(super.toString())
             .toString();
    }
 }

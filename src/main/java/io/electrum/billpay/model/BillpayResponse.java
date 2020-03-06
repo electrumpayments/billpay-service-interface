@@ -1,19 +1,22 @@
 package io.electrum.billpay.model;
 
-import io.electrum.vas.model.Amounts;
-import io.electrum.vas.model.SlipData;
-import io.electrum.vas.model.Transaction;
+import java.io.IOException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.electrum.vas.JsonUtil;
+import io.electrum.vas.model.Amounts;
+import io.electrum.vas.model.SlipData;
+import io.electrum.vas.model.Transaction;
 import io.swagger.annotations.ApiModelProperty;
 
 public abstract class BillpayResponse extends Transaction {
    protected Customer customer = null;
-   protected Amounts amounts = null;
+   protected BillpayAmounts amounts = null;
    protected BillSlipData slipData = null;
    protected boolean partPaymentAllowed = true;
    protected boolean overPaymentAllowed = true;
@@ -39,22 +42,61 @@ public abstract class BillpayResponse extends Transaction {
 
    /**
     * The message amount details such as account balance.
+    * 
+    * @since v4.8.0
     **/
-   public BillpayResponse amounts(Amounts amounts) {
+   public BillpayResponse amounts(BillpayAmounts amounts) {
       this.amounts = amounts;
       return this;
+   }
+
+   /**
+    * The message amount details such as account balance.
+    * 
+    * @deprecated - Use {@link #amounts(BillpayAmounts)} instead.
+    **/
+   @Deprecated
+   @JsonIgnore
+   @ApiModelProperty(name = "amounts", access = "overloaded-method")
+   public BillpayResponse amounts(Amounts amounts) {
+      try {
+         this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
+         return this;
+      } catch (IOException ioe) {
+         throw new RuntimeException(ioe);
+      }
    }
 
    @ApiModelProperty(required = true, value = "The message amount details such as account balance.")
    @JsonProperty("amounts")
    @NotNull
    @Valid
-   public Amounts getAmounts() {
+   public BillpayAmounts getAmounts() {
       return amounts;
    }
 
-   public void setAmounts(Amounts amounts) {
+   /**
+    * @since v4.8.0
+    * @param amounts
+    */
+   public void setAmounts(BillpayAmounts amounts) {
       this.amounts = amounts;
+   }
+
+   /**
+    * 
+    * @param amounts
+    * @deprecated - Use {@link #setAmounts(BillpayAmounts)} instead.
+    */
+   @Deprecated
+   @JsonIgnore
+   @ApiModelProperty(name = "amounts", access = "overloaded-method")
+   public void setAmounts(Amounts amounts) {
+      try {
+         this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
+      } catch (IOException ioe) {
+         throw new RuntimeException(ioe);
+      }
    }
 
    /**
@@ -88,7 +130,7 @@ public abstract class BillpayResponse extends Transaction {
    /**
     * Indicates whether a payment amount may be less than the amount due. Defaults to true.
     **/
-   public BillpayResponse partPaymentAllowed (boolean partPaymentAllowed) {
+   public BillpayResponse partPaymentAllowed(boolean partPaymentAllowed) {
       this.partPaymentAllowed = partPaymentAllowed;
       return this;
    }
@@ -106,7 +148,7 @@ public abstract class BillpayResponse extends Transaction {
    /**
     * Indicates whether a payment amount may be more than the amount due. Defaults to true.
     **/
-   public BillpayResponse overPaymentAllowed (boolean overPaymentAllowed) {
+   public BillpayResponse overPaymentAllowed(boolean overPaymentAllowed) {
       this.overPaymentAllowed = overPaymentAllowed;
       return this;
    }
