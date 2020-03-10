@@ -85,8 +85,8 @@ public class PolicyPaymentRequest extends Transaction {
    @JsonProperty("amounts")
    @NotNull
    @Valid
-   public BillpayAmounts getAmounts() {
-      return amounts;
+   public <T extends Amounts> T getAmounts() {
+      return (T) amounts;
    }
 
    /**
