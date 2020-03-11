@@ -5,7 +5,7 @@ This page describes changes to the Billpay Service Interface implemented across 
 Released 11 March 2020
 
 - Further updated implementation of `Amounts` with `BillpayAmounts` in v4.8.0 to be compatible with previous Java implementations.
-- Fixed swagger generation to correctly include `BillpayAmounts` for following models:
+- Fixed swagger generation to correctly include `BillpayAmounts` `amounts` field for following models:
   - `PaymentRequest`
   - `PolicyPaymentRequest`
   - `TrafficFinePaymentRequest`
