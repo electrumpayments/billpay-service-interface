@@ -1,6 +1,14 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.8.1
+
+Released 11 March 2020
+
+- Further updated implementation of `Amounts` with `BillpayAmounts` in v4.8.0 to be compatible with previous versions.
+
 ## v4.8.0
+
+### Deprecated
 
 Released 6 March 2020
 

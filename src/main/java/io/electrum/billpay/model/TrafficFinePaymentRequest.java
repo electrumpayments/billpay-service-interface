@@ -80,7 +80,7 @@ public class TrafficFinePaymentRequest extends Transaction {
       }
    }
 
-   @ApiModelProperty(required = true, value = "Contains the payment amount.")
+   @ApiModelProperty(required = true, value = "Contains the payment amount.", dataType = "io.electrum.billpay.model.BillpayAmounts")
    @JsonProperty("amounts")
    @NotNull
    @Valid

@@ -67,7 +67,7 @@ public abstract class BillpayResponse extends Transaction {
       }
    }
 
-   @ApiModelProperty(required = true, value = "The message amount details such as account balance.")
+   @ApiModelProperty(required = true, value = "The message amount details such as account balance.", dataType = "io.electrum.billpay.model.BillpayAmounts")
    @JsonProperty("amounts")
    @NotNull
    @Valid
