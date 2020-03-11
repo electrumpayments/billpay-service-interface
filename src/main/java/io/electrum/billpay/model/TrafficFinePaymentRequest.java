@@ -27,10 +27,29 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Represents a request to perform a payment of a traffic fine.")
 public class TrafficFinePaymentRequest extends Transaction {
 
+   @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the service provider.")
+   @JsonProperty("noticeNumber")
+   @NotNull
+   @Length(min = 6, max = 40)
    private String noticeNumber = null;
+
+   @ApiModelProperty(required = true, value = "Contains the payment amount.", dataType = "io.electrum.billpay.model.BillpayAmounts")
+   @JsonProperty("amounts")
+   @NotNull
+   @Valid
    private BillpayAmounts amounts = null;
+
+   @ApiModelProperty(required = false, value = "Contains the tenders for the payment request if available")
+   @JsonProperty("tenders")
    private List<Tender> tenders = new ArrayList<>();
+
+   @ApiModelProperty(required = false, value = "Contains the payment method for the payment request if available")
+   @JsonProperty("paymentMethods")
    private List<PaymentMethod> paymentMethods = new ArrayList<>();
+
+   @ApiModelProperty(value = "Customer detail")
+   @JsonProperty("customer")
+   @Valid
    private Customer customer = null;
 
    /**
@@ -41,10 +60,6 @@ public class TrafficFinePaymentRequest extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the service provider.")
-   @JsonProperty("noticeNumber")
-   @NotNull
-   @Length(min = 6, max = 40)
    public String getNoticeNumber() {
       return noticeNumber;
    }
@@ -70,7 +85,7 @@ public class TrafficFinePaymentRequest extends Transaction {
     **/
    @Deprecated
    @JsonIgnore
-   @ApiModelProperty(name = "amounts", access = "overloaded-method")
+   @ApiModelProperty(access = "overloaded-method")
    public TrafficFinePaymentRequest amounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
@@ -80,12 +95,8 @@ public class TrafficFinePaymentRequest extends Transaction {
       }
    }
 
-   @ApiModelProperty(required = true, value = "Contains the payment amount.")
-   @JsonProperty("amounts")
-   @NotNull
-   @Valid
-   public BillpayAmounts getAmounts() {
-      return amounts;
+   public <T extends Amounts> T getAmounts() {
+      return (T) amounts;
    }
 
    /**
@@ -103,7 +114,7 @@ public class TrafficFinePaymentRequest extends Transaction {
     */
    @Deprecated
    @JsonIgnore
-   @ApiModelProperty(name = "amounts", access = "overloaded-method")
+   @ApiModelProperty(access = "overloaded-method")
    public void setAmounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
@@ -117,8 +128,6 @@ public class TrafficFinePaymentRequest extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(required = false, value = "Contains the tenders for the payment request if available")
-   @JsonProperty("tenders")
    public List<Tender> getTenders() {
       return tenders;
    }
@@ -132,8 +141,6 @@ public class TrafficFinePaymentRequest extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(required = false, value = "Contains the payment method for the payment request if available")
-   @JsonProperty("paymentMethods")
    public List<PaymentMethod> getPaymentMethods() {
       return paymentMethods;
    }
@@ -150,9 +157,6 @@ public class TrafficFinePaymentRequest extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(value = "Customer detail")
-   @JsonProperty("customer")
-   @Valid
    public Customer getCustomer() {
       return customer;
    }

@@ -15,10 +15,30 @@ import io.electrum.vas.model.Transaction;
 import io.swagger.annotations.ApiModelProperty;
 
 public abstract class BillpayResponse extends Transaction {
+
+   @ApiModelProperty(value = "Customer detail")
+   @JsonProperty("customer")
+   @Valid
    protected Customer customer = null;
+
+   @ApiModelProperty(required = true, value = "The message amount details such as account balance.", dataType = "io.electrum.billpay.model.BillpayAmounts")
+   @JsonProperty("amounts")
+   @NotNull
+   @Valid
    protected BillpayAmounts amounts = null;
+
+   @ApiModelProperty(required = true, value = "Data that should be printed on the customer receipt")
+   @JsonProperty("slipData")
+   @NotNull
+   @Valid
    protected BillSlipData slipData = null;
+
+   @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Defaults to true.")
+   @JsonProperty("partPaymentAllowed")
    protected boolean partPaymentAllowed = true;
+
+   @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Defaults to true.")
+   @JsonProperty("overPaymentAllowed")
    protected boolean overPaymentAllowed = true;
 
    /**
@@ -29,9 +49,6 @@ public abstract class BillpayResponse extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(value = "Customer detail")
-   @JsonProperty("customer")
-   @Valid
    public Customer getCustomer() {
       return customer;
    }
@@ -57,7 +74,7 @@ public abstract class BillpayResponse extends Transaction {
     **/
    @Deprecated
    @JsonIgnore
-   @ApiModelProperty(name = "amounts", access = "overloaded-method")
+   @ApiModelProperty(access = "overloaded-method")
    public BillpayResponse amounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
@@ -67,12 +84,8 @@ public abstract class BillpayResponse extends Transaction {
       }
    }
 
-   @ApiModelProperty(required = true, value = "The message amount details such as account balance.")
-   @JsonProperty("amounts")
-   @NotNull
-   @Valid
-   public BillpayAmounts getAmounts() {
-      return amounts;
+   public <T extends Amounts> T getAmounts() {
+      return (T) amounts;
    }
 
    /**
@@ -90,7 +103,7 @@ public abstract class BillpayResponse extends Transaction {
     */
    @Deprecated
    @JsonIgnore
-   @ApiModelProperty(name = "amounts", access = "overloaded-method")
+   @ApiModelProperty(access = "overloaded-method")
    public void setAmounts(Amounts amounts) {
       try {
          this.amounts = JsonUtil.deserialize(JsonUtil.serialize(amounts, Amounts.class), BillpayAmounts.class);
@@ -115,10 +128,6 @@ public abstract class BillpayResponse extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "Data that should be printed on the customer receipt")
-   @JsonProperty("slipData")
-   @NotNull
-   @Valid
    public BillSlipData getSlipData() {
       return slipData;
    }
@@ -135,8 +144,6 @@ public abstract class BillpayResponse extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Defaults to true.")
-   @JsonProperty("partPaymentAllowed")
    public boolean getPartPaymentAllowed() {
       return partPaymentAllowed;
    }
@@ -153,8 +160,6 @@ public abstract class BillpayResponse extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Defaults to true.")
-   @JsonProperty("overPaymentAllowed")
    public boolean getOverPaymentAllowed() {
       return overPaymentAllowed;
    }

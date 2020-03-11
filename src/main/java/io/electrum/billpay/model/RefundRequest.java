@@ -18,7 +18,16 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Represents a request to refund a payment")
 public class RefundRequest extends Transaction {
 
+   @ApiModelProperty(required = true, value = "An identifier that is printed on the customer slip and uniquely identifies the payment on the bill issuer's system. This value is used by the customer to request a refund when the service supports this function, and it is thus important that this number is unique")
+   @JsonProperty("issuerReference")
+   @NotNull
+   @Pattern(regexp = "[A-Z0-9]{1,20}")
    private String issuerReference = null;
+
+   @ApiModelProperty(required = true, value = "The reason for the refund as given by the customer")
+   @JsonProperty("refundReason")
+   @NotNull
+   @Length(max = 20)
    private String refundReason = null;
 
    /**
@@ -31,10 +40,6 @@ public class RefundRequest extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "An identifier that is printed on the customer slip and uniquely identifies the payment on the bill issuer's system. This value is used by the customer to request a refund when the service supports this function, and it is thus important that this number is unique")
-   @JsonProperty("issuerReference")
-   @NotNull
-   @Pattern(regexp = "[A-Z0-9]{1,20}")
    public String getIssuerReference() {
       return issuerReference;
    }
@@ -51,10 +56,6 @@ public class RefundRequest extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The reason for the refund as given by the customer")
-   @JsonProperty("refundReason")
-   @NotNull
-   @Length(max = 20)
    public String getRefundReason() {
       return refundReason;
    }

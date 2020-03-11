@@ -14,6 +14,11 @@ import io.swagger.annotations.ApiModelProperty;
  **/
 @ApiModel(description = "The data resulting from a policy lookup request")
 public class PolicyLookupResponse extends BillpayResponse {
+
+   @ApiModelProperty(required = true, value = "The customer policy detail")
+   @JsonProperty("policy")
+   @NotNull
+   @Valid
    protected Policy policy = null;
 
    /**
@@ -24,10 +29,6 @@ public class PolicyLookupResponse extends BillpayResponse {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The customer policy detail")
-   @JsonProperty("policy")
-   @NotNull
-   @Valid
    public Policy getPolicy() {
       return policy;
    }

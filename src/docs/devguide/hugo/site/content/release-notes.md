@@ -1,6 +1,29 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.8.1
+
+Released 11 March 2020
+
+- Further updated implementation of `Amounts` with `BillpayAmounts` in v4.8.0 to be compatible with previous Java implementations.
+- Fixed swagger generation to correctly include `BillpayAmounts` `amounts` field for the following models:
+  - `PaymentRequest`
+  - `PolicyPaymentRequest`
+  - `TrafficFinePaymentRequest`
+
 ## v4.8.0
+
+### Deprecated (Use v4.8.1 instead)
+
+- This version resulted in the following issues, which have been fixed in version 4.8.1:
+    - a breaking change to the API where the `amounts` field was dropped from the following models:
+        - `PaymentRequest`
+        - `PolicyPaymentRequest`
+        - `TrafficFinePaymentRequest`
+    - a breaking change of the Java implementation for the `getAmounts` method in the following models:
+        - `BillpayResponse` (extended by `PaymentResponse`, `PolicyPaymentResponse` and `TrafficFinePaymentResponse`)
+        - `PaymentRequest`
+        - `PolicyPaymentRequest`
+        - `TrafficFinePaymentRequest`
 
 Released 6 March 2020
 
