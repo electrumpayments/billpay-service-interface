@@ -11,9 +11,9 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Checks that for resources which have the transaction identifier as a path parameter (resulting in 8 parameters in
- * total), where the first two parameters are (String tranId, (? extends Transaction) entity), that the tranId is the
- * same as the identifier in the Transaction.
+ * Checks that for resources which have the transaction identifier as a path parameter, where the first two parameters
+ * are (String tranId, (? extends Transaction) entity), that the tranId is the same as the identifier in the
+ * Transaction.
  */
 @Constraint(validatedBy = ConsistentTransactionIdValidator.class)
 @Target({ METHOD })
@@ -21,7 +21,7 @@ import javax.validation.Payload;
 @Documented
 public @interface ConsistentTransactionId {
 
-   String DEFAULT_MESSAGE = "path param transaction identifier must match entity id";
+   String DEFAULT_MESSAGE = "path param request requestId/paymentId/refundId must match entity id";
 
    String message() default DEFAULT_MESSAGE;
 

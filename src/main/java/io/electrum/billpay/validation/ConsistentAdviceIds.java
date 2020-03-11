@@ -12,9 +12,9 @@ import javax.validation.Payload;
 
 /**
  * Checks that for resources which have the transaction identifier and the request transaction identifier as a path
- * parameter (resulting in 9 parameters in total), where the first three parameters are (String tranId, String
- * requestId, (? extends BasicAdvice) entity), that the tranId is the same as the identifier in the BasicAdvice, and
- * that the requestId is the same as the request identifier in the BasicAdvice.
+ * parameter , where the first three parameters are (String tranId, String requestId, (? extends BasicAdvice) entity),
+ * that the tranId is the same as the identifier in the BasicAdvice, and that the requestId is the same as the request
+ * identifier in the BasicAdvice.
  */
 @Constraint(validatedBy = ConsistentAdviceIdsValidator.class)
 @Target({ METHOD })
@@ -23,7 +23,7 @@ import javax.validation.Payload;
 public @interface ConsistentAdviceIds {
 
    String DEFAULT_MESSAGE =
-         "path param transaction identifier must match entity id and path param request transaction identifier must match entity request transaction identifier";
+         "path param adviceId must match entity id and path param request requestId/paymentId/refundId must match entity requestId";
 
    String message() default DEFAULT_MESSAGE;
 

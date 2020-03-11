@@ -21,10 +21,6 @@ public class ConsistentAdviceIdsValidator implements ConstraintValidator<Consist
 
    @Override
    public boolean isValid(Object[] value, ConstraintValidatorContext context) {
-      if (value.length != 9) {
-         throw new IllegalArgumentException("Illegal method signature.");
-      }
-
       if (value[0] == null || value[1] == null || value[2] == null) {
          return true;
       }
@@ -53,6 +49,6 @@ public class ConsistentAdviceIdsValidator implements ConstraintValidator<Consist
          }
       }
 
-      return isValidAdvice;
+      return isValidAdvice && isValidRequest;
    }
 }
