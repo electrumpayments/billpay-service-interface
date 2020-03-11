@@ -12,7 +12,15 @@ import io.electrum.vas.model.LedgerAmount;
 import io.swagger.annotations.ApiModelProperty;
 
 public class BillpayAmounts extends Amounts {
+
+   @ApiModelProperty(value = "The maximum amount a customer is allowed to pay towards an account, policy or some other payment.")
+   @JsonProperty("maxPayableAmount")
+   @Valid
    protected LedgerAmount maxPayableAmount = null;
+
+   @ApiModelProperty(value = "The minimum amount a customer is allowed to pay towards an account, policy or some other payment.")
+   @JsonProperty("minPayableAmount")
+   @Valid
    protected LedgerAmount minPayableAmount = null;
 
    public Amounts maxPayableAmount(LedgerAmount maxPayableAmount) {
@@ -25,9 +33,6 @@ public class BillpayAmounts extends Amounts {
     * 
     * @return maxPayableAmount
     **/
-   @ApiModelProperty(value = "The maximum amount a customer is allowed to pay towards an account, policy or some other payment.")
-   @JsonProperty("maxPayableAmount")
-   @Valid
    public LedgerAmount getMaxPayableAmount() {
       return maxPayableAmount;
    }
@@ -46,9 +51,6 @@ public class BillpayAmounts extends Amounts {
     * 
     * @return minPayableAmount
     **/
-   @ApiModelProperty(value = "The minimum amount a customer is allowed to pay towards an account, policy or some other payment.")
-   @JsonProperty("minPayableAmount")
-   @Valid
    public LedgerAmount getMinPayableAmount() {
       return minPayableAmount;
    }

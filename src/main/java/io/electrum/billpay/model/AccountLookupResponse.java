@@ -14,6 +14,11 @@ import io.swagger.annotations.ApiModelProperty;
  **/
 @ApiModel(description = "The data resulting from an account lookup request")
 public class AccountLookupResponse extends BillpayResponse {
+
+   @ApiModelProperty(required = true, value = "The customer account detail")
+   @JsonProperty("account")
+   @NotNull
+   @Valid
    protected Account account = null;
 
    /**
@@ -24,10 +29,6 @@ public class AccountLookupResponse extends BillpayResponse {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The customer account detail")
-   @JsonProperty("account")
-   @NotNull
-   @Valid
    public Account getAccount() {
       return account;
    }

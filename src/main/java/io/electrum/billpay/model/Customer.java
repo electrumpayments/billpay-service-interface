@@ -16,10 +16,29 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "A bill payment customer")
 public class Customer {
 
+   @ApiModelProperty(value = "The customer's first name(s)")
+   @JsonProperty("firstName")
+   @Length(max = 40)
    private String firstName = null;
+
+   @ApiModelProperty(value = "The customer's last name")
+   @JsonProperty("lastName")
+   @Length(max = 40)
    private String lastName = null;
+
+   @ApiModelProperty(value = "The customer's address")
+   @JsonProperty("address")
+   @Length(max = 80)
    private String address = null;
+
+   @ApiModelProperty(value = "The customer's ID Number")
+   @JsonProperty("idNumber")
+   @Length(max = 13)
    private String idNumber = null;
+
+   @ApiModelProperty(value = "The customer's contact number")
+   @JsonProperty("contactNumber")
+   @Length(max = 40)
    private String contactNumber = null;
 
    /**
@@ -30,9 +49,6 @@ public class Customer {
       return this;
    }
 
-   @ApiModelProperty(value = "The customer's first name(s)")
-   @JsonProperty("firstName")
-   @Length(max = 40)
    public String getFirstName() {
       return firstName;
    }
@@ -49,9 +65,6 @@ public class Customer {
       return this;
    }
 
-   @ApiModelProperty(value = "The customer's last name")
-   @JsonProperty("lastName")
-   @Length(max = 40)
    public String getLastName() {
       return lastName;
    }
@@ -68,9 +81,6 @@ public class Customer {
       return this;
    }
 
-   @ApiModelProperty(value = "The customer's address")
-   @JsonProperty("address")
-   @Length(max = 80)
    public String getAddress() {
       return address;
    }
@@ -87,9 +97,6 @@ public class Customer {
       return this;
    }
 
-   @ApiModelProperty(value = "The customer's ID Number")
-   @JsonProperty("idNumber")
-   @Length(max = 13)
    public String getIdNumber() {
       return idNumber;
    }
@@ -106,9 +113,6 @@ public class Customer {
       return this;
    }
 
-   @ApiModelProperty(value = "The customer's contact number")
-   @JsonProperty("contactNumber")
-   @Length(max = 40)
    public String getContactNumber() {
       return contactNumber;
    }

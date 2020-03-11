@@ -17,6 +17,10 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "The data required to request policy info")
 public class PolicyLookupRequest extends Transaction {
 
+   @ApiModelProperty(required = true, value = "A reference number identifying the policy to the service provider.")
+   @JsonProperty("policyNumber")
+   @NotNull
+   @Length(min = 6, max = 40)
    private String policyNumber = null;
 
    /**
@@ -27,10 +31,6 @@ public class PolicyLookupRequest extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A reference number identifying the policy to the service provider.")
-   @JsonProperty("policyNumber")
-   @NotNull
-   @Length(min = 6, max = 40)
    public String getPolicyNumber() {
       return policyNumber;
    }

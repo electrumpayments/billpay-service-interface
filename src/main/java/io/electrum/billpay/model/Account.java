@@ -21,7 +21,15 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Represents the status of a customer account")
 public class Account {
 
+   @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
+   @JsonProperty("accountRef")
+   @NotNull
+   @Length(min = 6, max = 40)
    protected String accountRef = null;
+
+   @ApiModelProperty(value = "The effective date of the current billing period in the format yyyy-MM-dd")
+   @JsonProperty("dueDate")
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
    protected LocalDate dueDate = null;
 
    /**
@@ -32,10 +40,6 @@ public class Account {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
-   @JsonProperty("accountRef")
-   @NotNull
-   @Length(min = 6, max = 40)
    public String getAccountRef() {
       return accountRef;
    }
@@ -52,9 +56,6 @@ public class Account {
       return this;
    }
 
-   @ApiModelProperty(value = "The effective date of the current billing period in the format yyyy-MM-dd")
-   @JsonProperty("dueDate")
-   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
    public LocalDate getDueDate() {
       return dueDate;
    }

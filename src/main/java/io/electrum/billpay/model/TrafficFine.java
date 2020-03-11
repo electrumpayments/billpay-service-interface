@@ -21,7 +21,15 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Represents the status of a traffic fine")
 public class TrafficFine {
 
+   @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the processor's system.")
+   @JsonProperty("noticeNumber")
+   @NotNull
+   @Length(min = 6, max = 40)
    protected String noticeNumber = null;
+
+   @ApiModelProperty(value = "The date by which the traffic fine should be paid in the format yyyy-MM-dd.")
+   @JsonProperty("dueDate")
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
    protected LocalDate dueDate = null;
 
    /**
@@ -32,10 +40,6 @@ public class TrafficFine {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the processor's system.")
-   @JsonProperty("noticeNumber")
-   @NotNull
-   @Length(min = 6, max = 40)
    public String getNoticeNumber() {
       return noticeNumber;
    }
@@ -52,9 +56,6 @@ public class TrafficFine {
       return this;
    }
 
-   @ApiModelProperty(value = "The date by which the traffic fine should be paid in the format yyyy-MM-dd.")
-   @JsonProperty("dueDate")
-   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
    public LocalDate getDueDate() {
       return dueDate;
    }

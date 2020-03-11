@@ -15,6 +15,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Data that may be printed on the customer slip for information purposes")
 public class BillSlipData extends SlipData {
 
+   @ApiModelProperty(value = "The call centre phone number")
+   @JsonProperty("phoneNumber")
    protected String phoneNumber = null;
 
    /**
@@ -25,8 +27,6 @@ public class BillSlipData extends SlipData {
       return this;
    }
 
-   @ApiModelProperty(value = "The call centre phone number")
-   @JsonProperty("phoneNumber")
    public String getPhoneNumber() {
       return phoneNumber;
    }
