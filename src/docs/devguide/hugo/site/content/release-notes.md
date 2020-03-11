@@ -8,7 +8,9 @@ Released 11 March 2020
 
 ## v4.8.0
 
-### Deprecated
+### Deprecated (Use v4.8.1 instead)
+
+- The update to the Java implementation of this version resulted in a breaking change of the Java implementation. This has been fixed in version 4.8.1.
 
 Released 6 March 2020
 
