@@ -14,7 +14,12 @@ Released 11 March 2020
 
 ### Deprecated (Use v4.8.1 instead)
 
-- The update to the Java implementation of this version resulted in a breaking change of the Java implementation. This has been fixed in version 4.8.1.
+- The update to the Java implementation of this version resulted in the following issues, which have been fixed in version 4.8.1:
+    - a breaking change of the Java implementation
+    - the `amounts` field being from from the updated payment requests:
+        - `PaymentRequest`
+        - `PolicyPaymentRequest`
+        - `TrafficFinePaymentRequest`
 
 Released 6 March 2020
 
