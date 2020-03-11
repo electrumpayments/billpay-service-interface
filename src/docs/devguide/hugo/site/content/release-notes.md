@@ -15,12 +15,12 @@ Released 11 March 2020
 ### Deprecated (Use v4.8.1 instead)
 
 - This version resulted in the following issues, which have been fixed in version 4.8.1:
-    - a breaking change of the Java implementation for the `getAmounts` method in the following models:
-        - `BillpayResponse` (extended by `PaymentResponse`, `PolicyPaymentResponse` and `TrafficFinePaymentResponse`)
+    - a breaking change to the API where the `amounts` field was dropped from the following models:
         - `PaymentRequest`
         - `PolicyPaymentRequest`
         - `TrafficFinePaymentRequest`
-    - a breaking change to the API where the `amounts` field was dropped from the following models:
+    - a breaking change of the Java implementation for the `getAmounts` method in the following models:
+        - `BillpayResponse` (extended by `PaymentResponse`, `PolicyPaymentResponse` and `TrafficFinePaymentResponse`)
         - `PaymentRequest`
         - `PolicyPaymentRequest`
         - `TrafficFinePaymentRequest`
