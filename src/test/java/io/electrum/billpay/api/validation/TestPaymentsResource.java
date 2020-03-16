@@ -33,7 +33,7 @@ import io.electrum.billpay.model.TrafficFinePaymentRequest;
 import io.electrum.vas.model.BasicReversal;
 import io.electrum.vas.model.TenderAdvice;
 
-public class TestPaymentResource {
+public class TestPaymentsResource {
 
    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
    ExecutableValidator executableValidator = factory.getValidator().forExecutables();
