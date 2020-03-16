@@ -1,4 +1,4 @@
-package io.electrum.billpay.api;
+package io.electrum.billpay.api.validation;
 
 import static io.electrum.billpay.util.ValidationBuilderUtil.institution;
 import static io.electrum.billpay.util.ValidationBuilderUtil.originator;
@@ -24,9 +24,13 @@ import javax.ws.rs.core.UriInfo;
 import org.joda.time.DateTime;
 import org.testng.annotations.Test;
 
+import io.electrum.billpay.api.IPaymentsResource;
+import io.electrum.billpay.api.PaymentsResource;
 import io.electrum.billpay.model.BillpayAmounts;
 import io.electrum.billpay.model.PaymentRequest;
+import io.electrum.billpay.model.PolicyPaymentRequest;
 import io.electrum.billpay.model.TrafficFinePaymentRequest;
+import io.electrum.vas.model.BasicReversal;
 import io.electrum.vas.model.TenderAdvice;
 
 public class TestPaymentResource {
@@ -356,6 +360,243 @@ public class TestPaymentResource {
       // Validate
       assertEquals(violationSet.size(), 1);
       assertEquals(violationSet.toArray(new ConstraintViolation[] {})[0].getMessage(), "arg0 must match entity id");
+   }
+
+   @Test
+   public void testCreatePolicyPayment_Successful() throws NoSuchMethodException {
+      // Setup
+      PaymentsResource paymentsResource = new PaymentsResourceTest();
+      Method method =
+            PaymentsResource.class.getMethod(
+                  "createPayment",
+                  String.class,
+                  PolicyPaymentRequest.class,
+                  SecurityContext.class,
+                  AsyncResponse.class,
+                  Request.class,
+                  HttpServletRequest.class,
+                  HttpHeaders.class,
+                  UriInfo.class);
+      String id = UUID.randomUUID().toString();
+      PolicyPaymentRequest policyPaymentRequest =
+            (PolicyPaymentRequest) new PolicyPaymentRequest().policyNumber("123456")
+                  .amounts(new BillpayAmounts())
+                  .id(id)
+                  .time(DateTime.now())
+                  .originator(originator())
+                  .client(institution());
+      Object[] parameterValues = { id, policyPaymentRequest, null, null, null, null, null, null };
+      // Test
+      Set<ConstraintViolation<PaymentsResource>> violationSet =
+            executableValidator.validateParameters(paymentsResource, method, parameterValues);
+
+      // Validate
+      assertEquals(violationSet.size(), 0);
+   }
+
+   @Test
+   public void testCreatePolicyPayment_Uuid_InvalidId() throws NoSuchMethodException {
+      // Setup
+      PaymentsResource paymentsResource = new PaymentsResourceTest();
+      Method method =
+            PaymentsResource.class.getMethod(
+                  "createPayment",
+                  String.class,
+                  PolicyPaymentRequest.class,
+                  SecurityContext.class,
+                  AsyncResponse.class,
+                  Request.class,
+                  HttpServletRequest.class,
+                  HttpHeaders.class,
+                  UriInfo.class);
+      String id = "id";
+      PolicyPaymentRequest policyPaymentRequest =
+            (PolicyPaymentRequest) new PolicyPaymentRequest().policyNumber("123456")
+                  .amounts(new BillpayAmounts())
+                  .id(id)
+                  .time(DateTime.now())
+                  .originator(originator())
+                  .client(institution());
+      Object[] parameterValues = { id, policyPaymentRequest, null, null, null, null, null, null };
+      // Test
+      Set<ConstraintViolation<PaymentsResource>> violationSet =
+            executableValidator.validateParameters(paymentsResource, method, parameterValues);
+
+      // Validate
+      assertEquals(violationSet.size(), 1);
+      ConstraintViolation<PaymentsResource> violation = (ConstraintViolation) violationSet.toArray()[0];
+      assertEquals(violation.getInvalidValue() + " " + violation.getMessage(), "id must be a valid UUID");
+   }
+
+   @Test
+   public void testCreatePolicyPayment_ConsistentAdviceId_InvalidId() throws NoSuchMethodException {
+      // Setup
+      PaymentsResource paymentsResource = new PaymentsResourceTest();
+      Method method =
+            PaymentsResource.class.getMethod(
+                  "createPayment",
+                  String.class,
+                  PolicyPaymentRequest.class,
+                  SecurityContext.class,
+                  AsyncResponse.class,
+                  Request.class,
+                  HttpServletRequest.class,
+                  HttpHeaders.class,
+                  UriInfo.class);
+      String id = UUID.randomUUID().toString();
+      PolicyPaymentRequest policyPaymentRequest =
+            (PolicyPaymentRequest) new PolicyPaymentRequest().policyNumber("123456")
+                  .amounts(new BillpayAmounts())
+                  .id(UUID.randomUUID().toString())
+                  .time(DateTime.now())
+                  .originator(originator())
+                  .client(institution());
+      Object[] parameterValues = { id, policyPaymentRequest, null, null, null, null, null, null };
+      // Test
+      Set<ConstraintViolation<PaymentsResource>> violationSet =
+            executableValidator.validateParameters(paymentsResource, method, parameterValues);
+
+      // Validate
+      assertEquals(violationSet.size(), 1);
+      assertEquals(violationSet.toArray(new ConstraintViolation[] {})[0].getMessage(), "arg0 must match entity id");
+   }
+
+   @Test
+   public void testReversePayment_Successful() throws NoSuchMethodException {
+      // Setup
+      PaymentsResource paymentsResource = new PaymentsResourceTest();
+      Method method =
+            PaymentsResource.class.getMethod(
+                  "reversePayment",
+                  String.class,
+                  String.class,
+                  BasicReversal.class,
+                  SecurityContext.class,
+                  AsyncResponse.class,
+                  Request.class,
+                  HttpServletRequest.class,
+                  HttpHeaders.class,
+                  UriInfo.class);
+      String id = UUID.randomUUID().toString();
+      String requestId = UUID.randomUUID().toString();
+      BasicReversal basicReversal =
+            (BasicReversal) new BasicReversal().reversalReason(BasicReversal.ReversalReason.CANCELLED)
+                  .id(id)
+                  .requestId(requestId)
+                  .time(DateTime.now());
+      Object[] parameterValues = { id, requestId, basicReversal, null, null, null, null, null, null };
+      // Test
+      Set<ConstraintViolation<PaymentsResource>> violationSet =
+            executableValidator.validateParameters(paymentsResource, method, parameterValues);
+
+      // Validate
+      assertEquals(violationSet.size(), 0);
+   }
+
+   @Test
+   public void testReversePayment_Uuid_InvalidIdAndRequestId() throws NoSuchMethodException {
+      // Setup
+      PaymentsResource paymentsResource = new PaymentsResourceTest();
+      Method method =
+            PaymentsResource.class.getMethod(
+                  "reversePayment",
+                  String.class,
+                  String.class,
+                  BasicReversal.class,
+                  SecurityContext.class,
+                  AsyncResponse.class,
+                  Request.class,
+                  HttpServletRequest.class,
+                  HttpHeaders.class,
+                  UriInfo.class);
+      String id = "id";
+      String requestId = "requestId";
+      BasicReversal basicReversal =
+            (BasicReversal) new BasicReversal().reversalReason(BasicReversal.ReversalReason.CANCELLED)
+                  .id(id)
+                  .requestId(requestId)
+                  .time(DateTime.now());
+      Object[] parameterValues = { id, requestId, basicReversal, null, null, null, null, null, null };
+      // Test
+      Set<ConstraintViolation<PaymentsResource>> violationSet =
+            executableValidator.validateParameters(paymentsResource, method, parameterValues);
+
+      // Validate
+      assertEquals(violationSet.size(), 2);
+      Set<String> violationMessages =
+            violationSet.stream()
+                  .map(violation -> violation.getInvalidValue() + " " + violation.getMessage())
+                  .collect(Collectors.toSet());
+      assertTrue(violationMessages.contains("id must be a valid UUID"));
+      assertTrue(violationMessages.contains("requestId must be a valid UUID"));
+   }
+
+   @Test
+   public void testReversePayment_ConsistentAdviceId_InvalidId() throws NoSuchMethodException {
+      // Setup
+      PaymentsResource paymentsResource = new PaymentsResourceTest();
+      Method method =
+            PaymentsResource.class.getMethod(
+                  "reversePayment",
+                  String.class,
+                  String.class,
+                  BasicReversal.class,
+                  SecurityContext.class,
+                  AsyncResponse.class,
+                  Request.class,
+                  HttpServletRequest.class,
+                  HttpHeaders.class,
+                  UriInfo.class);
+      String id = UUID.randomUUID().toString();
+      String requestId = UUID.randomUUID().toString();
+      BasicReversal basicReversal =
+            (BasicReversal) new BasicReversal().reversalReason(BasicReversal.ReversalReason.CANCELLED)
+                  .id(UUID.randomUUID().toString())
+                  .requestId(requestId)
+                  .time(DateTime.now());
+      Object[] parameterValues = { id, requestId, basicReversal, null, null, null, null, null, null };
+      // Test
+      Set<ConstraintViolation<PaymentsResource>> violationSet =
+            executableValidator.validateParameters(paymentsResource, method, parameterValues);
+
+      // Validate
+      assertEquals(violationSet.size(), 1);
+      assertEquals(violationSet.toArray(new ConstraintViolation[] {})[0].getMessage(), "arg0 must match entity id");
+   }
+
+   @Test
+   public void testReversePayment_ConsistentAdviceId_InvalidRequestId() throws NoSuchMethodException {
+      // Setup
+      PaymentsResource paymentsResource = new PaymentsResourceTest();
+      Method method =
+            PaymentsResource.class.getMethod(
+                  "reversePayment",
+                  String.class,
+                  String.class,
+                  BasicReversal.class,
+                  SecurityContext.class,
+                  AsyncResponse.class,
+                  Request.class,
+                  HttpServletRequest.class,
+                  HttpHeaders.class,
+                  UriInfo.class);
+      String id = UUID.randomUUID().toString();
+      String requestId = UUID.randomUUID().toString();
+      BasicReversal basicReversal =
+            (BasicReversal) new BasicReversal().reversalReason(BasicReversal.ReversalReason.CANCELLED)
+                  .id(id)
+                  .requestId(UUID.randomUUID().toString())
+                  .time(DateTime.now());
+      Object[] parameterValues = { id, requestId, basicReversal, null, null, null, null, null, null };
+      // Test
+      Set<ConstraintViolation<PaymentsResource>> violationSet =
+            executableValidator.validateParameters(paymentsResource, method, parameterValues);
+
+      // Validate
+      assertEquals(violationSet.size(), 1);
+      assertEquals(
+            violationSet.toArray(new ConstraintViolation[] {})[0].getMessage(),
+            "arg1 must match entity requestId");
    }
 
    private static class PaymentsResourceTest extends PaymentsResource {
