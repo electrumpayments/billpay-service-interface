@@ -19,8 +19,19 @@ import java.util.List;
  **/
 @ApiModel(description = "Represents a response to a payment request")
 public class PaymentResponse extends BillpayResponse {
+
+   @ApiModelProperty(required = true, value = "The customer account detail")
+   @JsonProperty("account")
+   @NotNull
+   @Valid
    protected Account account = null;
+
+   @ApiModelProperty(required = false, value = "Contains the tenders for the payment response if available")
+   @JsonProperty("tenders")
    private List<Tender> tenders = new ArrayList<>();
+
+   @ApiModelProperty(required = false, value = "Contains the payment method for the payment response if available")
+   @JsonProperty("paymentMethods")
    private List<PaymentMethod> paymentMethods = new ArrayList<>();
 
    /**
@@ -31,10 +42,6 @@ public class PaymentResponse extends BillpayResponse {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The customer account detail")
-   @JsonProperty("account")
-   @NotNull
-   @Valid
    public Account getAccount() {
       return account;
    }
@@ -48,8 +55,6 @@ public class PaymentResponse extends BillpayResponse {
       return this;
    }
 
-   @ApiModelProperty(required = false, value = "Contains the tenders for the payment response if available")
-   @JsonProperty("tenders")
    public List<Tender> getTenders() {
       return tenders;
    }
@@ -63,8 +68,6 @@ public class PaymentResponse extends BillpayResponse {
       return this;
    }
 
-   @ApiModelProperty(required = false, value = "Contains the payment method for the payment response if available")
-   @JsonProperty("paymentMethods")
    public List<PaymentMethod> getPaymentMethods() {
       return paymentMethods;
    }

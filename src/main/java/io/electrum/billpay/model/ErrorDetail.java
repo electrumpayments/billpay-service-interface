@@ -86,12 +86,33 @@ public class ErrorDetail {
       }
    }
 
-
+   @ApiModelProperty(required = true, value = "The type of error that occurred")
+   @JsonProperty("errorType")
+   @NotNull
    private ErrorType errorType = null;
+
+   @ApiModelProperty(required = true, value = "A short description of the error")
+   @JsonProperty("errorMessage")
+   @NotNull
+   @Length(max = 20)
    private String errorMessage = null;
+
+   @ApiModelProperty(required = true, value = "The type of request being processed when the error occurred. Refer to Release Notes for deprecated values.")
+   @JsonProperty("requestType")
+   @NotNull
    private RequestType requestType = null;
+
+   @ApiModelProperty(required = true, value = "The UUID of the message for which error occurred.")
+   @JsonProperty("id")
+   @NotNull
    private String id = null;
+
+   @ApiModelProperty(value = "The UUID of the original request message in the case of an error occurring for an advice message.")
+   @JsonProperty("originalId")
    private String originalId = null;
+
+   @ApiModelProperty(value = "A free form detailed description of a particular failure condition may optionally be supplied")
+   @JsonProperty("detailMessage")
    private Object detailMessage = null;
 
    /**
@@ -102,9 +123,6 @@ public class ErrorDetail {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The type of error that occurred")
-   @JsonProperty("errorType")
-   @NotNull
    public ErrorType getErrorType() {
       return errorType;
    }
@@ -121,10 +139,6 @@ public class ErrorDetail {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A short description of the error")
-   @JsonProperty("errorMessage")
-   @NotNull
-   @Length(max = 20)
    public String getErrorMessage() {
       return errorMessage;
    }
@@ -141,9 +155,6 @@ public class ErrorDetail {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The type of request being processed when the error occurred. Refer to Release Notes for deprecated values.")
-   @JsonProperty("requestType")
-   @NotNull
    public RequestType getRequestType() {
       return requestType;
    }
@@ -153,16 +164,13 @@ public class ErrorDetail {
    }
 
    /**
-    * The UUID of the message for which error occurred. 
+    * The UUID of the message for which error occurred.
     **/
    public ErrorDetail id(String id) {
       this.id = id;
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The UUID of the message for which error occurred.")
-   @JsonProperty("id")
-   @NotNull
    public String getId() {
       return id;
    }
@@ -179,8 +187,6 @@ public class ErrorDetail {
       return this;
    }
 
-   @ApiModelProperty(value = "The UUID of the original request message in the case of an error occurring for an advice message.")
-   @JsonProperty("originalId")
    public String getOriginalId() {
       return originalId;
    }
@@ -197,8 +203,6 @@ public class ErrorDetail {
       return this;
    }
 
-   @ApiModelProperty(value = "A free form detailed description of a particular failure condition may optionally be supplied")
-   @JsonProperty("detailMessage")
    public Object getDetailMessage() {
       return detailMessage;
    }
@@ -217,7 +221,8 @@ public class ErrorDetail {
       }
       ErrorDetail errorDetail = (ErrorDetail) o;
       return Objects.equals(errorType, errorDetail.errorType) && Objects.equals(errorMessage, errorDetail.errorMessage)
-            && Objects.equals(requestType, errorDetail.requestType) && Objects.equals(id, errorDetail.id) && Objects.equals(originalId, errorDetail.originalId)
+            && Objects.equals(requestType, errorDetail.requestType) && Objects.equals(id, errorDetail.id)
+            && Objects.equals(originalId, errorDetail.originalId)
             && Objects.equals(detailMessage, errorDetail.detailMessage);
    }
 

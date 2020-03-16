@@ -14,7 +14,11 @@ import io.swagger.annotations.ApiModelProperty;
  **/
 @ApiModel(description = "Represents a response to a payment request")
 public class TrafficFinePaymentResponse extends BillpayResponse {
-   
+
+   @ApiModelProperty(required = true, value = "The customer account detail")
+   @JsonProperty("trafficFine")
+   @NotNull
+   @Valid
    protected TrafficFine trafficFine = null;
 
    /**
@@ -25,10 +29,6 @@ public class TrafficFinePaymentResponse extends BillpayResponse {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "The customer account detail")
-   @JsonProperty("trafficFine")
-   @NotNull
-   @Valid
    public TrafficFine getTrafficFine() {
       return trafficFine;
    }

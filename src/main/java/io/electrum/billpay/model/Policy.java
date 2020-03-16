@@ -21,7 +21,15 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Represents the status of a customer policy")
 public class Policy {
 
+   @ApiModelProperty(required = true, value = "A reference number identifying the policy to the processor.")
+   @JsonProperty("policyNumber")
+   @NotNull
+   @Length(min = 6, max = 40)
    protected String policyNumber = null;
+
+   @ApiModelProperty(value = "The date by which the next policy payment must be made in the format yyyy-MM-dd.")
+   @JsonProperty("dueDate")
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
    protected LocalDate dueDate = null;
 
    /**
@@ -32,10 +40,6 @@ public class Policy {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A reference number identifying the policy to the processor.")
-   @JsonProperty("policyNumber")
-   @NotNull
-   @Length(min = 6, max = 40)
    public String getPolicyNumber() {
       return policyNumber;
    }
@@ -52,9 +56,6 @@ public class Policy {
       return this;
    }
 
-   @ApiModelProperty(value = "The date by which the next policy payment must be made in the format yyyy-MM-dd.")
-   @JsonProperty("dueDate")
-   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
    public LocalDate getDueDate() {
       return dueDate;
    }

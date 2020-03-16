@@ -13,8 +13,20 @@ import javax.validation.Valid;
  **/
 @ApiModel(description = "Represents a response to a refund request")
 public class RefundResponse extends BillpayResponse {
+
+   @ApiModelProperty(value = "The customer account detail")
+   @JsonProperty("account")
+   @Valid
    protected Account account = null;
+
+   @ApiModelProperty(value = "The customer trafficFine detail")
+   @JsonProperty("trafficFine")
+   @Valid
    protected TrafficFine trafficFine = null;
+
+   @ApiModelProperty(value = "The customer policy detail")
+   @JsonProperty("policy")
+   @Valid
    protected Policy policy = null;
 
    /**
@@ -25,9 +37,6 @@ public class RefundResponse extends BillpayResponse {
       return this;
    }
 
-   @ApiModelProperty(value = "The customer account detail")
-   @JsonProperty("account")
-   @Valid
    public Account getAccount() {
       return account;
    }
@@ -44,9 +53,6 @@ public class RefundResponse extends BillpayResponse {
       return this;
    }
 
-   @ApiModelProperty(value = "The customer trafficFine detail")
-   @JsonProperty("trafficFine")
-   @Valid
    public TrafficFine getTrafficFine() {
       return trafficFine;
    }
@@ -63,9 +69,6 @@ public class RefundResponse extends BillpayResponse {
       return this;
    }
 
-   @ApiModelProperty(value = "The customer policy detail")
-   @JsonProperty("policy")
-   @Valid
    public Policy getPolicy() {
       return policy;
    }

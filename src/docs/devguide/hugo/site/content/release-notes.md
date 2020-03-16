@@ -1,12 +1,70 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
-## v4.8.0
+## v4.9.0
 
 Released TBA 2020
 
 - Added Javax Validation Annotations to resources
     - `@ConsistentTransactionId` is an annotation for methods which validates that the first parameter (which must be a `String`) corresponds to the `id` field of the second parameter (which must extend `Transaction`).
     - `@ConsistentAdviceIds` is an annotation for methods which validates that the first parameter (which must be a `String`) and the second parameter (which must be a `String`)  correspond to the `id` and `requestId` fields of the third parameter (which must extend `BasicAdvice`)
+
+## v4.8.1
+
+Released 11 March 2020
+
+- Further updated implementation of `Amounts` with `BillpayAmounts` in v4.8.0 to be compatible with previous Java implementations.
+- Fixed swagger generation to correctly include `BillpayAmounts` `amounts` field for the following models:
+  - `PaymentRequest`
+  - `PolicyPaymentRequest`
+  - `TrafficFinePaymentRequest`
+
+## v4.8.0
+
+### Deprecated (Use v4.8.1 instead)
+
+- This version resulted in the following issues, which have been fixed in version 4.8.1:
+    - a breaking change to the API where the `amounts` field was dropped from the following models:
+        - `PaymentRequest`
+        - `PolicyPaymentRequest`
+        - `TrafficFinePaymentRequest`
+    - a breaking change of the Java implementation for the `getAmounts` method in the following models:
+        - `BillpayResponse` (extended by `PaymentResponse`, `PolicyPaymentResponse` and `TrafficFinePaymentResponse`)
+        - `PaymentRequest`
+        - `PolicyPaymentRequest`
+        - `TrafficFinePaymentRequest`
+
+Released 6 March 2020
+
+- Replaced `Amounts` in the following models with `BillpayAmounts` in order to facilitate maximum and minimum payment amounts:
+  - `BillpayResponse` (extended by `PaymentResponse`, `PolicyPaymentResponse` and `TrafficFinePaymentResponse`)
+  - `PaymentRequest`
+  - `PolicyPaymentRequest`
+  - `TrafficFinePaymentRequest`
+- Bumped dependency on Base API from v3.14.0 to v3.23.0. This includes the following updates:
+  - Added utility methods to JsonUtil class to assist in reading the contents of a file as a string and deserialising JSON objects from files.
+  - Added new field `region` to `BankAccount` model for scenarios where the `routingCode` is not sufficient to uniquely identify a bank account.
+  - Added new field `emailAddress` to `Customer` model.
+  - Added new `Account.AccountType` value `CASH_PICKUP` for cash pickup scenarios.
+  - Changed masking of `CardPayment.pan` field to partial masking instead of full masking.
+  - Added new models:
+      - `Pin` a base PIN model
+          - `PinClear` for PINs in the clear
+          - `PinEncrypted` for encrypted PIN blocks with the PIN block format, accountNumber and the key index
+  - `Pin` was added to `CardPayment`, taking precedence over the existing `encyptedPin` field
+  - Added new models:
+    - `ExchangeRate` to describe the exchange rate between two currencies.
+    - `Account` to describe more varied accounts in a consistent manner. This has the following sub-types defined:
+      - `BankAccount`
+      - `IbanAccount`
+      - `IfsAccount`
+      - `SwiftAccount`
+      - `MobileWalletAccount`
+  - The limitations on the `id` field of the `Institution` model have been removed to make the field suitable for a wider range of applications. The values in this field need no longer be defined by Electrum and similar values as recognised at third parties may now be carried in this field. However, care should be taken during implementation to ensure that different parties agree on the values which will be present in these fields.
+  - Added explicit fields for STAN and RRN values to `BasicAdvice` and `Transaction` models.
+  - Added a `serialise(Object)` method to the `io.electrum.vas.JsonUtil` class. This assists in obtaining consistently serialised String representations of Objects.
+  - Made the `msisdn` field of the `Customer` object an optional field.
+  - Added a `CardPayment` payment method.
+- The version of Jetty included in the Java implementation was bumped to version 9.3.24.v20180605 to address various security vulnerabilities.
 
 ## v4.7.5
 

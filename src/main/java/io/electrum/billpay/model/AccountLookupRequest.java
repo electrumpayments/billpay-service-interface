@@ -17,6 +17,10 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "The data required to request account info")
 public class AccountLookupRequest extends Transaction {
 
+   @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
+   @JsonProperty("accountRef")
+   @NotNull
+   @Length(min = 6, max = 40)
    private String accountRef = null;
 
    /**
@@ -27,10 +31,6 @@ public class AccountLookupRequest extends Transaction {
       return this;
    }
 
-   @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
-   @JsonProperty("accountRef")
-   @NotNull
-   @Length(min = 6, max = 40)
    public String getAccountRef() {
       return accountRef;
    }
