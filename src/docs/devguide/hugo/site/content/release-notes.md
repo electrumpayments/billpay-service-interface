@@ -1,5 +1,11 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.9.0
+
+Released 11 March 2020
+
+- Updated Jetty Server and Jersey dependencies
+
 ## v4.8.1
 
 Released 11 March 2020
