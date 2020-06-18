@@ -1,6 +1,7 @@
 package io.electrum.billpay.model;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -33,13 +34,19 @@ public abstract class BillpayResponse extends Transaction {
    @Valid
    protected BillSlipData slipData = null;
 
-   @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Defaults to true.")
-   @JsonProperty("partPaymentAllowed")
-   protected boolean partPaymentAllowed = true;
+   @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Defaults to false.")
+   protected boolean partPaymentAllowed = false;
 
-   @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Defaults to true.")
+   @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Replaces old primitive value to allow for null when not provided.")
+   @JsonProperty("partPaymentAllowed")
+   protected Boolean partPayment = null;
+
+   @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Defaults to false.")
+   protected boolean overPaymentAllowed = false;
+
+   @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Replaces old primitive value to allow for null when not provided.")
    @JsonProperty("overPaymentAllowed")
-   protected boolean overPaymentAllowed = true;
+   protected Boolean overPayment = null;
 
    /**
     * Customer detail
@@ -59,7 +66,7 @@ public abstract class BillpayResponse extends Transaction {
 
    /**
     * The message amount details such as account balance.
-    * 
+    *
     * @since v4.8.0
     **/
    public BillpayResponse amounts(BillpayAmounts amounts) {
@@ -69,7 +76,7 @@ public abstract class BillpayResponse extends Transaction {
 
    /**
     * The message amount details such as account balance.
-    * 
+    *
     * @deprecated - Use {@link #amounts(BillpayAmounts)} instead.
     **/
    @Deprecated
@@ -89,15 +96,14 @@ public abstract class BillpayResponse extends Transaction {
    }
 
    /**
-    * @since v4.8.0
     * @param amounts
+    * @since v4.8.0
     */
    public void setAmounts(BillpayAmounts amounts) {
       this.amounts = amounts;
    }
 
    /**
-    * 
     * @param amounts
     * @deprecated - Use {@link #setAmounts(BillpayAmounts)} instead.
     */
@@ -137,34 +143,103 @@ public abstract class BillpayResponse extends Transaction {
    }
 
    /**
-    * Indicates whether a payment amount may be less than the amount due. Defaults to true.
+    * Indicates whether a payment amount may be less than the amount due. Sets both the primitive value as well as the
+    * boxed value
     **/
    public BillpayResponse partPaymentAllowed(boolean partPaymentAllowed) {
       this.partPaymentAllowed = partPaymentAllowed;
+      this.partPayment = partPaymentAllowed;
       return this;
-   }
-
-   public boolean getPartPaymentAllowed() {
-      return partPaymentAllowed;
-   }
-
-   public void setPartPaymentAllowed(boolean partPaymentAllowed) {
-      this.partPaymentAllowed = partPaymentAllowed;
    }
 
    /**
-    * Indicates whether a payment amount may be more than the amount due. Defaults to true.
+    * Returns partPayment if not null otherwise returns partPaymentAllowed (which defaults to false).
+    * 
+    * @return A boolean value. Defaults to false if nothing is set.
+    * @deprecated since version 4.8.2. Replaced by {@link #getPartPayment()}
+    */
+   @JsonIgnore
+   @Deprecated
+   public boolean getPartPaymentAllowed() {
+      if (partPayment == null) {
+         return partPaymentAllowed;
+      }
+      return partPayment;
+   }
+
+   /**
+    * Method to replace old {@link #getPartPaymentAllowed()} to return an optional which will be empty if partPayment is
+    * never set otherwise returns partPayment
+    * 
+    * @return Optional.empty() if partPayment is not set otherwise partPayment
+    * @since 4.8.2
+    */
+   public Optional<Boolean> getPartPayment() {
+      if (partPayment == null) {
+         return Optional.empty();
+      }
+      return Optional.of(partPayment);
+   }
+
+   /**
+    * Sets both the primitive variable partPaymentAllowed as well as the boxed variable partPayment
+    * 
+    * @param partPaymentAllowed
+    *           Indicates whether part payments are allowed
+    */
+
+   public void setPartPaymentAllowed(boolean partPaymentAllowed) {
+      this.partPaymentAllowed = partPaymentAllowed;
+      this.partPayment = partPaymentAllowed;
+   }
+
+   /**
+    * Indicates whether a payment amount may be more than the amount due. Sets both the primitive value as well as the
+    * boxed value
     **/
    public BillpayResponse overPaymentAllowed(boolean overPaymentAllowed) {
       this.overPaymentAllowed = overPaymentAllowed;
+      this.overPayment = overPaymentAllowed;
       return this;
    }
 
+   /**
+    * Returns overPayment if not null otherwise returns overPaymentAllowed (which defaults to false).
+    *
+    * @return A boolean value. Defaults to false if nothing is set.
+    * @deprecated since version 4.8.2. Replaced by {@link #getOverPayment()}
+    */
+   @JsonIgnore
+   @Deprecated
    public boolean getOverPaymentAllowed() {
-      return overPaymentAllowed;
+      if (overPayment == null) {
+         return overPaymentAllowed;
+      }
+      return overPayment;
    }
 
+   /**
+    * Method to replace old {@link #getOverPaymentAllowed()} to return an optional which will be empty if overPayment is
+    * never set otherwise returns overPayment
+    *
+    * @return Optional.empty() if overPayment is not set otherwise overPayment
+    * @since 4.8.2
+    */
+   public Optional<Boolean> getOverPayment() {
+      if (overPayment == null) {
+         return Optional.empty();
+      }
+      return Optional.of(overPayment);
+   }
+
+   /**
+    * Sets both the primitive variable overPaymentAllowed as well as the boxed variable overPayment
+    *
+    * @param overPaymentAllowed
+    *           Indicates whether over payments are allowed
+    */
    public void setOverPaymentAllowed(boolean overPaymentAllowed) {
       this.overPaymentAllowed = overPaymentAllowed;
+      this.overPayment = overPaymentAllowed;
    }
 }
