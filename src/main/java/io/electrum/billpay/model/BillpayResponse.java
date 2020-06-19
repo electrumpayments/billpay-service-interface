@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -39,6 +40,7 @@ public abstract class BillpayResponse extends Transaction {
 
    @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Replaces old primitive value to allow for null when not provided.")
    @JsonProperty("partPaymentAllowed")
+   @JsonAlias("partPayment")
    protected Boolean partPayment = null;
 
    @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Defaults to false.")
@@ -46,6 +48,7 @@ public abstract class BillpayResponse extends Transaction {
 
    @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Replaces old primitive value to allow for null when not provided.")
    @JsonProperty("overPaymentAllowed")
+   @JsonAlias("overPayment")
    protected Boolean overPayment = null;
 
    /**
