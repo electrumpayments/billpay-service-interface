@@ -178,10 +178,7 @@ public abstract class BillpayResponse extends Transaction {
     * @since 4.8.2
     */
    public Optional<Boolean> getPartPayment() {
-      if (partPayment == null) {
-         return Optional.empty();
-      }
-      return Optional.of(partPayment);
+      return Optional.ofNullable(partPayment);
    }
 
    /**
@@ -229,10 +226,7 @@ public abstract class BillpayResponse extends Transaction {
     * @since 4.8.2
     */
    public Optional<Boolean> getOverPayment() {
-      if (overPayment == null) {
-         return Optional.empty();
-      }
-      return Optional.of(overPayment);
+      return Optional.ofNullable(overPayment);
    }
 
    /**
