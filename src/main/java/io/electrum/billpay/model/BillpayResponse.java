@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -35,20 +34,16 @@ public abstract class BillpayResponse extends Transaction {
    @Valid
    protected BillSlipData slipData = null;
 
-   @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Defaults to false.")
-   protected boolean partPaymentAllowed = false;
+   @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Defaults to true.")
+   protected boolean partPaymentAllowed = true;
 
-   @ApiModelProperty(value = "Indicates whether a payment amount may be less than the amount due. Replaces old primitive value to allow for null when not provided.")
    @JsonProperty("partPaymentAllowed")
-   @JsonAlias("partPayment")
    protected Boolean partPayment = null;
 
-   @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Defaults to false.")
-   protected boolean overPaymentAllowed = false;
+   @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Defaults to true.")
+   protected boolean overPaymentAllowed = true;
 
-   @ApiModelProperty(value = "Indicates whether a payment amount may be more than the amount due. Replaces old primitive value to allow for null when not provided.")
    @JsonProperty("overPaymentAllowed")
-   @JsonAlias("overPayment")
    protected Boolean overPayment = null;
 
    /**
@@ -156,9 +151,9 @@ public abstract class BillpayResponse extends Transaction {
    }
 
    /**
-    * Returns partPayment if not null otherwise returns partPaymentAllowed (which defaults to false).
+    * Returns partPayment if not null otherwise returns partPaymentAllowed (which defaults to true).
     * 
-    * @return A boolean value. Defaults to false if nothing is set.
+    * @return A boolean value. Defaults to true if nothing is set.
     * @deprecated since version 4.8.2. Replaced by {@link #getPartPayment()}
     */
    @JsonIgnore
@@ -204,9 +199,9 @@ public abstract class BillpayResponse extends Transaction {
    }
 
    /**
-    * Returns overPayment if not null otherwise returns overPaymentAllowed (which defaults to false).
+    * Returns overPayment if not null otherwise returns overPaymentAllowed (which defaults to true).
     *
-    * @return A boolean value. Defaults to false if nothing is set.
+    * @return A boolean value. Defaults to true if nothing is set.
     * @deprecated since version 4.8.2. Replaced by {@link #getOverPayment()}
     */
    @JsonIgnore

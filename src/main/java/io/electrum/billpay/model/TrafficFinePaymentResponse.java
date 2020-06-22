@@ -55,8 +55,8 @@ public class TrafficFinePaymentResponse extends BillpayResponse {
       sb.append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append("\n");
       sb.append("    slipData: ").append(Utils.toIndentedString(slipData)).append("\n");
       sb.append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append("\n");
-      sb.append("    partPaymentAllowed: ").append(Utils.toIndentedString(partPaymentAllowed)).append("\n");
-      sb.append("    overPaymentAllowed: ").append(Utils.toIndentedString(overPaymentAllowed)).append("\n");
+      sb.append("    partPaymentAllowed: ").append(Utils.toIndentedString(partPayment)).append("\n");
+      sb.append("    overPaymentAllowed: ").append(Utils.toIndentedString(overPayment)).append("\n");
       sb.append("}");
       return sb.toString();
    }

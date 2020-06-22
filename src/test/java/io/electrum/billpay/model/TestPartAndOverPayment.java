@@ -44,15 +44,4 @@ public class TestPartAndOverPayment {
       Assert.assertFalse(testResponse.getOverPaymentAllowed());
    }
 
-   @Test
-   public void testJsonAlias() throws IOException {
-      String accountLookupRsp = "{\n" + "\"partPayment\":true,\n" + "\"overPayment\":true\n" + "}";
-      testResponse = new ObjectMapper().readValue(accountLookupRsp, AccountLookupResponse.class);
-
-      Assert.assertEquals(testResponse.getPartPayment(), Optional.of(true));
-      Assert.assertTrue(testResponse.getPartPaymentAllowed());
-      Assert.assertEquals(testResponse.getOverPayment(), Optional.of(true));
-      Assert.assertTrue(testResponse.getOverPaymentAllowed());
-   }
-
 }

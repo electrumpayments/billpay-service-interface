@@ -1,5 +1,8 @@
 package io.electrum.billpay.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -10,9 +13,6 @@ import io.electrum.vas.model.PaymentMethod;
 import io.electrum.vas.model.Tender;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a response to a payment request
@@ -86,8 +86,8 @@ public class PaymentResponse extends BillpayResponse {
               .append("    customer: ").append(Utils.toIndentedString(customer)).append(System.lineSeparator())
               .append("    amounts: ").append(Utils.toIndentedString(amounts)).append(System.lineSeparator())
               .append("    slipData: ").append(Utils.toIndentedString(slipData)).append(System.lineSeparator())
-              .append("    partPaymentAllowed: ").append(Utils.toIndentedString(partPaymentAllowed)).append(System.lineSeparator())
-              .append("    overPaymentAllowed: ").append(Utils.toIndentedString(overPaymentAllowed)).append(System.lineSeparator())
+              .append("    partPaymentAllowed: ").append(Utils.toIndentedString(partPayment)).append(System.lineSeparator())
+              .append("    overPaymentAllowed: ").append(Utils.toIndentedString(overPayment)).append(System.lineSeparator())
               .append("    id: ").append(Utils.toIndentedString(id)).append(System.lineSeparator())
               .append("    time: ").append(Utils.toIndentedString(time)).append(System.lineSeparator())
               .append("    originator: ").append(Utils.toIndentedString(originator)).append(System.lineSeparator())
