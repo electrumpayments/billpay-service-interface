@@ -39,9 +39,9 @@ public class TestPartAndOverPayment {
       testResponse = new ObjectMapper().readValue(accountLookupRsp, AccountLookupResponse.class);
 
       Assert.assertEquals(testResponse.getPartPayment(), Optional.empty());
-      Assert.assertFalse(testResponse.getPartPaymentAllowed());
+      Assert.assertTrue(testResponse.getPartPaymentAllowed());
       Assert.assertEquals(testResponse.getOverPayment(), Optional.empty());
-      Assert.assertFalse(testResponse.getOverPaymentAllowed());
+      Assert.assertTrue(testResponse.getOverPaymentAllowed());
    }
 
 }
