@@ -1,5 +1,11 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.8.2
+
+Released 31 July 2020
+
+- Added new boxed variables for `partPaymentAllowed` and `overPaymentAllowed` in `BillpayResponse`. Now, if they are not provided by the upstream entity, they will be null.
+
 ## v4.8.1
 
 Released 11 March 2020

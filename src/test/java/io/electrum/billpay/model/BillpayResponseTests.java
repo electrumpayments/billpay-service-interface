@@ -212,14 +212,12 @@ public class BillpayResponseTests {
 
    @DataProvider(name = "serialisedObjectDataProvider")
    public Object[][] serialisedObjectDataProvider() {
-      DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss.SSSZ");
       return new Object[][] { { objectWithTrue, serializedValueTrue }, { objectWithFalse, serializedValueFalse },
             { objectWithNull, serializedValueNull } };
    }
 
    @DataProvider(name = "deserialisedObjectDataProvider")
    public Object[][] deserialisedObjectDataProvider() {
-      DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss.SSSZ");
       return new Object[][] {
             //@formatter:off
               {serializedValueTrue, objectWithTrue},
@@ -249,7 +247,6 @@ public class BillpayResponseTests {
 
    @DataProvider(name = "recursiveValidationOnSubFieldsDataProvider")
    public Object[][] recursiveValidationOnSubFieldsDataProvider() {
-      DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
       return new Object[][] {
               {  //Validation should fail
                  new AccountLookupResponse().account(new Account().accountRef("12345678"))
@@ -304,5 +301,4 @@ public class BillpayResponseTests {
                                       .transactionIdentifier("1234transId")))}
       };
    }
-
 }
