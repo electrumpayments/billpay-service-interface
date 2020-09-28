@@ -85,6 +85,7 @@ public class Customer {
       return this;
    }
 
+   @Masked
    public String getAddress() {
       return address;
    }
@@ -118,6 +119,7 @@ public class Customer {
       return this;
    }
 
+   @Masked
    public String getContactNumber() {
       return contactNumber;
    }
@@ -150,11 +152,11 @@ public class Customer {
       StringBuilder sb = new StringBuilder();
       sb.append("class Customer {\n");
 
-      sb.append("    firstName: ").append(new MaskAll().mask(Utils.toIndentedString(firstName))).append("\n");
-      sb.append("    lastName: ").append(new MaskAll().mask(Utils.toIndentedString(lastName))).append("\n");
-      sb.append("    address: ").append(Utils.toIndentedString(address)).append("\n");
-      sb.append("    idNumber: ").append(new MaskAll().mask(Utils.toIndentedString(idNumber))).append("\n");
-      sb.append("    contactNumber: ").append(Utils.toIndentedString(contactNumber)).append("\n");
+      sb.append("    firstName: ").append(Utils.toIndentedString(new MaskAll().mask(firstName))).append("\n");
+      sb.append("    lastName: ").append(Utils.toIndentedString(new MaskAll().mask(lastName))).append("\n");
+      sb.append("    address: ").append(Utils.toIndentedString(new MaskAll().mask(address))).append("\n");
+      sb.append("    idNumber: ").append(Utils.toIndentedString(new MaskAll().mask(idNumber))).append("\n");
+      sb.append("    contactNumber: ").append(Utils.toIndentedString(new MaskAll().mask(contactNumber))).append("\n");
       sb.append("}");
       return sb.toString();
    }
