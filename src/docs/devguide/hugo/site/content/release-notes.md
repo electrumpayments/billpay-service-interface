@@ -2,7 +2,7 @@ This page describes changes to the Billpay Service Interface implemented across 
 
 ## v4.9.0
 
-Released XX September/October 2020
+Released 2 October 2020
 
 - Added masking to the following `Customer` model fields:
   - `firstName`
