@@ -19,6 +19,11 @@ To include the service interface into your maven project, include the below depe
     <artifactId>service-interface-base</artifactId>
     <version>3.23.0</version>
 </dependency>
+<dependency>
+  <groupId>io.electrum</groupId>
+  <artifactId>message-masking-sdk</artifactId>
+  <version>2.1.2</version>
+</dependency>
 ```
 
 Alternatively, you can download the jar from [Bintray](https://bintray.com/electrumpayments/java-open-source/billpay-service-interface).

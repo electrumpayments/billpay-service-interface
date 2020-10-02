@@ -8,6 +8,8 @@ Released XX September/October 2020
   - `firstName`
   - `lastName`
   - `idNumber`
+  - `address`
+  - `contactNumber`
   
 ## v4.8.1
 
