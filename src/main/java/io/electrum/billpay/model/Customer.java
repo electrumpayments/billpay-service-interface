@@ -2,6 +2,8 @@ package io.electrum.billpay.model;
 
 import java.util.Objects;
 
+import io.electrum.sdk.masking2.MaskAll;
+import io.electrum.sdk.masking2.Masked;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -49,6 +51,7 @@ public class Customer {
       return this;
    }
 
+   @Masked
    public String getFirstName() {
       return firstName;
    }
@@ -65,6 +68,7 @@ public class Customer {
       return this;
    }
 
+   @Masked
    public String getLastName() {
       return lastName;
    }
@@ -81,6 +85,7 @@ public class Customer {
       return this;
    }
 
+   @Masked
    public String getAddress() {
       return address;
    }
@@ -97,6 +102,7 @@ public class Customer {
       return this;
    }
 
+   @Masked
    public String getIdNumber() {
       return idNumber;
    }
@@ -113,6 +119,7 @@ public class Customer {
       return this;
    }
 
+   @Masked
    public String getContactNumber() {
       return contactNumber;
    }
@@ -145,11 +152,11 @@ public class Customer {
       StringBuilder sb = new StringBuilder();
       sb.append("class Customer {\n");
 
-      sb.append("    firstName: ").append(Utils.toIndentedString(firstName)).append("\n");
-      sb.append("    lastName: ").append(Utils.toIndentedString(lastName)).append("\n");
-      sb.append("    address: ").append(Utils.toIndentedString(address)).append("\n");
-      sb.append("    idNumber: ").append(Utils.toIndentedString(idNumber)).append("\n");
-      sb.append("    contactNumber: ").append(Utils.toIndentedString(contactNumber)).append("\n");
+      sb.append("    firstName: ").append(Utils.toIndentedString(new MaskAll().mask(firstName))).append("\n");
+      sb.append("    lastName: ").append(Utils.toIndentedString(new MaskAll().mask(lastName))).append("\n");
+      sb.append("    address: ").append(Utils.toIndentedString(new MaskAll().mask(address))).append("\n");
+      sb.append("    idNumber: ").append(Utils.toIndentedString(new MaskAll().mask(idNumber))).append("\n");
+      sb.append("    contactNumber: ").append(Utils.toIndentedString(new MaskAll().mask(contactNumber))).append("\n");
       sb.append("}");
       return sb.toString();
    }
