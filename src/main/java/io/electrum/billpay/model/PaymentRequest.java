@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import io.electrum.vas.interfaces.HasPaymentMethods;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Represents a request to perform a payment
  **/
 @ApiModel(description = "Represents a request to perform a payment")
-public class PaymentRequest extends Transaction {
+public class PaymentRequest extends Transaction implements HasPaymentMethods {
 
    @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
    @JsonProperty("accountRef")
