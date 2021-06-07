@@ -1,5 +1,20 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.10.0-RC1
+
+Released __ June 2021
+
+- Incorporated new interfaces from ``service-interface-base``. This change affects the Java implementation of the API
+  only and does not further change the public definition of the API. The Java implementation has been updated as follows:
+    - The following classes now implement the `HasTenders` interface defined in the base API:
+        - `PaymentRequest`,`PaymentResponse`
+        - `PolicyPaymentRequest`
+        - `TrafficFinePaymentRequest`
+    - The following classes now implement the `HasPaymentMethods` interface defined in the base API:
+        - `PaymentRequest`,`PaymentResponse`
+        - `PolicyPaymentRequest`
+        - `TrafficFinePaymentRequest`
+
 ## v4.9.0
 
 Released 2 October 2020
