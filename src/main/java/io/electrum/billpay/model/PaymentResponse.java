@@ -2,6 +2,7 @@ package io.electrum.billpay.model;
 
 import io.electrum.vas.Utils;
 import io.electrum.vas.interfaces.HasPaymentMethods;
+import io.electrum.vas.interfaces.HasTenders;
 import io.electrum.vas.model.PaymentMethod;
 import io.electrum.vas.model.Tender;
 import io.swagger.annotations.ApiModel;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Represents a response to a payment request
  **/
 @ApiModel(description = "Represents a response to a payment request")
-public class PaymentResponse extends BillpayResponse implements HasPaymentMethods {
+public class PaymentResponse extends BillpayResponse implements HasPaymentMethods, HasTenders {
 
    @ApiModelProperty(required = true, value = "The customer account detail")
    @JsonProperty("account")

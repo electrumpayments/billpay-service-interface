@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import io.electrum.vas.interfaces.HasPaymentMethods;
+import io.electrum.vas.interfaces.HasTenders;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,7 +28,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Represents a request to perform a payment of a traffic fine.
  **/
 @ApiModel(description = "Represents a request to perform a payment of a traffic fine.")
-public class PolicyPaymentRequest extends Transaction implements HasPaymentMethods {
+public class PolicyPaymentRequest extends Transaction implements HasPaymentMethods, HasTenders {
 
    @ApiModelProperty(required = true, value = "A reference number identifying the policy to the service provider.")
    @JsonProperty("policyNumber")
