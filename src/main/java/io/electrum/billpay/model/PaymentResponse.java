@@ -34,6 +34,11 @@ public class PaymentResponse extends BillpayResponse {
    @JsonProperty("paymentMethods")
    private List<PaymentMethod> paymentMethods = new ArrayList<>();
 
+   @ApiModelProperty(required = false, value = "Contains the information about the bill issuer")
+   @JsonProperty("biller")
+   @Valid
+   private Biller biller = null;
+
    /**
     * The customer account detail
     **/
@@ -76,6 +81,23 @@ public class PaymentResponse extends BillpayResponse {
       this.paymentMethods = paymentMethods;
    }
 
+   /**
+    * Biller
+    **/
+   public PaymentResponse biller(Biller biller) {
+      this.biller = biller;
+      return this;
+   }
+
+   public Biller getBiller() {
+      return biller;
+   }
+
+   public void setBiller(Biller biller) {
+      this.biller = biller;
+   }
+
+
    @Override
    public String toString() {
       return new StringBuilder()
@@ -100,7 +122,8 @@ public class PaymentResponse extends BillpayResponse {
               .append("    tranType: ").append(Utils.toIndentedString(tranType)).append(System.lineSeparator())
               .append("    srcAccType: ").append(Utils.toIndentedString(srcAccType)).append(System.lineSeparator())
               .append("    destAccType: ").append(Utils.toIndentedString(destAccType)).append(System.lineSeparator())
-              .append("}")
+              .append("    biller: ").append(Utils.toIndentedString(biller)).append(System.lineSeparator())
+            .append("}")
               .toString();
    }
 }
