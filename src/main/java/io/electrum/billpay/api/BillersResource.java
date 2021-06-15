@@ -56,9 +56,9 @@ public abstract class BillersResource {
    @GET
    @Path(GetBillers.RELATIVE_PATH)
    @Produces({ "application/json" })
-   @ApiOperation(nickname = GetBillers.OPERATION, value = "Retrieves a list of available billers."
-         + "If a list of available billers is maintained, this API call returns the list of billers. "
-         + "If such a list is not maintained a 501 (Not Implemented) status code will be returned.")
+   @ApiOperation(value = "Request the list of managed billers", nickname = GetBillers.OPERATION, notes = "Request "
+         + "details on managed billers. Not all services support biller management. In the case where the function "
+         + "is not supported a 501 (Not implemented) HTTP status code will be returned.")
    @ApiResponses(value = {
          @ApiResponse(code = GetBillers.SUCCESS, message = "Success", response = Biller.class, responseContainer = "List"),
          @ApiResponse(code = 400, message = "Bad request", response = ErrorDetail.class),
@@ -67,8 +67,6 @@ public abstract class BillersResource {
          @ApiResponse(code = 503, message = "Service Unavailable", response = ErrorDetail.class),
          @ApiResponse(code = 504, message = "Gateway Timeout", response = ErrorDetail.class) })
    public final void getBillers(
-         @ApiParam(value = "The category ID for which billers must be retrieved. If set, only billers withing the"
-               + " specified category will be returned.") @QueryParam(GetBillers.QueryParameters.CATEGORY) String category,
          @Context SecurityContext securityContext,
          @Suspended AsyncResponse asyncResponse,
          @Context Request request,
@@ -77,7 +75,6 @@ public abstract class BillersResource {
          @Context UriInfo uriInfo) {
 
       getResourceImplementation().getBillersImpl(
-            category,
             securityContext,
             asyncResponse,
             request,

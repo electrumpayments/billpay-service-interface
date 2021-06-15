@@ -66,7 +66,7 @@ public class Biller {
     * @param allowed
     *           <i>true</i> if transactions to the biller should be allowed, or false if they should be blocked
     *
-    * @return this object
+    * @return this Object
     **/
    public Biller allowed(boolean allowed) {
       this.allowed = allowed;

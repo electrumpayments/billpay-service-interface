@@ -14,7 +14,6 @@ import javax.ws.rs.core.UriInfo;
 public interface IBillersResource {
 
    default void getBillersImpl(
-         String category,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,
          Request request,
