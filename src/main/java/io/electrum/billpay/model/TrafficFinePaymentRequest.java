@@ -1,8 +1,16 @@
 package io.electrum.billpay.model;
 
+import io.electrum.vas.JsonUtil;
+import io.electrum.vas.model.Amounts;
+import io.electrum.vas.model.PaymentMethod;
+import io.electrum.vas.model.Tender;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,20 +20,11 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.electrum.vas.JsonUtil;
-import io.electrum.vas.Utils;
-import io.electrum.vas.model.Amounts;
-import io.electrum.vas.model.PaymentMethod;
-import io.electrum.vas.model.Tender;
-import io.electrum.vas.model.Transaction;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * Represents a request to perform a payment of a traffic fine.
  **/
 @ApiModel(description = "Represents a request to perform a payment of a traffic fine.")
-public class TrafficFinePaymentRequest extends Transaction {
+public class TrafficFinePaymentRequest extends BillpayRequest {
 
    @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the service provider.")
    @JsonProperty("noticeNumber")
@@ -51,11 +50,6 @@ public class TrafficFinePaymentRequest extends Transaction {
    @JsonProperty("customer")
    @Valid
    private Customer customer = null;
-
-   @ApiModelProperty(required = false, value = "Contains the information about the bill issuer")
-   @JsonProperty("biller")
-   @Valid
-   private Biller biller = null;
 
    /**
     * A reference number identifying the traffic fine to the service provider.
@@ -170,47 +164,31 @@ public class TrafficFinePaymentRequest extends Transaction {
       this.customer = customer;
    }
 
-   /**
-    * Biller
-    **/
-   public TrafficFinePaymentRequest biller(Biller biller) {
-      this.biller = biller;
-      return this;
+   @Override
+   public boolean equals(Object o) {
+      if (this == o)
+         return true;
+      if (o == null || getClass() != o.getClass())
+         return false;
+      if (!super.equals(o))
+         return false;
+      TrafficFinePaymentRequest that = (TrafficFinePaymentRequest) o;
+      return Objects.equals(getNoticeNumber(), that.getNoticeNumber())
+            && Objects.equals(getAmounts(), that.getAmounts()) && Objects.equals(getTenders(), that.getTenders())
+            && Objects.equals(getPaymentMethods(), that.getPaymentMethods())
+            && Objects.equals(getCustomer(), that.getCustomer());
    }
 
-   public Biller getBiller() {
-      return biller;
-   }
-
-   public void setBiller(Biller biller) {
-      this.biller = biller;
+   @Override
+   public int hashCode() {
+      return Objects
+            .hash(super.hashCode(), getNoticeNumber(), getAmounts(), getTenders(), getPaymentMethods(), getCustomer());
    }
 
    @Override
    public String toString() {
-      return new StringBuilder().append("class TrafficFinePaymentRequest {")
-            .append(System.lineSeparator())
-            .append("    noticeNumber: ")
-            .append(Utils.toIndentedString(noticeNumber))
-            .append(System.lineSeparator())
-            .append("    amounts: ")
-            .append(Utils.toIndentedString(amounts))
-            .append(System.lineSeparator())
-            .append("    tenders: ")
-            .append(Utils.toIndentedString(tenders))
-            .append(System.lineSeparator())
-            .append("    paymentMethods: ")
-            .append(Utils.toIndentedString(paymentMethods))
-            .append(System.lineSeparator())
-            .append("    customer: ")
-            .append(Utils.toIndentedString(customer))
-            .append(System.lineSeparator())
-            .append("    biller: ")
-            .append(Utils.toIndentedString(biller))
-            .append(System.lineSeparator())
-            .append("}")
-            .append(System.lineSeparator())
-            .append(super.toString())
-            .toString();
+      return "TrafficFinePaymentRequest{" + "noticeNumber='" + noticeNumber + '\'' + ", amounts=" + amounts
+            + ", tenders=" + tenders + ", paymentMethods=" + paymentMethods + ", customer=" + customer + "} "
+            + super.toString();
    }
 }

@@ -1,5 +1,11 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
+## v4.10.0
+
+Released 15 June 2021
+
+- Added a `/listBillers` operation together with the `Category` and `Biller` model definitions.
+
 ## v4.9.0
 
 Released 2 October 2020

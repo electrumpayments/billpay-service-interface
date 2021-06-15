@@ -1,21 +1,20 @@
 package io.electrum.billpay.model;
 
+import io.electrum.vas.Utils;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.electrum.vas.Utils;
-import io.electrum.vas.model.Transaction;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * The data required to request traffic fine info
  **/
 @ApiModel(description = "The data required to request traffic fine info")
-public class TrafficFineLookupRequest extends Transaction {
+public class TrafficFineLookupRequest extends BillpayRequest {
 
    @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the service provider.")
    @JsonProperty("noticeNumber")

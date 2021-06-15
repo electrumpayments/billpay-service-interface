@@ -8,15 +8,13 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
-import io.electrum.vas.model.TenderAdvice;
-
 /**
  * @since v4.10.0
  */
 public interface IBillersResource {
 
    default void getBillersImpl(
-         String channelName,
+         String category,
          SecurityContext securityContext,
          AsyncResponse asyncResponse,
          Request request,

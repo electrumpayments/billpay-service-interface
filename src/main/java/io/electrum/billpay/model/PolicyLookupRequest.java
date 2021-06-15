@@ -1,21 +1,20 @@
 package io.electrum.billpay.model;
 
+import io.electrum.vas.Utils;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.electrum.vas.Utils;
-import io.electrum.vas.model.Transaction;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * The data required to request policy info
  **/
 @ApiModel(description = "The data required to request policy info")
-public class PolicyLookupRequest extends Transaction {
+public class PolicyLookupRequest extends BillpayRequest {
 
    @ApiModelProperty(required = true, value = "A reference number identifying the policy to the service provider.")
    @JsonProperty("policyNumber")

@@ -26,7 +26,7 @@ To include the service interface into your maven project, include the below depe
 </dependency>
 ```
 
-Alternatively, you can download the jar from [Bintray](https://bintray.com/electrumpayments/java-open-source/billpay-service-interface).
+Alternatively, you can download the jar from [Maven Central](https://mvnrepository.com/artifact/io.electrum/billpay-service-interface).
 
 ## Other languages
 

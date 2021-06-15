@@ -1,5 +1,13 @@
 package io.electrum.billpay.model;
 
+import io.electrum.vas.JsonUtil;
+import io.electrum.vas.Utils;
+import io.electrum.vas.model.Amounts;
+import io.electrum.vas.model.PaymentMethod;
+import io.electrum.vas.model.Tender;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +20,11 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.electrum.vas.JsonUtil;
-import io.electrum.vas.Utils;
-import io.electrum.vas.model.Amounts;
-import io.electrum.vas.model.PaymentMethod;
-import io.electrum.vas.model.Tender;
-import io.electrum.vas.model.Transaction;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * Represents a request to perform a payment
  **/
 @ApiModel(description = "Represents a request to perform a payment")
-public class PaymentRequest extends Transaction {
+public class PaymentRequest extends BillpayRequest {
 
    @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
    @JsonProperty("accountRef")
@@ -51,11 +50,6 @@ public class PaymentRequest extends Transaction {
    @JsonProperty("customer")
    @Valid
    private Customer customer = null;
-
-   @ApiModelProperty(required = false, value = "Contains the information about the bill issuer")
-   @JsonProperty("biller")
-   @Valid
-   private Biller biller = null;
 
    /**
     * A reference number identifying the bill payments processor, bill issuer, and customer
@@ -170,22 +164,6 @@ public class PaymentRequest extends Transaction {
       this.customer = customer;
    }
 
-   /**
-    * Biller
-    **/
-   public PaymentRequest biller(Biller biller) {
-      this.biller = biller;
-      return this;
-   }
-
-   public Biller getBiller() {
-      return biller;
-   }
-
-   public void setBiller(Biller biller) {
-      this.biller = biller;
-   }
-
    @Override
    public String toString() {
       return new StringBuilder().append("PaymentRequest{")
@@ -204,9 +182,6 @@ public class PaymentRequest extends Transaction {
             .append(System.lineSeparator())
             .append("    customer: ")
             .append(Utils.toIndentedString(customer))
-            .append(System.lineSeparator())
-            .append("    biller: ")
-            .append(Utils.toIndentedString(biller))
             .append(System.lineSeparator())
             .append("}")
             .append(System.lineSeparator())
