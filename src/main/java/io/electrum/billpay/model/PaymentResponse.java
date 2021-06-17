@@ -1,11 +1,8 @@
 package io.electrum.billpay.model;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.electrum.vas.Utils;
+import io.electrum.vas.interfaces.HasPaymentMethods;
+import io.electrum.vas.interfaces.HasTenders;
 import io.electrum.vas.model.PaymentMethod;
 import io.electrum.vas.model.Tender;
 import io.swagger.annotations.ApiModel;
@@ -14,11 +11,16 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a response to a payment request
  **/
 @ApiModel(description = "Represents a response to a payment request")
-public class PaymentResponse extends BillpayResponse {
+public class PaymentResponse extends BillpayResponse implements HasPaymentMethods, HasTenders {
 
    @ApiModelProperty(required = true, value = "The customer account detail")
    @JsonProperty("account")
@@ -78,29 +80,69 @@ public class PaymentResponse extends BillpayResponse {
 
    @Override
    public String toString() {
-      return new StringBuilder()
-              .append("PaymentResponse{").append(System.lineSeparator())
-              .append("    account: ").append(Utils.toIndentedString(account)).append(System.lineSeparator())
-              .append("    tenders: ").append(Utils.toIndentedString(tenders)).append(System.lineSeparator())
-              .append("    paymentMethods: ").append(Utils.toIndentedString(paymentMethods)).append(System.lineSeparator())
-              .append("    customer: ").append(Utils.toIndentedString(customer)).append(System.lineSeparator())
-              .append("    amounts: ").append(Utils.toIndentedString(amounts)).append(System.lineSeparator())
-              .append("    slipData: ").append(Utils.toIndentedString(slipData)).append(System.lineSeparator())
-              .append("    partPaymentAllowed: ").append(Utils.toIndentedString(partPaymentAllowed)).append(System.lineSeparator())
-              .append("    overPaymentAllowed: ").append(Utils.toIndentedString(overPaymentAllowed)).append(System.lineSeparator())
-              .append("    id: ").append(Utils.toIndentedString(id)).append(System.lineSeparator())
-              .append("    time: ").append(Utils.toIndentedString(time)).append(System.lineSeparator())
-              .append("    originator: ").append(Utils.toIndentedString(originator)).append(System.lineSeparator())
-              .append("    client: ").append(Utils.toIndentedString(client)).append(System.lineSeparator())
-              .append("    settlementEntity: ").append(Utils.toIndentedString(settlementEntity)).append(System.lineSeparator())
-              .append("    receiver: ").append(Utils.toIndentedString(receiver)).append(System.lineSeparator())
-              .append("    thirdPartyIdentifiers: ").append(Utils.toIndentedString(thirdPartyIdentifiers)).append(System.lineSeparator())
-              .append("    slipData: ").append(Utils.toIndentedString(slipData)).append(System.lineSeparator())
-              .append("    basketRef: ").append(Utils.toIndentedString(basketRef)).append(System.lineSeparator())
-              .append("    tranType: ").append(Utils.toIndentedString(tranType)).append(System.lineSeparator())
-              .append("    srcAccType: ").append(Utils.toIndentedString(srcAccType)).append(System.lineSeparator())
-              .append("    destAccType: ").append(Utils.toIndentedString(destAccType)).append(System.lineSeparator())
-              .append("}")
-              .toString();
+      return new StringBuilder().append("PaymentResponse{")
+            .append(System.lineSeparator())
+            .append("    account: ")
+            .append(Utils.toIndentedString(account))
+            .append(System.lineSeparator())
+            .append("    tenders: ")
+            .append(Utils.toIndentedString(tenders))
+            .append(System.lineSeparator())
+            .append("    paymentMethods: ")
+            .append(Utils.toIndentedString(paymentMethods))
+            .append(System.lineSeparator())
+            .append("    customer: ")
+            .append(Utils.toIndentedString(customer))
+            .append(System.lineSeparator())
+            .append("    amounts: ")
+            .append(Utils.toIndentedString(amounts))
+            .append(System.lineSeparator())
+            .append("    slipData: ")
+            .append(Utils.toIndentedString(slipData))
+            .append(System.lineSeparator())
+            .append("    partPaymentAllowed: ")
+            .append(Utils.toIndentedString(partPaymentAllowed))
+            .append(System.lineSeparator())
+            .append("    overPaymentAllowed: ")
+            .append(Utils.toIndentedString(overPaymentAllowed))
+            .append(System.lineSeparator())
+            .append("    id: ")
+            .append(Utils.toIndentedString(id))
+            .append(System.lineSeparator())
+            .append("    time: ")
+            .append(Utils.toIndentedString(time))
+            .append(System.lineSeparator())
+            .append("    originator: ")
+            .append(Utils.toIndentedString(originator))
+            .append(System.lineSeparator())
+            .append("    client: ")
+            .append(Utils.toIndentedString(client))
+            .append(System.lineSeparator())
+            .append("    settlementEntity: ")
+            .append(Utils.toIndentedString(settlementEntity))
+            .append(System.lineSeparator())
+            .append("    receiver: ")
+            .append(Utils.toIndentedString(receiver))
+            .append(System.lineSeparator())
+            .append("    thirdPartyIdentifiers: ")
+            .append(Utils.toIndentedString(thirdPartyIdentifiers))
+            .append(System.lineSeparator())
+            .append("    slipData: ")
+            .append(Utils.toIndentedString(slipData))
+            .append(System.lineSeparator())
+            .append("    basketRef: ")
+            .append(Utils.toIndentedString(basketRef))
+            .append(System.lineSeparator())
+            .append("    tranType: ")
+            .append(Utils.toIndentedString(tranType))
+            .append(System.lineSeparator())
+            .append("    srcAccType: ")
+            .append(Utils.toIndentedString(srcAccType))
+            .append(System.lineSeparator())
+            .append("    destAccType: ")
+            .append(Utils.toIndentedString(destAccType))
+            .append(System.lineSeparator())
+            .append("}")
+            .toString();
    }
 }
