@@ -1,5 +1,13 @@
 package io.electrum.billpay.model;
 
+import io.electrum.vas.JsonUtil;
+import io.electrum.vas.Utils;
+import io.electrum.vas.model.Amounts;
+import io.electrum.vas.model.PaymentMethod;
+import io.electrum.vas.model.Tender;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,20 +22,11 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.electrum.vas.JsonUtil;
-import io.electrum.vas.Utils;
-import io.electrum.vas.model.Amounts;
-import io.electrum.vas.model.PaymentMethod;
-import io.electrum.vas.model.Tender;
-import io.electrum.vas.model.Transaction;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * Represents a request to perform a payment of a traffic fine.
  **/
 @ApiModel(description = "Represents a request to perform a payment of a traffic fine.")
-public class TrafficFinePaymentRequest extends Transaction implements HasPaymentMethods, HasTenders {
+public class TrafficFinePaymentRequest extends BillpayRequest implements HasPaymentMethods, HasTenders {
 
    @ApiModelProperty(required = true, value = "A reference number identifying the traffic fine to the service provider.")
    @JsonProperty("noticeNumber")

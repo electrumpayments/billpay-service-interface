@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.electrum.vas.Utils;
-import io.electrum.vas.model.Transaction;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
  * The data required to request account info
  **/
 @ApiModel(description = "The data required to request account info")
-public class AccountLookupRequest extends Transaction {
+public class AccountLookupRequest extends BillpayRequest {
 
    @ApiModelProperty(required = true, value = "A reference number identifying the bill payments processor, bill issuer, and customer")
    @JsonProperty("accountRef")

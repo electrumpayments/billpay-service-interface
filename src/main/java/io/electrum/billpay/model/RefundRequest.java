@@ -1,5 +1,9 @@
 package io.electrum.billpay.model;
 
+import io.electrum.vas.Utils;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -7,16 +11,11 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.electrum.vas.Utils;
-import io.electrum.vas.model.Transaction;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * Represents a request to refund a payment
  **/
 @ApiModel(description = "Represents a request to refund a payment")
-public class RefundRequest extends Transaction {
+public class RefundRequest extends BillpayRequest {
 
    @ApiModelProperty(required = true, value = "An identifier that is printed on the customer slip and uniquely identifies the payment on the bill issuer's system. This value is used by the customer to request a refund when the service supports this function, and it is thus important that this number is unique")
    @JsonProperty("issuerReference")
