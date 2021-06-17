@@ -42,6 +42,7 @@ jobs:
       - run:
           name: Release failed! Revert OSSRH release steps that might have been taken.
           command: /electrum/bin/revertReleaseOssrh.sh
+          when: on_fail
       - run:
           name: Release failed! Revert any release steps that might have been taken
           command: /electrum/bin/revertReleaseJava.sh
