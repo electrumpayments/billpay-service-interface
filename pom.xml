@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.electrum</groupId>
   <artifactId>billpay-service-interface</artifactId>
-  <version>${major-version}.${minor-version}.${patch-version}-RC1</version>
+  <version>${major-version}.${minor-version}.${patch-version}-RC2</version>
   <packaging>jar</packaging>
   <name>Bill Payments Service Interface</name>
   <description>Bill Payments Service Interface</description>
@@ -37,7 +37,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <apiBasePath>/billpay/v4</apiBasePath>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <service-interface-base-version>3.23.0</service-interface-base-version>
+    <service-interface-base-version>3.33.0</service-interface-base-version>
     <joda-time-version>2.9.4</joda-time-version>
     <swagger-version>1.5.16</swagger-version>
     <jetty-version>9.3.24.v20180605</jetty-version>
