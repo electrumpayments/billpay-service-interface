@@ -30,7 +30,7 @@ public class Biller {
    @Valid
    protected List<Category> categories = new ArrayList<>();
 
-   @ApiModelProperty(value = "Indicates if transactions should be blocked without sending them to the upstream biller."
+   @ApiModelProperty(value = "Indicates if transactions should be blocked without sending them to the upstream biller. "
          + "Transactions will be blocked if allowed is set to false, otherwise they will not be blocked.")
    @JsonProperty(value = "allowed", defaultValue = "true")
    protected boolean allowed = true;

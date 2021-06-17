@@ -29,7 +29,7 @@ import javax.ws.rs.core.UriInfo;
 @Path(BillersResource.PATH)
 @Consumes({ MediaType.APPLICATION_JSON })
 @Produces({ MediaType.APPLICATION_JSON })
-@Api(value = "",authorizations = { @Authorization("httpBasic") })
+@Api(authorizations = { @Authorization("httpBasic") })
 public abstract class BillersResource {
 
    protected abstract IBillersResource getResourceImplementation();

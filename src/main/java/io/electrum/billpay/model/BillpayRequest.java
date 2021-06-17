@@ -17,7 +17,7 @@ public class BillpayRequest extends Transaction {
    @ApiModelProperty(value = "The getBillers operation includes a list of available "
          + "categories for each biller. This field can be used to associate one of those "
          + "categories with the request transaction.")
-   @JsonProperty("categories")
+   @JsonProperty
    @Valid
    protected Category selectedCategory;
 
