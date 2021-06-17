@@ -1,8 +1,8 @@
 This page describes changes to the Billpay Service Interface implemented across different releases of the interface.
 
-## v4.10.0-RC1
+## v4.10.0
 
-Released __ June 2021
+Released 17 June 2021
 
 - Incorporated new interfaces from ``service-interface-base``. This change affects the Java implementation of the API
   only and does not further change the public definition of the API. The Java implementation has been updated as follows:
