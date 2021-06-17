@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @since v4.10.0
+ * @since v4.11.0
  */
 @ApiModel(description = "Category to which a bill issuer can belong")
 public class Category {

@@ -4,7 +4,6 @@ import io.electrum.billpay.model.Biller;
 import io.electrum.billpay.model.ErrorDetail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
@@ -14,7 +13,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Context;
@@ -24,10 +22,14 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
+/**
+ * @since v4.11.0
+ */
+
 @Path(BillersResource.PATH)
 @Consumes({ MediaType.APPLICATION_JSON })
 @Produces({ MediaType.APPLICATION_JSON })
-@Api(description = "the billers API", authorizations = { @Authorization("httpBasic") })
+@Api(value = "",authorizations = { @Authorization("httpBasic") })
 public abstract class BillersResource {
 
    protected abstract IBillersResource getResourceImplementation();
@@ -44,13 +46,6 @@ public abstract class BillersResource {
       public static final String PATH = "/";
       public static final String RELATIVE_PATH = PATH;
       public static final String FULL_PATH = BillersResource.PATH + RELATIVE_PATH;
-
-      public static class QueryParameters {
-         private QueryParameters() {
-         }
-
-         public static final String CATEGORY = "category";
-      }
    }
 
    @GET
@@ -74,12 +69,7 @@ public abstract class BillersResource {
          @Context HttpHeaders httpHeaders,
          @Context UriInfo uriInfo) {
 
-      getResourceImplementation().getBillersImpl(
-            securityContext,
-            asyncResponse,
-            request,
-            httpServletRequest,
-            httpHeaders,
-            uriInfo);
+      getResourceImplementation()
+            .getBillersImpl(securityContext, asyncResponse, request, httpServletRequest, httpHeaders, uriInfo);
    }
 }

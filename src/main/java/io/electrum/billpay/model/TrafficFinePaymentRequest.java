@@ -1,6 +1,7 @@
 package io.electrum.billpay.model;
 
 import io.electrum.vas.JsonUtil;
+import io.electrum.vas.Utils;
 import io.electrum.vas.model.Amounts;
 import io.electrum.vas.model.PaymentMethod;
 import io.electrum.vas.model.Tender;
@@ -10,7 +11,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -165,30 +165,27 @@ public class TrafficFinePaymentRequest extends BillpayRequest {
    }
 
    @Override
-   public boolean equals(Object o) {
-      if (this == o)
-         return true;
-      if (o == null || getClass() != o.getClass())
-         return false;
-      if (!super.equals(o))
-         return false;
-      TrafficFinePaymentRequest that = (TrafficFinePaymentRequest) o;
-      return Objects.equals(getNoticeNumber(), that.getNoticeNumber())
-            && Objects.equals(getAmounts(), that.getAmounts()) && Objects.equals(getTenders(), that.getTenders())
-            && Objects.equals(getPaymentMethods(), that.getPaymentMethods())
-            && Objects.equals(getCustomer(), that.getCustomer());
-   }
-
-   @Override
-   public int hashCode() {
-      return Objects
-            .hash(super.hashCode(), getNoticeNumber(), getAmounts(), getTenders(), getPaymentMethods(), getCustomer());
-   }
-
-   @Override
    public String toString() {
-      return "TrafficFinePaymentRequest{" + "noticeNumber='" + noticeNumber + '\'' + ", amounts=" + amounts
-            + ", tenders=" + tenders + ", paymentMethods=" + paymentMethods + ", customer=" + customer + "} "
-            + super.toString();
+      return new StringBuilder().append("class TrafficFinePaymentRequest {")
+            .append(System.lineSeparator())
+            .append("    noticeNumber: ")
+            .append(Utils.toIndentedString(noticeNumber))
+            .append(System.lineSeparator())
+            .append("    amounts: ")
+            .append(Utils.toIndentedString(amounts))
+            .append(System.lineSeparator())
+            .append("    tenders: ")
+            .append(Utils.toIndentedString(tenders))
+            .append(System.lineSeparator())
+            .append("    paymentMethods: ")
+            .append(Utils.toIndentedString(paymentMethods))
+            .append(System.lineSeparator())
+            .append("    customer: ")
+            .append(Utils.toIndentedString(customer))
+            .append(System.lineSeparator())
+            .append("}")
+            .append(System.lineSeparator())
+            .append(super.toString())
+            .toString();
    }
 }

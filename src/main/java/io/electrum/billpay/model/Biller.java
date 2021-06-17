@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @since v4.10.0
+ * @since v4.11.0
  */
 
 @ApiModel(description = "Contains the information about the biller")

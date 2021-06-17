@@ -9,10 +9,13 @@ import javax.validation.Valid;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * @since v4.11.0
+ */
 public class BillpayRequest extends Transaction {
 
    @ApiModelProperty(value = "The getBillers operation includes a list of available "
-         + "categories for each biller. This field can be used to associate a single one of those "
+         + "categories for each biller. This field can be used to associate one of those "
          + "categories with the request transaction.")
    @JsonProperty("categories")
    @Valid
